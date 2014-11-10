@@ -1,0 +1,22 @@
+<p>This is the inventory view.</p>
+
+<table class="table">
+<thead>
+<tr>
+	<th>#</th>
+	<th>Number</th>
+	<th>Telco</th>
+	<th>MEID</th>
+	<th>Last Imaged On</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="inv in inventory">
+	<td>{{ inv.id }}</td>
+	<td>{{ inv.phone_num }}</td>
+	<td>{{ inv.provider_id }}</td>
+	<td>{{ inv.MEID }}</td>
+	<td>{{ inv.last_imaged }}</td>
+</tr>
+</tbody>
+</table>

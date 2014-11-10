@@ -1,0 +1,12 @@
+[
+  {
+    "id":1,
+    "name":"Sprint/Kajeet",
+    "url":"http://localhost:3000/providers/1json"
+  },
+  {
+    "id":2,
+    "name":"AT\u0026T",
+    "url":"http://localhost:3000/providers/2.json"
+  }
+]
