@@ -57,7 +57,7 @@ angular.module('logisticsApp.services')
         };
 
         var getOrders = function() {
-            var promise = getData('customers').then(function(data) {
+            var promise = getData('orders').then(function(data) {
                 orders = data;
                 return data;
             });
@@ -75,7 +75,8 @@ angular.module('logisticsApp.services')
         var service = {
             getInventory: getInventory,
             getCustomers: getCustomers,
-            getOrders: getOrders
+            getOrders: getOrders,
+            getTelcos: getTelcos
         };
         return service;
     }];

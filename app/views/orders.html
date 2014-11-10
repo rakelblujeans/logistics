@@ -1,0 +1,24 @@
+<p>This is the order view.</p>
+
+<table class="table">
+<thead>
+<tr>
+	<th>State</th>
+	<th>Type</th>
+	<th>Customer Name</th>
+	<th>Shipping Address</th>
+	<th>Arrival</th>
+	<th>Departure</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="order in orders">
+	<td>{{ order.order_state }}</td>
+	<td>{{ order.delivery_type }}</td>
+	<td>{{ order.shipping_name }}</td>
+	<td>{{ order.full_address }}</td>
+	<td>{{ order.arrival_date }}</td>
+	<td>{{ order.departure_date }}</td>
+</tr>
+</tbody>
+</table>

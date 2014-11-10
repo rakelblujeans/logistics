@@ -30,6 +30,18 @@ angular
         templateUrl: 'views/inventory.html',
         controller: 'InventoryCtrl'
       })
+      .when('/customers', {
+        templateUrl: 'views/customers.html',
+        controller: 'CustomerCtrl'
+      })
+      .when('/telcos', {
+        templateUrl: 'views/telcos.html',
+        controller: 'TelcoCtrl'
+      })
+      .when('/orders', {
+        templateUrl: 'views/orders.html',
+        controller: 'OrderCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
