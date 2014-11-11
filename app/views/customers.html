@@ -1,20 +1,26 @@
 <p>This is the customer view.</p>
 
+<p>Search: <input ng-model="query"></p>
+
 <table class="table">
 <thead>
 <tr>
-	<th>#</th>
-	<th>First</th>
-	<th>Last</th>
-	<th>Email</th>
+	<th ng-class="{ascending: sort.column == 'id' && !sort.descending, 
+								 descending: sort.column == 'id' && sort.descending}" ng-click="changeSorting('id')">#</th>
+	<th ng-class="{ascending: sort.column == 'fname' && !sort.descending, 
+								 descending: sort.column == 'fname' && sort.descending}" ng-click="changeSorting('fname')">First</th>
+	<th ng-class="{ascending: sort.column == 'lname' && !sort.descending, 
+								 descending: sort.column == 'lname' && sort.descending}" ng-click="changeSorting('lname')">Last</th>
+	<th ng-class="{ascending: sort.column == 'email' && !sort.descending, 
+								 descending: sort.column == 'email' && sort.descending}" ng-click="changeSorting('email')">Email</th>
 </tr>
 </thead>
 <tbody>
-<tr ng-repeat="cust in customers">
-	<td>{{ cust.id }}</td>
-	<td>{{ cust.fname }}</td>
-	<td>{{ cust.lname }}</td>
-	<td>{{ cust.email }}</td>
+<tr ng-repeat="cust in customers | filter:query | orderBy:sort.column:sort.descending">
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ cust.id }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ cust.fname }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ cust.lname }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ cust.email }}</td>
 </tr>
 </tbody>
 </table>

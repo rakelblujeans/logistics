@@ -1,24 +1,32 @@
 <p>This is the order view.</p>
 
+<p>Search: <input ng-model="query"></p>
+
 <table class="table">
 <thead>
 <tr>
-	<th>State</th>
-	<th>Type</th>
-	<th>Customer Name</th>
-	<th>Shipping Address</th>
-	<th>Arrival</th>
-	<th>Departure</th>
+	<th ng-class="{ascending: sort.column == 'order_state' && !sort.descending, 
+								 descending: sort.column == 'order_state' && sort.descending}" ng-click="changeSorting('id')">State</th>
+	<th ng-class="{ascending: sort.column == 'delivery_type' && !sort.descending, 
+								 descending: sort.column == 'delivery_type' && sort.descending}" ng-click="changeSorting('delivery_type')">Type</th>
+	<th ng-class="{ascending: sort.column == 'shipping_name' && !sort.descending, 
+								 descending: sort.column == 'shipping_name' && sort.descending}" ng-click="changeSorting('shipping_name')">Customer Name</th>
+	<th ng-class="{ascending: sort.column == 'full_address' && !sort.descending, 
+								 descending: sort.column == 'full_address' && sort.descending}" ng-click="changeSorting('full_address')">Shipping Address</th>
+	<th ng-class="{ascending: sort.column == 'arrival_date' && !sort.descending, 
+								 descending: sort.column == 'arrival_date' && sort.descending}" ng-click="changeSorting('arrival_date')">Arrival</th>
+	<th ng-class="{ascending: sort.column == 'departure_date' && !sort.descending, 
+								 descending: sort.column == 'departure_date' && sort.descending}" ng-click="changeSorting('departure_date')">Departure</th>
 </tr>
 </thead>
 <tbody>
-<tr ng-repeat="order in orders">
-	<td>{{ order.order_state }}</td>
-	<td>{{ order.delivery_type }}</td>
-	<td>{{ order.shipping_name }}</td>
-	<td>{{ order.full_address }}</td>
-	<td>{{ order.arrival_date }}</td>
-	<td>{{ order.departure_date }}</td>
+<tr ng-repeat="order in orders | filter:query | orderBy:sort.column:sort.descending">
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ order.order_state }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ order.delivery_type }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ order.shipping_name }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ order.full_address }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ order.arrival_date }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ order.departure_date }}</td>
 </tr>
 </tbody>
 </table>

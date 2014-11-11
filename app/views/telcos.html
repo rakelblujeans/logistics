@@ -1,16 +1,20 @@
 <p>This is the telco view.</p>
 
+<p>Search: <input ng-model="query"></p>
+
 <table class="table">
 <thead>
 <tr>
-	<th>#</th>
-	<th>Name</th>
+	<th ng-class="{ascending: sort.column == 'id' && !sort.descending, 
+								 descending: sort.column == 'id' && sort.descending}" ng-click="changeSorting('id')">#</th>
+	<th ng-class="{ascending: sort.column == 'name' && !sort.descending, 
+								 descending: sort.column == 'name' && sort.descending}" ng-click="changeSorting('name')">Name</th>
 </tr>
 </thead>
 <tbody>
-<tr ng-repeat="telco in telcos">
-	<td>{{ telco.id }}</td>
-	<td>{{ telco.name }}</td>
+<tr ng-repeat="telco in telcos | filter:query | orderBy:sort.column:sort.descending">
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ telco.id }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ telco.name }}</td>
 </tr>
 </tbody>
 </table>

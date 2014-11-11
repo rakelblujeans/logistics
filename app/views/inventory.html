@@ -1,22 +1,43 @@
 <p>This is the inventory view.</p>
 
+<p>Search: <input ng-model="query"></p>
+
 <table class="table">
 <thead>
 <tr>
-	<th>#</th>
-	<th>Number</th>
-	<th>Telco</th>
-	<th>MEID</th>
-	<th>Last Imaged On</th>
+	<th ng-class="{ascending: sort.column == 'id' && !sort.descending, 
+								 descending: sort.column == 'id' && sort.descending}" ng-click="changeSorting('id')">
+		#
+	</th>
+	<th ng-class="{ascending: sort.column == 'phone_num' && !sort.descending, 
+								 descending: sort.column == 'phone_num' && sort.descending}" ng-click="changeSorting('phone_num')">
+		Number
+	</th>
+	<th ng-class="{ascending: sort.column == 'provider' && !sort.descending, 
+								 descending: sort.column == 'provider' && sort.descending}" ng-click="changeSorting('provider')">
+		Telco
+	</th>
+	<th ng-class="{ascending: sort.column == 'MEID' && !sort.descending, 
+								 descending: sort.column == 'MEID' && sort.descending}" ng-click="changeSorting('MEID')">
+		MEID
+	</th>
+	<th ng-class="{ascending: sort.column == 'last_imaged' && !sort.descending, 
+								 descending: sort.column == 'last_imaged' && sort.descending}" ng-click="changeSorting('last_imaged')">
+		Last Imaged On
+	</th>
+	<th></th>
 </tr>
 </thead>
 <tbody>
-<tr ng-repeat="inv in inventory">
-	<td>{{ inv.id }}</td>
-	<td>{{ inv.phone_num }}</td>
-	<td>{{ inv.provider_id }}</td>
-	<td>{{ inv.MEID }}</td>
-	<td>{{ inv.last_imaged }}</td>
+<tr ng-repeat="inv in inventory | filter:query | orderBy: orderProp | orderBy:sort.column:sort.descending">
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.id }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.phone_num }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.provider_id }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.MEID }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.last_imaged }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">
+		<button type="button" class="btn btn-xs btn-default" ng-click="viewDetail($index)">Details</button>
+	</td>
 </tr>
 </tbody>
 </table>
