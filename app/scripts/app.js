@@ -13,6 +13,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'ngMessages',
     'logisticsApp.filters',
     'logisticsApp.services',
     'logisticsApp.controllers'
@@ -24,17 +25,21 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
+      .when('/', {
+        templateUrl: 'views/home.html',
+        controller: 'HomeCtrl'
       })
       .when('/inventory', {
-        templateUrl: 'views/inventory.html',
+        templateUrl: 'views/inventory/index.html',
         controller: 'InventoryCtrl'
       })
       .when('/inventory/:invIndex', {
-        templateUrl: 'views/inventory_detail.html',
+        templateUrl: 'views/inventory/detail.html',
         controller: 'InventoryDetailCtrl'
+      })
+      .when('/inventory/edit/:invIndex', {
+        templateUrl: 'views/inventory/edit.html',
+        controller: 'InventoryFormCtrl'
       })
       .when('/customers', {
         templateUrl: 'views/customers.html',

@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('logisticsApp.controllers')
   .filter('sortOrderIcon', function() {
 		return function(input) {

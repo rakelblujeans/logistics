@@ -1,0 +1,73 @@
+<form	name="inventoryForm" novalidate>
+
+<div class="panel panel-warning">
+	<div class="panel-heading">
+		<h3 class="panel-title">Update: Inventory Detail #{{form.item.id}}</h3>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<label class="col-xs-6">MEID:</label>
+			<div class="col-xs-6">
+				<input type="number" 
+					name="MEID"
+					ng-model="form.item.MEID" 
+					min="0"
+					ng-minlength="3"
+					ng-maxlength="15" 
+					required />
+				<div ng-messages="inventoryForm.MEID.$error" 
+						 ng-if="inventoryForm.$submitted || inventoryForm.MEID.$invalid">
+	        <div ng-message="required">You must provide a value</div>
+	        <div ng-message="number">Value must be all numbers</div>
+	        <div ng-message="minlength">Value is too short</div>
+	        <div ng-message="maxlength">Value is too long</div>
+	        <div ng-message="min">You must enter a positive value</div>
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6">ICCID:</div>
+			<div class="col-xs-6">{{item.ICCID}}
+			<input type="number" 
+				name="ICCID"
+				ng-model="form.item.ICCID" 
+				min="0"
+				ng-minlength="3"
+				ng-maxlength="15" 
+				required /> Echo: {{form.item.ICCID}}
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">Phone Number:</div>
+			<div class="col-xs-6">{{item.phone_num}}</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">Last Imaged On:</div>
+			<div class="col-xs-6">{{item.last_imaged}}</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">Provider:</div>
+			<div class="col-xs-6">{{item.providerName}}</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">Notes:</div>
+			<div class="col-xs-6">{{item.notes}}</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">Last updated on:</div>
+			<div class="col-xs-6">{{item.updated_at}}</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">Notes:</div>
+			<div class="col-xs-6">{{item.notes}}</div>
+		</div>
+		<br />
+	</div>
+</div>
+
+<button ng-disabled="!inventoryForm.$valid" ng-click="submitTheForm()">Submit Form</button>
+  <!-- ng-submit="submit(inventoryForm.$valid, data)" -->
+
+</form>
