@@ -4,7 +4,7 @@ angular.module('logisticsApp.controllers')
   .controller('InventoryCtrl', ['$scope', '$http', '$window', '$route', '$routeParams', '$location', 'DataService', 
   	function ($scope, $http, $window, $route, $routeParams, $location, DataService) {
 
-    $scope.index = parseInt($routeParams.index, 10);
+    //$scope.index = parseInt($routeParams.idx, 10);
 
     // clear search params
     $location.$$search = {};
@@ -23,9 +23,9 @@ angular.module('logisticsApp.controllers')
     };
     $scope.$on('$viewContentLoaded', $scope.initFromData);
 
-    $scope.viewDetail = function(index) {
+    /*$scope.viewDetail = function(index) {
       $location.path('inventory/' + $scope.index);
-    };
+    };*/
 
     $scope.changeSorting = function(column) {
       var sort = $scope.sort;

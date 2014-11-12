@@ -7,23 +7,23 @@
 <tr>
 	<th ng-class="{ascending: sort.column == 'id' && !sort.descending, 
 								 descending: sort.column == 'id' && sort.descending}" ng-click="changeSorting('id')">
-		#
+		# <span ng-show="sort.column == 'id'"> {{ sort.descending | sortOrderIcon }}</span>
 	</th>
 	<th ng-class="{ascending: sort.column == 'phone_num' && !sort.descending, 
 								 descending: sort.column == 'phone_num' && sort.descending}" ng-click="changeSorting('phone_num')">
-		Number
+		Number <span ng-show="sort.column == 'phone_num'"> {{ sort.descending | sortOrderIcon }}</span>
 	</th>
 	<th ng-class="{ascending: sort.column == 'provider' && !sort.descending, 
 								 descending: sort.column == 'provider' && sort.descending}" ng-click="changeSorting('provider')">
-		Telco
+		Telco <span ng-show="sort.column == 'provider'"> {{ sort.descending | sortOrderIcon }}</span>
 	</th>
 	<th ng-class="{ascending: sort.column == 'MEID' && !sort.descending, 
 								 descending: sort.column == 'MEID' && sort.descending}" ng-click="changeSorting('MEID')">
-		MEID
+		MEID <span ng-show="sort.column == 'MEID'"> {{ sort.descending | sortOrderIcon }}</span>
 	</th>
 	<th ng-class="{ascending: sort.column == 'last_imaged' && !sort.descending, 
 								 descending: sort.column == 'last_imaged' && sort.descending}" ng-click="changeSorting('last_imaged')">
-		Last Imaged On
+		Last Imaged On <span ng-show="sort.column == 'last_imaged'"> {{ sort.descending | sortOrderIcon }}</span>
 	</th>
 	<th></th>
 </tr>
@@ -36,7 +36,8 @@
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.MEID }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.last_imaged }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">
-		<button type="button" class="btn btn-xs btn-default" ng-click="viewDetail($index)">Details</button>
+		<!--button type="button" class="btn btn-xs btn-default" ng-click="viewDetail($index)">Details</button->
+		<a href="#/inventory/{{ inv.id }}">Details</a>
 	</td>
 </tr>
 </tbody>

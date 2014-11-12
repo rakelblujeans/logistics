@@ -1,5 +1,6 @@
 'use strict';
 
+angular.module('logisticsApp.filters', []);
 angular.module('logisticsApp.services', []);
 angular.module('logisticsApp.controllers', []);
 
@@ -12,6 +13,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'logisticsApp.filters',
     'logisticsApp.services',
     'logisticsApp.controllers'
   ])
@@ -30,6 +32,10 @@ angular
         templateUrl: 'views/inventory.html',
         controller: 'InventoryCtrl'
       })
+      .when('/inventory/:invIndex', {
+        templateUrl: 'views/inventory_detail.html',
+        controller: 'InventoryDetailCtrl'
+      })
       .when('/customers', {
         templateUrl: 'views/customers.html',
         controller: 'CustomerCtrl'
@@ -46,7 +52,7 @@ angular
         redirectTo: '/'
       });
 
-      DataServiceProvider.remoteUrl = 'http://localhost:3000/%s.json';
+      DataServiceProvider.remoteUrl = 'http://localhost:3000/';
       DataServiceProvider.localUrl = 'data/';
-      DataServiceProvider.useRemote = false;
+      DataServiceProvider.useRemote = true;
   }]);

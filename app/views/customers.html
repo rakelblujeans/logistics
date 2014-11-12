@@ -6,13 +6,21 @@
 <thead>
 <tr>
 	<th ng-class="{ascending: sort.column == 'id' && !sort.descending, 
-								 descending: sort.column == 'id' && sort.descending}" ng-click="changeSorting('id')">#</th>
+								 descending: sort.column == 'id' && sort.descending}" ng-click="changeSorting('id')">
+		# <span ng-show="sort.column == 'id'"> {{ sort.descending | sortOrderIcon }}</span>
+	</th>
 	<th ng-class="{ascending: sort.column == 'fname' && !sort.descending, 
-								 descending: sort.column == 'fname' && sort.descending}" ng-click="changeSorting('fname')">First</th>
+								 descending: sort.column == 'fname' && sort.descending}" ng-click="changeSorting('fname')">
+		First <span ng-show="sort.column == 'fname'"> {{ sort.descending | sortOrderIcon }}</span>
+	</th>
 	<th ng-class="{ascending: sort.column == 'lname' && !sort.descending, 
-								 descending: sort.column == 'lname' && sort.descending}" ng-click="changeSorting('lname')">Last</th>
+								 descending: sort.column == 'lname' && sort.descending}" ng-click="changeSorting('lname')">
+		Last <span ng-show="sort.column == 'lname'"> {{ sort.descending | sortOrderIcon }}</span>
+	</th>
 	<th ng-class="{ascending: sort.column == 'email' && !sort.descending, 
-								 descending: sort.column == 'email' && sort.descending}" ng-click="changeSorting('email')">Email</th>
+								 descending: sort.column == 'email' && sort.descending}" ng-click="changeSorting('email')">
+		Email <span ng-show="sort.column == 'email'"> {{ sort.descending | sortOrderIcon }}</span>
+	</th>
 </tr>
 </thead>
 <tbody>

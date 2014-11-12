@@ -6,9 +6,13 @@
 <thead>
 <tr>
 	<th ng-class="{ascending: sort.column == 'id' && !sort.descending, 
-								 descending: sort.column == 'id' && sort.descending}" ng-click="changeSorting('id')">#</th>
+								 descending: sort.column == 'id' && sort.descending}" ng-click="changeSorting('id')">
+		# <span ng-show="sort.column == 'id'"> {{ sort.descending | sortOrderIcon }}</span>
+	</th>
 	<th ng-class="{ascending: sort.column == 'name' && !sort.descending, 
-								 descending: sort.column == 'name' && sort.descending}" ng-click="changeSorting('name')">Name</th>
+								 descending: sort.column == 'name' && sort.descending}" ng-click="changeSorting('name')">
+		Name <span ng-show="sort.column == 'name'"> {{ sort.descending | sortOrderIcon }}</span>
+	</th>
 </tr>
 </thead>
 <tbody>
