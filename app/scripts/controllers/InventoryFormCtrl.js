@@ -10,32 +10,26 @@ angular.module('logisticsApp.controllers')
     $scope.initFromData = function() {
       $scope.other = DataService.getItem($scope.invId).then(function(item) {
         $scope.form = { 'item': item };
+        var d = Date.parse($scope.form.item.last_imaged);
+        $scope.form.item.last_imaged = new Date(d);
+
         DataService.getTelcoName(item.provider_id).then(function(telcoName){
-          $scope.form['providerName'] = telcoName;
+          $scope.form.item['providerName'] = telcoName;
         
           /*DataService.getOrdersByPhone(item.id).then(function(orders) {
             $scope.orders = orders;
           });*/
         });
 
-        $scope.form.item.MEID = parseInt($scope.form.MEID, 10);
-        $scope.form.item.ICCID = parseInt($scope.form.ICCID, 10);
-
 
       });
     };
     $scope.$on('$viewContentLoaded', $scope.initFromData);
 
-    /*this.submit = function(isValid, data) {
-      console.log('submitted', data);
-      if(!isValid) { return; }
-
-      //submit the data to the server
-      //$http.post('/api/submit', data);
-    };*/
-
     $scope.submitTheForm = function(item, event) {
-      console.log('--> Submitting form');
+      console.log('--> Submitting form', $scope.form.item);
+      //submit the data to the server
+      //$scope.form...
 
     };
 
