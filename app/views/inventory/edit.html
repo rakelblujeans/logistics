@@ -13,12 +13,12 @@
 				<input type="text" 
 					name="MEID"
 					ng-model="form.item.MEID" 
-					ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }"
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
 				<div ng-messages="inventoryForm.MEID.$error" ng-messages-include="errors.html" 
-						 ng-if="inventoryForm.$dirty && inventoryForm.MEID.$invalid">
+						 ng-if="inventoryForm.MEID.$dirty && inventoryForm.MEID.$invalid">
 	      </div>
 			</div>
 		</div>
@@ -34,7 +34,7 @@
 					ng-maxlength="30" 
 					required />
 				<div ng-messages="inventoryForm.ICCID.$error" ng-messages-include="errors.html" 
-							 ng-if="inventoryForm.$dirty && inventoryForm.ICCID.$invalid">
+							 ng-if="inventoryForm.ICCID.$dirty && inventoryForm.ICCID.$invalid">
 		    </div>
 			</div>
 		</div>
@@ -49,7 +49,7 @@
 					ng-maxlength="10"
 					required />
 				<div ng-messages="inventoryForm.phone_num.$error" ng-messages-include="errors.html" 
-							 ng-if="inventoryForm.$dirty && inventoryForm.phone_num.$invalid">
+							 ng-if="inventoryForm.phone_num.$dirty && inventoryForm.phone_num.$invalid">
 		    </div>
 			</div>
 		</div>
@@ -63,7 +63,7 @@
 					ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }"
 					required />
 				<div ng-messages="inventoryForm.last_imaged.$error" ng-messages-include="errors.html" 
-							 ng-if="inventoryForm.$dirty && inventoryForm.last_imaged.$invalid">
+							 ng-if="inventoryForm.last_imaged.$dirty && inventoryForm.last_imaged.$invalid">
 		    </div>
 			</div>
 		</div>
@@ -85,7 +85,7 @@
 					ng-maxlength="200" 
 					/>
 				<div ng-messages="inventoryForm.notes.$error" ng-messages-include="errors.html" 
-							 ng-if="inventoryForm.$dirty && inventoryForm.notes.$invalid">
+							 ng-if="inventoryForm.notes.$dirty && inventoryForm.notes.$invalid">
 		    </div>
 			</div>
 		</div>
