@@ -21,6 +21,7 @@
 								 descending: sort.column == 'email' && sort.descending}" ng-click="changeSorting('email')">
 		Email <span ng-show="sort.column == 'email'"> {{ sort.descending | sortOrderIcon }}</span>
 	</th>
+	<th></th>
 </tr>
 </thead>
 <tbody>
@@ -29,6 +30,10 @@
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ cust.fname }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ cust.lname }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ cust.email }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">
+		<!--button type="button" class="btn btn-xs btn-default" ng-click="viewDetail($index)">Details</button-->
+		<a href="#/customer/{{ cust.id }}">Details</a>
+	</td>
 </tr>
 </tbody>
 </table>

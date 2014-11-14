@@ -13,8 +13,9 @@ angular.module('logisticsApp.controllers')
         DataService.getTelcoName(item.provider_id).then(function(telcoName){
         	$scope.item['providerName'] = telcoName;
         
-        	/*DataService.getOrdersByPhone(item.id).then(function(orders) {
+        	/*DataService.getOrdersByPhone($scope.invId).then(function(orders) {
         		$scope.orders = orders;
+            console.log('orders', orders)
         	});*/
         });
 

@@ -61,6 +61,13 @@ angular.module('logisticsApp.services')
             return promise;
         };
 
+        var getCustomer = function(index) {
+            var promise = getData('customers/' + index ).then(function(data) {
+                return data;
+            });
+            return promise;
+        };
+
         var getOrders = function() {
             var promise = getData('orders').then(function(data) {
                 orders = data;
@@ -69,8 +76,22 @@ angular.module('logisticsApp.services')
             return promise;
         };
 
-        var getOrdersByPhone = function() {
+         var getOrder = function(index) {
+            var promise = getData('orders/' + index).then(function(data) {
+                return data;
+            });
+            return promise;
+        };
 
+        var getOrdersByPhone = function(index) {
+            /*var promise = getData('orders').then(function(data) {
+                orders = data;
+                //for (order in orders) {
+                //    
+                //}
+                return data;
+            });
+            return promise;*/
         };
 
         var getTelcos = function() {
@@ -92,8 +113,11 @@ angular.module('logisticsApp.services')
             getInventory: getInventory,
             getItem: getItem,
             getCustomers: getCustomers,
+            getCustomer: getCustomer,
+            //getCustomerCards: getCustomerCards,
             getOrders: getOrders,
-            getOrdersByPhone: getOrdersByPhone,
+            getOrder: getOrder,
+            //getOrdersByPhone: getOrdersByPhone,
             getTelcos: getTelcos,
             getTelcoName: getTelcoName
         };

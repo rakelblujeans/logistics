@@ -41,17 +41,29 @@ angular
         templateUrl: 'views/inventory/edit.html',
         controller: 'InventoryFormCtrl'
       })
+      .when('/orders', {
+        templateUrl: 'views/orders/index.html',
+        controller: 'OrderCtrl'
+      })
+      .when('/orders', {
+        templateUrl: 'views/orders/detail.html',
+        controller: 'OrderDetailCtrl'
+      })
+      .when('/orders', {
+        templateUrl: 'views/orders/edit.html',
+        controller: 'OrderFormCtrl'
+      })
       .when('/customers', {
-        templateUrl: 'views/customers.html',
+        templateUrl: 'views/customers/index.html',
         controller: 'CustomerCtrl'
+      })
+      .when('/customers/:custIndex', {
+        templateUrl: 'views/customers/detail.html',
+        controller: 'CustomerDetailCtrl'
       })
       .when('/telcos', {
         templateUrl: 'views/telcos.html',
         controller: 'TelcoCtrl'
-      })
-      .when('/orders', {
-        templateUrl: 'views/orders.html',
-        controller: 'OrderCtrl'
       })
       .otherwise({
         redirectTo: '/'
