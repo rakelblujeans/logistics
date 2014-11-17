@@ -7,17 +7,20 @@ angular.module('logisticsApp.controllers')
     $scope.form = {};
     $scope.custId = parseInt($routeParams.custIndex, 10);
 
-    $scope.initFromData2 = function() {
+    $scope.initFromData = function() {
       $scope.other = DataService.getCustomer($scope.custId).then(function(customer) {
         $scope.form = { 'cust': customer };
+
+
       });
     };
-    $scope.$on('$viewContentLoaded', $scope.initFromData2);
+    $scope.$on('$viewContentLoaded', $scope.initFromData);
 
     $scope.submitTheForm = function(item, event) {
       console.log('--> Submitting form', $scope.form.cust);
-      //submit the data to the server
-      //$scope.form...
+      DataService.postCustomer($scope.custId, $scope.form.cust);
+      // TODO: add spinner until confirmed saved
+      $location.path('customers/' + $scope.custId);
     };
 
 }]);

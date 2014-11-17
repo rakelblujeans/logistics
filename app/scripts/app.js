@@ -18,8 +18,8 @@ angular
     'logisticsApp.services',
     'logisticsApp.controllers'
   ])
-  .config(['$routeProvider', 'DataServiceProvider',
-    function ($routeProvider, DataServiceProvider) {
+  .config(['$routeProvider', 'DataServiceProvider', '$httpProvider',
+    function ($routeProvider, DataServiceProvider, $httpProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -76,4 +76,9 @@ angular
       DataServiceProvider.remoteUrl = 'http://localhost:3000/';
       DataServiceProvider.localUrl = 'data/';
       DataServiceProvider.useRemote = true;
+
+      $httpProvider.defaults.headers.patch = {
+        'Content-Type': 'application/json;charset=utf-8'
+      };
+
   }]);

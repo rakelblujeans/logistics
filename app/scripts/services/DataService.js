@@ -36,6 +36,63 @@ angular.module('logisticsApp.services')
                 d.reject(reason);
             });
             return d.promise;
+        };
+
+        var updateData = function(dataPoint, params) {
+            var d = $q.defer();
+            var url;
+            if (useRemote) {
+                url = remoteUrl + dataPoint + '.json';
+            } else {
+                url = localUrl + dataPoint + '.json';
+            }
+            
+            console.log(params);
+            $http({
+                method: 'PUT',
+                url: url,
+                data: params,
+            })
+            .success(function(output) {
+                console.log(output);
+                d.resolve(data);
+            }).error(function(reason) {
+                d.reject(reason);
+                console.log(reason);
+            });
+            return d.promise;
+        };
+
+        /*var postData = function(dataPoint, params) {
+            //var d = $q.defer();
+            var url;
+            if (useRemote) {
+                url = remoteUrl + dataPoint + '.json';
+            } else {
+                url = localUrl + dataPoint + '.json';
+            }
+            
+            console.log(params);
+            $http({
+                method: 'PUT',
+                url: url,
+                data: { 
+                    email: 'one@four.com' },
+            })
+            .success(function(output) {
+                console.log("SUCCESS", output);
+                //d.resolve(data);
+            }).error(function(reason) {
+                //d.reject(reason);
+                console.log("ERROR", reason);
+            });
+            //return d.promise;
+        };*/
+
+        // TODO: handle errors?
+       var postCustomer = function(id, data) {
+            updateData('customers/' + id, data);
+            //{ "op": "replace", "path": "/email", "value": "new.email@example.org" });
        };
 
         var getInventory = function() {
@@ -114,6 +171,7 @@ angular.module('logisticsApp.services')
             getItem: getItem,
             getCustomers: getCustomers,
             getCustomer: getCustomer,
+            postCustomer: postCustomer,
             //getCustomerCards: getCustomerCards,
             getOrders: getOrders,
             getOrder: getOrder,

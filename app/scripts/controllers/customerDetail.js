@@ -9,7 +9,6 @@ angular.module('logisticsApp.controllers')
     $scope.initFromData = function() {
       $scope.other = DataService.getCustomer($scope.custId).then(function(customer) {
         $scope.cust = customer;
-        console.log(customer);
         //DataService.getCustomerCards(customer.id).then(function(cards){
         //	$scope.item['cards'] = cards;
         //});
