@@ -17,6 +17,7 @@ angular.module('logisticsApp.services')
         var localUrl = this.localUrl;
         var useRemote = this.useRemote;
 
+        // get object data
         var getData = function(dataPoint) {
             var d = $q.defer();
             var url;
@@ -38,6 +39,7 @@ angular.module('logisticsApp.services')
             return d.promise;
         };
 
+        // update existing objects
         var updateData = function(dataPoint, params) {
             var d = $q.defer();
             var url;
@@ -47,7 +49,6 @@ angular.module('logisticsApp.services')
                 url = localUrl + dataPoint + '.json';
             }
             
-            console.log(params);
             $http({
                 method: 'PUT',
                 url: url,
@@ -55,7 +56,7 @@ angular.module('logisticsApp.services')
             })
             .success(function(output) {
                 console.log(output);
-                d.resolve(data);
+                d.resolve(output);
             }).error(function(reason) {
                 d.reject(reason);
                 console.log(reason);
@@ -63,8 +64,9 @@ angular.module('logisticsApp.services')
             return d.promise;
         };
 
-        /*var postData = function(dataPoint, params) {
-            //var d = $q.defer();
+        // create new objects
+        var postData = function(dataPoint, params) {
+            var d = $q.defer();
             var url;
             if (useRemote) {
                 url = remoteUrl + dataPoint + '.json';
@@ -72,28 +74,58 @@ angular.module('logisticsApp.services')
                 url = localUrl + dataPoint + '.json';
             }
             
+            // all creations should be active by default!
+            params['active'] = 'true';
+
             console.log(params);
             $http({
-                method: 'PUT',
+                method: 'POST',
                 url: url,
-                data: { 
-                    email: 'one@four.com' },
+                data: params,
             })
             .success(function(output) {
                 console.log("SUCCESS", output);
-                //d.resolve(data);
+                d.resolve(output);
             }).error(function(reason) {
-                //d.reject(reason);
-                console.log("ERROR", reason);
+                d.reject(reason);
+                console.log('ERROR', reason);
             });
-            //return d.promise;
-        };*/
+            return d.promise;
+        };
 
         // TODO: handle errors?
-       var postCustomer = function(id, data) {
+        var createCustomer = function(data){
+            postData('customers', data);
+        };
+
+        // TODO: handle errors?
+       var updateCustomer = function(id, data) {
             updateData('customers/' + id, data);
-            //{ "op": "replace", "path": "/email", "value": "new.email@example.org" });
        };
+
+       var setActive = function(objPlural, id, newVal) {
+            var promise = updateData(objPlural + '/' + id, {
+                'active': newVal
+            }).then(function(){
+                return true;
+            }, function() {
+                return false;
+            });
+
+            return promise;
+       };
+
+        var deactivate = function(objPlural, id) {
+            updateData(objPlural + '/' + id, {
+                'active': false
+            });
+        };
+
+        var activate = function(objPlural, id) {
+            updateData(objPlural + '/' + id, {
+                'active': true
+            });   
+        };
 
         var getInventory = function() {
             var promise = getData('phones').then(function(data) {
@@ -140,7 +172,7 @@ angular.module('logisticsApp.services')
             return promise;
         };
 
-        var getOrdersByPhone = function(index) {
+        //var getOrdersByPhone = function(index) {
             /*var promise = getData('orders').then(function(data) {
                 orders = data;
                 //for (order in orders) {
@@ -149,7 +181,7 @@ angular.module('logisticsApp.services')
                 return data;
             });
             return promise;*/
-        };
+        //};
 
         var getTelcos = function() {
             var promise = getData('providers').then(function(data) {
@@ -169,15 +201,20 @@ angular.module('logisticsApp.services')
         var service = {
             getInventory: getInventory,
             getItem: getItem,
+            createCustomer: createCustomer,
             getCustomers: getCustomers,
             getCustomer: getCustomer,
-            postCustomer: postCustomer,
+            updateCustomer: updateCustomer,
+            
             //getCustomerCards: getCustomerCards,
             getOrders: getOrders,
             getOrder: getOrder,
             //getOrdersByPhone: getOrdersByPhone,
             getTelcos: getTelcos,
-            getTelcoName: getTelcoName
+            getTelcoName: getTelcoName,
+            deactivate: deactivate,
+            activate: activate,
+            setActive: setActive
         };
         return service;
     }];

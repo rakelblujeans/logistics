@@ -1,8 +1,7 @@
 <form	name="customerForm" novalidate>
-
 	<div ng-include src="'/views/customers/_form.html'"></div>
 
-	<button ng-disabled="!customerForm.$valid" ng-click="submitEdit()">Submit Form</button>
+	<button ng-disabled="!customerForm.$valid" ng-click="submitNew()">Submit Form</button>
 
 	&nbsp;&nbsp;&nbsp;<a href="#/customers">Return to list</a>
 

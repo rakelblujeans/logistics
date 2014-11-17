@@ -5,7 +5,7 @@ angular.module('logisticsApp.controllers')
   	function ($scope, $http, $window, $route, $routeParams, $location, DataService) {
 
     // clear search params
-    $location.$$search = {};
+    //$location.$$search = {};
 
     $scope.sort = {
       column: 'id',

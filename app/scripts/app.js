@@ -53,17 +53,19 @@ angular
         templateUrl: 'views/orders/edit.html',
         controller: 'OrderFormCtrl'
       })
-      .when('/customers', {
-        templateUrl: 'views/customers/index.html',
-        controller: 'CustomerCtrl'
-      })
-      .when('/customers/:custIndex', {
+      .when('/customers/new/', {
+        templateUrl: 'views/customers/new.html',
+        controller: 'CustomerFormCtrl'
+      }).when('/customers/:custIndex', {
         templateUrl: 'views/customers/detail.html',
         controller: 'CustomerDetailCtrl'
       })
       .when('/customers/edit/:custIndex', {
         templateUrl: 'views/customers/edit.html',
         controller: 'CustomerFormCtrl'
+      }).when('/customers', {
+        templateUrl: 'views/customers/index.html',
+        controller: 'CustomerCtrl'
       })
       .when('/telcos', {
         templateUrl: 'views/telcos.html',

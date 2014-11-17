@@ -1,6 +1,8 @@
 <h3>Customers</h3>
 
-<p>Search: <input ng-model="query"></p>
+<p>Search: <input ng-model="query">&nbsp;&nbsp;&nbsp;
+<a href="#/customers/new">Add +</a></p>
+
 
 <table class="table">
 <thead>
@@ -32,7 +34,10 @@
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ cust.email }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">
 		<!--button type="button" class="btn btn-xs btn-default" ng-click="viewDetail($index)">Details</button-->
-		<a href="#/customers/{{ cust.id }}">Details</a>
+		<a href="#/customers/{{ cust.id }}">Details</a> 
+		<a href="" ng-click="toggleActivation($index)">
+			{{ cust.active ? 'Deactivate' : 'Activate' }}
+		</a>
 	</td>
 </tr>
 </tbody>
