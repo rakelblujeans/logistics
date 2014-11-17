@@ -1,0 +1,224 @@
+<form	name="orderForm" novalidate>
+
+<div class="panel panel-warning">
+	<div class="panel-heading">
+		<h3 class="panel-title">Update: Order Detail #{{form.order.id}}</h3>
+	</div>
+	<div class="panel-body">
+		
+
+		<div class="row">
+			<div class="col-xs-6"><label for="delivery_type_str">Delivery Type:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="delivery_type_str"
+					ng-model="form.order.delivery_type_str" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="orderForm.delivery_type_str.$error" ng-messages-include="errors.html" 
+						 ng-if="orderForm.delivery_type_str.$dirty && orderForm.delivery_type_str.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="delivery_type_str">Full address:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="full_address"
+					ng-model="form.order.full_address" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="orderForm.full_address.$error" ng-messages-include="errors.html" 
+						 ng-if="orderForm.full_address.$dirty && orderForm.full_address.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="shipping_name">Shipping Name:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="shipping_name"
+					ng-model="form.order.shipping_name" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="orderForm.shipping_name.$error" ng-messages-include="errors.html" 
+						 ng-if="orderForm.shipping_name.$dirty && orderForm.shipping_name.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="shipping_city">Shipping City:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="shipping_city"
+					ng-model="form.order.shipping_city" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="orderForm.shipping_city.$error" ng-messages-include="errors.html" 
+						 ng-if="orderForm.shipping_city.$dirty && orderForm.shipping_city.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="shipping_state">Shipping State:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="shipping_state"
+					ng-model="form.order.shipping_state" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="orderForm.shipping_state.$error" ng-messages-include="errors.html" 
+						 ng-if="orderForm.shipping_state.$dirty && orderForm.shipping_state.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="shipping_zip">Shipping Zip:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="shipping_zip"
+					ng-model="form.order.shipping_zip" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="orderForm.shipping_zip.$error" ng-messages-include="errors.html" 
+						 ng-if="orderForm.shipping_zip.$dirty && orderForm.shipping_zip.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="shipping_country">Shipping Country:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="shipping_country"
+					ng-model="form.order.shipping_country" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="orderForm.shipping_country.$error" ng-messages-include="errors.html" 
+						 ng-if="orderForm.shipping_country.$dirty && orderForm.shipping_country.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="shipping_apt_suite">Shipping Apt/Suite:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="shipping_apt_suite"
+					ng-model="form.order.shipping_apt_suite" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="orderForm.shipping_apt_suite.$error" ng-messages-include="errors.html" 
+						 ng-if="orderForm.shipping_apt_suite.$dirty && orderForm.shipping_apt_suite.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="shipping_notes">Shipping Notes:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="shipping_notes"
+					ng-model="form.order.shipping_notes" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="orderForm.shipping_notes.$error" ng-messages-include="errors.html" 
+						 ng-if="orderForm.shipping_notes.$dirty && orderForm.shipping_notes.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="arrival_date">Arrival Date:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="arrival_date"
+					ng-model="form.order.arrival_date" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="orderForm.arrival_date.$error" ng-messages-include="errors.html" 
+						 ng-if="orderForm.arrival_date.$dirty && orderForm.arrival_date.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="departure_date">Departure Date:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="departure_date"
+					ng-model="form.order.departure_date" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="orderForm.departure_date.$error" ng-messages-include="errors.html" 
+						 ng-if="orderForm.departure_date.$dirty && orderForm.departure_date.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="language">Language:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="language"
+					ng-model="form.order.language" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="orderForm.language.$error" ng-messages-include="errors.html" 
+						 ng-if="orderForm.language.$dirty && orderForm.language.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="num_phones">Num Phones:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="num_phones"
+					ng-model="form.order.num_phones" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="orderForm.num_phones.$error" ng-messages-include="errors.html" 
+						 ng-if="orderForm.num_phones.$dirty && orderForm.num_phones.$invalid">
+	      </div>
+			</div>
+		</div>
+
+
+	</div>
+</div>
+
+<button ng-disabled="!orderForm.$valid" ng-click="submitTheForm()">Submit Form</button>
+
+</form>

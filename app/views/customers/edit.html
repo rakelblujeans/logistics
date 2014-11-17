@@ -1,0 +1,64 @@
+<form	name="customerForm" novalidate>
+
+<div class="panel panel-warning">
+	<div class="panel-heading">
+		<h3 class="panel-title">Update: Customer Detail #{{form.cust.id}}</h3>
+	</div>
+	<div class="panel-body">
+		
+
+		<div class="row">
+			<div class="col-xs-6"><label for="fname">First:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="fname"
+					ng-model="form.cust.fname" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="customerForm.fname.$error" ng-messages-include="errors.html" 
+						 ng-if="customerForm.fname.$dirty && customerForm.fname.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="lname">Last:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="lname"
+					ng-model="form.cust.lname" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="customerForm.lname.$error" ng-messages-include="errors.html" 
+						 ng-if="customerForm.lname.$dirty && customerForm.lname.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="email">Email:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="email"
+					ng-model="form.cust.email" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="customerForm.email.$error" ng-messages-include="errors.html" 
+						 ng-if="customerForm.email.$dirty && customerForm.email.$invalid">
+	      </div>
+			</div>
+		</div>
+
+
+	</div>
+</div>
+
+<button ng-disabled="!customerForm.$valid" ng-click="submitTheForm()">Submit Form</button>
+
+</form>

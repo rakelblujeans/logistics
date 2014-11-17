@@ -45,11 +45,11 @@ angular
         templateUrl: 'views/orders/index.html',
         controller: 'OrderCtrl'
       })
-      .when('/orders', {
+      .when('/orders/:orderIndex', {
         templateUrl: 'views/orders/detail.html',
         controller: 'OrderDetailCtrl'
       })
-      .when('/orders', {
+      .when('/orders/edit/:orderIndex', {
         templateUrl: 'views/orders/edit.html',
         controller: 'OrderFormCtrl'
       })
@@ -60,6 +60,10 @@ angular
       .when('/customers/:custIndex', {
         templateUrl: 'views/customers/detail.html',
         controller: 'CustomerDetailCtrl'
+      })
+      .when('/customers/edit/:custIndex', {
+        templateUrl: 'views/customers/edit.html',
+        controller: 'CustomerFormCtrl'
       })
       .when('/telcos', {
         templateUrl: 'views/telcos.html',
