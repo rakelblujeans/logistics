@@ -2,10 +2,10 @@
 
 angular.module('logisticsApp.services')
 .provider('DataService', function () {
-    var inventory = '', 
+    /*var inventory = '', 
     customers = '', 
     orders = '', 
-    telcos = '';
+    telcos = '';*/
 
     // configurable fields. look up values in app.js
     this.localUrl = '';
@@ -55,10 +55,10 @@ angular.module('logisticsApp.services')
                 data: params,
             })
             .success(function(output) {
-                //console.log(output);
+                console.log(output);
                 d.resolve(output);
             }).error(function(reason) {
-                //d.reject(reason);
+                d.reject(reason);
                 console.log(reason);
             });
             return d.promise;
@@ -84,13 +84,45 @@ angular.module('logisticsApp.services')
                 data: params,
             })
             .success(function(output) {
-                console.log("SUCCESS", output);
+                //console.log("SUCCESS", output);
                 d.resolve(output);
             }).error(function(reason) {
                 d.reject(reason);
-                console.log('ERROR', reason);
+                //console.log('ERROR', reason);
             });
             return d.promise;
+        };
+
+        // TODO: handle errors?
+        var create = function(collectionName, data) {
+            var promise = postData(collectionName, data).then(function(output) {
+                return output;
+            });
+            return promise;
+        };
+
+        // TODO: handle errors?
+        var update = function(collectionName, id, data) {
+            var promise = updateData(collectionName + '/' + id, data).then(function(output) {
+                return output;
+            });
+            return promise;
+        };
+
+        // TODO: handle errors?
+        var get = function(collectionName, id) {
+            var promise = getData(collectionName + '/' + id).then(function(output) {
+                return output;
+            });
+            return promise;
+        };
+
+        // TODO: handle errors?
+        var getAll = function(collectionName) {
+            var promise = getData(collectionName).then(function(output) {
+                return output;
+            });
+            return promise;
         };
 
        var setActive = function(objPlural, id, newVal) {
@@ -117,75 +149,52 @@ angular.module('logisticsApp.services')
             });   
         };
 
-        // TODO: handle errors?
         var createCustomer = function(data){
-            postData('customers', data);
+            return create('customers', data);
         };
 
-        // TODO: handle errors?
         var updateCustomer = function(id, data) {
-            updateData('customers/' + id, data);
+            return update('customers', id, data);
         };
 
         var getCustomers = function() {
-            var promise = getData('customers').then(function(data) {
-                customers = data;
-                return data;
-            });
-            return promise;
+            return getAll('customers');
         };
 
         var getCustomer = function(index) {
-            var promise = getData('customers/' + index ).then(function(data) {
-                return data;
-            });
-            return promise;
+            return get('customers', index);
         };
 
         var createInventory = function(data) {
-            postData('phones', data);
+            return create('phones', data);
         };
 
         var updateInventory = function(id, data) {
-            updateData('phones/' + id, data);
+            return update('phones', id, data);
         };
 
         var getInventory = function() {
-            var promise = getData('phones').then(function(data) {
-                inventory = data;
-                return data;
-            });
-            return promise;
+            return getAll('phones');
         };
 
         var getItem = function(index) {
-            var promise = getData('phones/' + index).then(function(data) {
-                return data;
-            });
-            return promise;
+            return get('phones', index);
         };
 
         var createOrder = function(data) {
-            postData('orders', data);
+            return create('orders', data);
         };
 
         var updateOrder = function(id, data) {
-            updateData('orders' + id, data);
+            return update('orders', id, data);
         };
 
         var getOrders = function() {
-            var promise = getData('orders').then(function(data) {
-                orders = data;
-                return data;
-            });
-            return promise;
+            return getAll('orders');
         };
 
-         var getOrder = function(index) {
-            var promise = getData('orders/' + index).then(function(data) {
-                return data;
-            });
-            return promise;
+        var getOrder = function(index) {
+            return get('orders', index);
         };
 
         //var getOrdersByPhone = function(index) {
@@ -200,11 +209,7 @@ angular.module('logisticsApp.services')
         //};
 
         var getTelcos = function() {
-            var promise = getData('providers').then(function(data) {
-                telcos = data;
-                return data;
-            });
-            return promise;
+            return getAll('providers');
         };
 
         var getTelcoName = function(id) {
@@ -215,6 +220,11 @@ angular.module('logisticsApp.services')
         };
 
         var service = {
+            create: create,
+            update: update,
+            get: get,
+            getAll: getAll,
+
             createInventory: createInventory,
             getInventory: getInventory,
             getItem: getItem,

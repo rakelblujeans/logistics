@@ -30,13 +30,15 @@ angular.module('logisticsApp.controllers')
 
     $scope.submitEdit = function(item, event) {
       //console.log('--> Submitting form', $scope.form.item);
-      DataService.updateInventory($scope.invId, $scope.form.item);
-      // TODO: add spinner until confirmed saved
-      $location.path('inventory/' + $scope.invId);
+      DataService.updateInventory($scope.invId, $scope.form.item).then(function(output) {
+        $location.path('inventory/' + $scope.invId);
+      });
     };
 
     $scope.submitNew = function() {
-      DataService.createInventory($scope.form.item);
+      DataService.createInventory($scope.form.item).then(function(newObj) {
+        $location.path('inventory/' + newObj.id);
+      });
     };
 
 }]);

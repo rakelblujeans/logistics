@@ -1,6 +1,7 @@
 <h3>Orders</h3>
 
-<p>Search: <input ng-model="query"></p>
+<p>Search: <input ng-model="query">&nbsp;&nbsp;&nbsp;
+<a href="#/orders/new">Add +</a></p>
 
 <table class="table">
 <thead>
@@ -41,7 +42,11 @@
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ order.arrival_date }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ order.departure_date }}</td>
 		<td ng-class-odd="'odd'" ng-class-even="'even'">
-		<a href="#/order/{{ order.id }}">Details</a>
+		<a href="#/orders/{{ order.id }}">Details</a>
+
+		<a href="" ng-click="toggleActivation($index)">
+			{{ order.active ? 'Deactivate' : 'Activate' }}
+		</a>
 	</td>
 </tr>
 </tbody>

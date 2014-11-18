@@ -28,4 +28,15 @@ angular.module('logisticsApp.controllers')
       
       $scope.ascending = !sort.descending;
     };
+
+    $scope.toggleActivation = function(index) {
+      //console.log($scope.customers[index]);
+      DataService.setActive('orders', $scope.orders[index].id, 
+        !$scope.orders[index].active).then(function(success){
+        if (success) {
+          $scope.orders[index].active = !$scope.orders[index].active;
+        }
+      });
+    };
+
   }]);

@@ -4,20 +4,32 @@ angular.module('logisticsApp.controllers')
   .controller('OrderFormCtrl', ['$scope', '$route', '$routeParams', '$location', 'DataService', 
     function ($scope, $route, $routeParams, $location, DataService) {
 
-    $scope.form = {};
-    $scope.orderId = parseInt($routeParams.orderIndex, 10);
+    $scope.form = { 'order': {} };
+    $scope.header = 'New Order';
 
     $scope.initFromData = function() {
-      $scope.other = DataService.getOrder($scope.orderId).then(function(order) {
-        $scope.form = { 'order': order };
-      });
+      $scope.orderId = parseInt($routeParams.orderIndex, 10);
+      if ($scope.orderId) { // if editing
+        $scope.other = DataService.getOrder($scope.orderId).then(function(order) {
+          $scope.form = { 'order': order };
+          $scope.header = 'Update order #' + order.id;
+        });
+      }
     };
     $scope.$on('$viewContentLoaded', $scope.initFromData);
 
-    $scope.submitTheForm = function(item, event) {
-      console.log('--> Submitting form', $scope.form.order);
-      //submit the data to the server
-      //$scope.form...
+    $scope.submitEdit = function() {
+      //console.log('--> Submitting form', $scope.form.order);
+      DataService.updateOrder($scope.orderId, $scope.form.order).then(function() {
+        $location.path('orders/' + $scope.orderId);
+      });
+      // TODO: add spinner until confirmed saved
     };
 
+    $scope.submitNew = function() {
+      DataService.createOrder($scope.form.order).then(function(newData) {
+        // TODO: handle errors
+        $location.path('orders/' + newData.id);
+      });
+    };
 }]);

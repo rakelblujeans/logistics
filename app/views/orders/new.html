@@ -1,8 +1,7 @@
 <form	name="orderForm" novalidate>
-
 	<div ng-include src="'/views/orders/_form.html'"></div>
 
-	<button ng-disabled="!orderForm.$valid" ng-click="submitEdit()">Update</button>
+	<button ng-disabled="!orderForm.$valid" ng-click="submitNew()">Submit Form</button>
 
 	&nbsp;&nbsp;&nbsp;<a href="#/orders">Return to list</a>
 
