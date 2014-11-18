@@ -1,7 +1,7 @@
 <h3>Inventory</h3>
 
-<p>Search: <input ng-model="query"></p>
-<a href="">Add new</a>
+<p>Search: <input ng-model="query">&nbsp;&nbsp;&nbsp;
+<a href="#/inventory/new">Add +</a></p>
 
 
 <table class="table">
@@ -40,6 +40,10 @@
 	<td ng-class-odd="'odd'" ng-class-even="'even'">
 		<!--button type="button" class="btn btn-xs btn-default" ng-click="viewDetail($index)">Details</button-->
 		<a href="#/inventory/{{ inv.id }}">Details</a>
+
+		<a href="" ng-click="toggleActivation($index)">
+			{{ inv.active ? 'Deactivate' : 'Activate' }}
+		</a>
 	</td>
 </tr>
 </tbody>

@@ -22,7 +22,7 @@ angular.module('logisticsApp.controllers')
     // update existing object
     $scope.submitEdit = function(item, event) {
       //console.log('--> Submitting form', $scope.form.cust);
-      DataService.postCustomer($scope.custId, $scope.form.cust);
+      DataService.updateCustomer($scope.custId, $scope.form.cust);
       // TODO: add spinner until confirmed saved
       $location.path('customers/' + $scope.custId);
     };

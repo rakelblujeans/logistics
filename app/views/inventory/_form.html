@@ -1,0 +1,93 @@
+<div class="panel panel-warning">
+	<div class="panel-heading">
+		<h3 class="panel-title">{{ header }}</h3>
+	</div>
+	<div class="panel-body">
+		
+
+		<div class="row">
+			<div class="col-xs-6"><label for="MEID">MEID:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="MEID"
+					ng-model="form.item.MEID" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="inventoryForm.MEID.$error" ng-messages-include="errors.html" 
+						 ng-if="inventoryForm.MEID.$dirty && inventoryForm.MEID.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="ICCID">ICCID:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="ICCID"
+					ng-model="form.item.ICCID" 
+					ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="30" 
+					required />
+				<div ng-messages="inventoryForm.ICCID.$error" ng-messages-include="errors.html" 
+							 ng-if="inventoryForm.ICCID.$dirty && inventoryForm.ICCID.$invalid">
+		    </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="phone_num">Phone Number:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="phone_num"
+					ng-model="form.item.phone_num" 
+					ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }"
+					ng-maxlength="10"
+					required />
+				<div ng-messages="inventoryForm.phone_num.$error" ng-messages-include="errors.html" 
+							 ng-if="inventoryForm.phone_num.$dirty && inventoryForm.phone_num.$invalid">
+		    </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="last_imaged">Last Imaged On:</label></div>
+			<div class="col-xs-6">
+				<input type="date" 
+					name="last_imaged"
+					ng-model="form.item.last_imaged" 
+					ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }"
+					required />
+				<div ng-messages="inventoryForm.last_imaged.$error" ng-messages-include="errors.html" 
+							 ng-if="inventoryForm.last_imaged.$dirty && inventoryForm.last_imaged.$invalid">
+		    </div>
+			</div>
+		</div>
+
+		<!-- TODO -->
+		<div class="row">
+			<div class="col-xs-6">Provider:</div>
+			<div class="col-xs-6">{{item.providerName}}</div>
+		</div>
+
+		
+		<div class="row">
+			<div class="col-xs-6"><label for="last_imaged">Notes:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="notes"
+					ng-model="form.item.notes" 
+					ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }"
+					ng-maxlength="200" 
+					/>
+				<div ng-messages="inventoryForm.notes.$error" ng-messages-include="errors.html" 
+							 ng-if="inventoryForm.notes.$dirty && inventoryForm.notes.$invalid">
+		    </div>
+			</div>
+		</div>
+
+
+	</div>
+</div>

@@ -29,19 +29,10 @@ angular.module('logisticsApp.controllers')
       $scope.ascending = !sort.descending;
     };
 
-    $scope.deactivate = function() {
-      DataService.deactivateCustomer('customers', $scope.custId);
-      // TODO: add spinner until confirmed saved
-      //$location.path('customers/' + $scope.custId);
-    };
-
-    $scope.activate = function() {
-      DataService.activateCustomer('customers', $scope.custId);
-    };
-
     $scope.toggleActivation = function(index) {
-    	console.log($scope.customers[index]);
-    	DataService.setActive('customers', $scope.customers[index].id, !$scope.customers[index].active).then(function(success){
+    	//console.log($scope.customers[index]);
+    	DataService.setActive('customers', $scope.customers[index].id, 
+        !$scope.customers[index].active).then(function(success){
     		if (success) {
     			$scope.customers[index].active = !$scope.customers[index].active;
     		}

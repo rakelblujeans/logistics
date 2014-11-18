@@ -55,10 +55,10 @@ angular.module('logisticsApp.services')
                 data: params,
             })
             .success(function(output) {
-                console.log(output);
+                //console.log(output);
                 d.resolve(output);
             }).error(function(reason) {
-                d.reject(reason);
+                //d.reject(reason);
                 console.log(reason);
             });
             return d.promise;
@@ -93,16 +93,6 @@ angular.module('logisticsApp.services')
             return d.promise;
         };
 
-        // TODO: handle errors?
-        var createCustomer = function(data){
-            postData('customers', data);
-        };
-
-        // TODO: handle errors?
-       var updateCustomer = function(id, data) {
-            updateData('customers/' + id, data);
-       };
-
        var setActive = function(objPlural, id, newVal) {
             var promise = updateData(objPlural + '/' + id, {
                 'active': newVal
@@ -127,19 +117,14 @@ angular.module('logisticsApp.services')
             });   
         };
 
-        var getInventory = function() {
-            var promise = getData('phones').then(function(data) {
-                inventory = data;
-                return data;
-            });
-            return promise;
+        // TODO: handle errors?
+        var createCustomer = function(data){
+            postData('customers', data);
         };
 
-        var getItem = function(index) {
-            var promise = getData('phones/' + index).then(function(data) {
-                return data;
-            });
-            return promise;
+        // TODO: handle errors?
+        var updateCustomer = function(id, data) {
+            updateData('customers/' + id, data);
         };
 
         var getCustomers = function() {
@@ -155,6 +140,37 @@ angular.module('logisticsApp.services')
                 return data;
             });
             return promise;
+        };
+
+        var createInventory = function(data) {
+            postData('phones', data);
+        };
+
+        var updateInventory = function(id, data) {
+            updateData('phones/' + id, data);
+        };
+
+        var getInventory = function() {
+            var promise = getData('phones').then(function(data) {
+                inventory = data;
+                return data;
+            });
+            return promise;
+        };
+
+        var getItem = function(index) {
+            var promise = getData('phones/' + index).then(function(data) {
+                return data;
+            });
+            return promise;
+        };
+
+        var createOrder = function(data) {
+            postData('orders', data);
+        };
+
+        var updateOrder = function(id, data) {
+            updateData('orders' + id, data);
         };
 
         var getOrders = function() {
@@ -199,16 +215,22 @@ angular.module('logisticsApp.services')
         };
 
         var service = {
+            createInventory: createInventory,
             getInventory: getInventory,
             getItem: getItem,
+            updateInventory: updateInventory,
+
             createCustomer: createCustomer,
             getCustomers: getCustomers,
             getCustomer: getCustomer,
             updateCustomer: updateCustomer,
             
             //getCustomerCards: getCustomerCards,
+            createOrder: createOrder,
             getOrders: getOrders,
             getOrder: getOrder,
+            updateOrder: updateOrder,
+
             //getOrdersByPhone: getOrdersByPhone,
             getTelcos: getTelcos,
             getTelcoName: getTelcoName,
