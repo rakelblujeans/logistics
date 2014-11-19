@@ -1,42 +1,36 @@
 'use strict';
 
-angular.module('logisticsApp.controllers')
-  .controller('CustomerCtrl', ['$scope', '$http', '$window', 'DataService', 
-  	function ($scope, $http, $window, DataService) {
+function CustomerCtrl($scope, $http, $window, $route, $routeParams, DataService) {
     
-    $scope.sort = {
-      column: 'id',
-      descending: false
-    };
-    $scope.ascending = true;
+    ListCtrl.call(this, $scope);
 
     $scope.initFromData = function() {
-   		$scope.other = DataService.getCustomers().then(function(data) {
-    		$scope.customers = data;
-    	});
+      $scope.custId = parseInt($routeParams.custIndex, 10);
+      if ($scope.custId) {
+        DataService.getCustomer($scope.custId).then(function(customer) {
+          $scope.cust = customer;
+          //DataService.getCustomerCards(customer.id).then(function(cards){
+          //  $scope.item['cards'] = cards;
+          //});
+        });
+      } else {
+        $scope.other = DataService.getCustomers().then(function(data) {
+          $scope.customers = data;
+        });  
+      }
+   		
 	  };
     $scope.$on('$viewContentLoaded', $scope.initFromData);
+};
 
-    $scope.changeSorting = function(column) {
-      var sort = $scope.sort;
-      if (sort.column === column) {
-          sort.descending = !sort.descending;
-      } else {
-          sort.column = column;
-          sort.descending = false;
-      }
-      
-      $scope.ascending = !sort.descending;
-    };
+CustomerCtrl.prototype.toggleActivation = function(index) {
+  DataService.setActive('customers', $scope.customers[index].id, 
+    !$scope.customers[index].active).then(function(success){
+    if (success) {
+      $scope.customers[index].active = !$scope.customers[index].active;
+    }
+  });
+};
 
-    $scope.toggleActivation = function(index) {
-    	//console.log($scope.customers[index]);
-    	DataService.setActive('customers', $scope.customers[index].id, 
-        !$scope.customers[index].active).then(function(success){
-    		if (success) {
-    			$scope.customers[index].active = !$scope.customers[index].active;
-    		}
-    	});
-    };
-
-  }]);
+angular.module('logisticsApp.controllers')
+.controller('CustomerCtrl', CustomerCtrl);
