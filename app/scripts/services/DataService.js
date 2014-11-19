@@ -125,7 +125,7 @@ angular.module('logisticsApp.services')
             return promise;
         };
 
-       var setActive = function(objPlural, id, newVal) {
+        var setActive = function(objPlural, id, newVal) {
             var promise = updateData(objPlural + '/' + id, {
                 'active': newVal
             }).then(function(){
@@ -135,7 +135,7 @@ angular.module('logisticsApp.services')
             });
 
             return promise;
-       };
+        };
 
         var deactivate = function(objPlural, id) {
             updateData(objPlural + '/' + id, {
@@ -149,6 +149,7 @@ angular.module('logisticsApp.services')
             });   
         };
 
+        //----------------------------------------
         var createCustomer = function(data){
             return create('customers', data);
         };
@@ -165,6 +166,7 @@ angular.module('logisticsApp.services')
             return get('customers', index);
         };
 
+        //----------------------------------------
         var createInventory = function(data) {
             return create('phones', data);
         };
@@ -181,6 +183,7 @@ angular.module('logisticsApp.services')
             return get('phones', index);
         };
 
+        //----------------------------------------
         var createOrder = function(data) {
             return create('orders', data);
         };
@@ -197,21 +200,75 @@ angular.module('logisticsApp.services')
             return get('orders', index);
         };
 
-        //var getOrdersByPhone = function(index) {
-            /*var promise = getData('orders').then(function(data) {
-                orders = data;
-                //for (order in orders) {
-                //    
-                //}
-                return data;
-            });
-            return promise;*/
-        //};
+        //----------------------------------------
+        var createCreditCard = function(data) {
+            return create('credit_cards', data);
+        };
+
+        var updateCreditCard = function(id, data) {
+            return update('credit_cards', id, data);
+        };
+
+        var getCreditCards = function() {
+            return getAll('credit_cards');
+        };
+
+        var getCreditCard = function(index) {
+            return get('credit_cards', index);
+        };
+
+        //----------------------------------------
+        var createEventLog = function(data) {
+            return create('event_logs', data);
+        };
+
+        var updateEventLog = function(id, data) {
+            return update('event_logs', id, data);
+        };
+
+        var getEventLogs = function() {
+            return getAll('event_logs');
+        };
+
+        var getEventLog = function(index) {
+            return get('event_logs', index);
+        };
+
+        //----------------------------------------
+        var createTelco = function(data) {
+            return create('providers', data);
+        };
+
+        var updateTelco = function(id, data) {
+            return update('providers', id, data);
+        };
 
         var getTelcos = function() {
             return getAll('providers');
         };
 
+        var getTelco = function(index) {
+            return get('providers', index);
+        };
+
+        //----------------------------------------
+        var createShipment = function(data) {
+            return create('shipments', data);
+        };
+
+        var updateShipment = function(id, data) {
+            return update('shipments', id, data);
+        };
+
+        var getShipments = function() {
+            return getAll('shipments');
+        };
+
+        var getShipment = function(index) {
+            return get('shipments', index);
+        };
+
+        //----------------------------------------
         var getTelcoName = function(id) {
             var promise = getData('providers/' + id).then(function(data) {
                 return data.name;
@@ -219,11 +276,15 @@ angular.module('logisticsApp.services')
             return promise;
         };
 
+
         var service = {
             create: create,
             update: update,
             get: get,
             getAll: getAll,
+            deactivate: deactivate,
+            activate: activate,
+            setActive: setActive,
 
             createInventory: createInventory,
             getInventory: getInventory,
@@ -235,18 +296,32 @@ angular.module('logisticsApp.services')
             getCustomer: getCustomer,
             updateCustomer: updateCustomer,
             
-            //getCustomerCards: getCustomerCards,
             createOrder: createOrder,
             getOrders: getOrders,
             getOrder: getOrder,
             updateOrder: updateOrder,
 
-            //getOrdersByPhone: getOrdersByPhone,
+            createCreditCard: createCreditCard,
+            updateCreditCard: updateCreditCard,
+            getCreditCards: getCreditCards,
+            getCreditCard: getCreditCard,
+
+            createEventLog: createEventLog,
+            updateEventLog: updateEventLog,
+            getEventLogs: getEventLogs,
+            getEventLog: getEventLog,
+
+            createTelco: createTelco,
+            updateTelco: updateTelco,
             getTelcos: getTelcos,
+            getTelco: getTelco,
+
+            createShipment: createShipment,
+            updateShipment: updateShipment,
+            getShipments: getShipments,
+            getShipment: getShipment,
+
             getTelcoName: getTelcoName,
-            deactivate: deactivate,
-            activate: activate,
-            setActive: setActive
         };
         return service;
     }];

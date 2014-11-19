@@ -10,7 +10,7 @@ angular.module('logisticsApp.controllers')
     $scope.initFromData = function() {
       $scope.orderId = parseInt($routeParams.orderIndex, 10);
       if ($scope.orderId) { // if editing
-        $scope.other = DataService.getOrder($scope.orderId).then(function(order) {
+        DataService.getOrder($scope.orderId).then(function(order) {
           $scope.form = { 'order': order };
           $scope.header = 'Update order #' + order.id;
         });

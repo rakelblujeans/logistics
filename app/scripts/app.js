@@ -36,7 +36,13 @@ angular
       .when('/customers/new/',            { templateUrl: 'views/customers/new.html', controller: 'CustomerFormCtrl' })
       .when('/customers/:custIndex',      { templateUrl: 'views/customers/detail.html', controller: 'CustomerDetailCtrl' })
       .when('/customers/edit/:custIndex', { templateUrl: 'views/customers/edit.html', controller: 'CustomerFormCtrl' })
-      .when('/customers', { templateUrl: 'views/customers/index.html', controller: 'CustomerCtrl' })
+      .when('/customers',                 { templateUrl: 'views/customers/index.html', controller: 'CustomerCtrl' })
+
+      .when('/creditCards/new',             { templateUrl: 'views/creditCards/new.html', controller: 'CreditCardFormCtrl' })
+      .when('/creditCards/:cardIndex',      { templateUrl: 'views/creditCards/detail.html', controller: 'CreditCardCtrl' })
+      .when('/creditCards/edit/:cardIndex', { templateUrl: 'views/creditCards/edit.html', controller: 'CreditCardFormCtrl' })
+      .when('/creditCards',                 { templateUrl: 'views/creditCards/index.html', controller: 'CreditCardCtrl' })
+      
       .when('/telcos',    { templateUrl: 'views/telcos.html', controller: 'TelcoCtrl' })
       
       .otherwise({ redirectTo: '/' });
