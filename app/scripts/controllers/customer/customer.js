@@ -6,14 +6,14 @@ function CustomerCtrl($scope, $http, $window, $route, $routeParams, DataService)
 
     $scope.initFromData = function() {
       $scope.custId = parseInt($routeParams.custIndex, 10);
-      if ($scope.custId) {
+      if ($scope.custId) { // detail view
         DataService.getCustomer($scope.custId).then(function(customer) {
           $scope.cust = customer;
           //DataService.getCustomerCards(customer.id).then(function(cards){
           //  $scope.item['cards'] = cards;
           //});
         });
-      } else {
+      } else { // list view
         $scope.other = DataService.getCustomers().then(function(data) {
           $scope.customers = data;
         });  

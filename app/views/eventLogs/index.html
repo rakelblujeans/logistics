@@ -1,0 +1,29 @@
+<h3>Event Logs</h3>
+
+<p>Search: <input ng-model="query">&nbsp;&nbsp;&nbsp;
+<a href="#/eventLogs/new">Add +</a></p>
+
+<table class="table">
+<thead>
+<tr>
+	<th ng-class="{ascending: sort.column == 'order_state' && !sort.descending, 
+								 descending: sort.column == 'order_state' && sort.descending}" ng-click="changeSorting('description')">
+		Description<span ng-show="sort.column == 'description'"> {{ sort.descending | sortOrderIcon }}</span>
+	</th>
+	<th></th>
+	</tr>
+</thead>
+<tbody>
+	<tr ng-repeat="log in eventLogs | filter:query | orderBy:sort.column:sort.descending">
+
+		<td ng-class-odd="'odd'" ng-class-even="'even'">
+			{{ log.description }}</td>
+		<td ng-class-odd="'odd'" ng-class-even="'even'">
+			<a href="#/eventLogs/{{ log.id }}">Details</a>
+
+			<a href="" ng-click="toggleActivation($index)">
+			{{ log.active ? 'Deactivate' : 'Activate' }}</a>
+		</td>
+	</tr>
+</tbody>
+	

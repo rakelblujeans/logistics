@@ -1,0 +1,46 @@
+<p>Shipments</p>
+
+<p>Search: <input ng-model="query">&nbsp;&nbsp;&nbsp;
+<a href="#/shipments/new">Add +</a></p>
+
+<table class="table">
+<thead>
+<tr>
+	<th ng-class="{ascending: sort.column == 'id' && !sort.descending, 
+								 descending: sort.column == 'id' && sort.descending}" ng-click="changeSorting('id')">
+		# <span ng-show="sort.column == 'id'"> {{ sort.descending | sortOrderIcon }}</span>
+	</th>
+	<th ng-class="{ascending: sort.column == 'name' && !sort.descending, 
+								 descending: sort.column == 'name' && sort.descending}" ng-click="changeSorting('fedex_out_code')">
+		Fedex Out Code <span ng-show="sort.column == 'fedex_out_code'"> {{ sort.descending | sortOrderIcon }}</span>
+	</th>
+	<th ng-class="{ascending: sort.column == 'name' && !sort.descending, 
+								 descending: sort.column == 'name' && sort.descending}" ng-click="changeSorting('fedex_return_code')">
+		Fedex Return Code <span ng-show="sort.column == 'fedex_return_code'"> {{ sort.descending | sortOrderIcon }}</span>
+	</th>
+	<th ng-class="{ascending: sort.column == 'name' && !sort.descending, 
+								 descending: sort.column == 'name' && sort.descending}" ng-click="changeSorting('qty')">
+		Quantity <span ng-show="sort.column == 'qty'"> {{ sort.descending | sortOrderIcon }}</span>
+	</th>
+	<th></th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="shipment in shipments | filter:query | orderBy:sort.column:sort.descending">
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ shipment.id }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">
+		{{ shipment.fedex_out_code }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">
+		{{ shipment.fedex_return_code }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">
+		{{ shipment.qty }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">
+		<a href="#/shipments/{{ shipment.id }}">Details</a>
+
+		<a href="" ng-click="toggleActivation($index)">
+			{{ shipment.active ? 'Deactivate' : 'Activate' }}
+		</a>
+	</td>
+</tr>
+</tbody>
+</table>

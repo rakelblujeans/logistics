@@ -42,8 +42,21 @@ angular
       .when('/creditCards/:cardIndex',      { templateUrl: 'views/creditCards/detail.html', controller: 'CreditCardCtrl' })
       .when('/creditCards/edit/:cardIndex', { templateUrl: 'views/creditCards/edit.html', controller: 'CreditCardFormCtrl' })
       .when('/creditCards',                 { templateUrl: 'views/creditCards/index.html', controller: 'CreditCardCtrl' })
+
+      .when('/eventLogs/new',             { templateUrl: 'views/eventLogs/new.html', controller: 'EventLogFormCtrl' })
+      .when('/eventLogs/edit/:logIndex',  { templateUrl: 'views/eventLogs/edit.html', controller: 'EventLogFormCtrl' })
+      .when('/eventLogs/:logIndex',       { templateUrl: 'views/eventLogs/detail.html', controller: 'EventLogCtrl' })
+      .when('/eventLogs',                 { templateUrl: 'views/eventLogs/index.html', controller: 'EventLogCtrl' })
       
-      .when('/telcos',    { templateUrl: 'views/telcos.html', controller: 'TelcoCtrl' })
+      .when('/telcos/new',                { templateUrl: 'views/telcos/new.html', controller: 'TelcoFormCtrl' })
+      .when('/telcos/edit/:telcoIndex',   { templateUrl: 'views/telcos/edit.html', controller: 'TelcoFormCtrl' })
+      .when('/telcos/:telcoIndex',        { templateUrl: 'views/telcos/detail.html', controller: 'TelcoCtrl' })
+      .when('/telcos',                    { templateUrl: 'views/telcos/index.html', controller: 'TelcoCtrl' })
+
+      .when('/shipments/new',                 { templateUrl: 'views/shipments/new.html', controller: 'ShipmentFormCtrl' })
+      .when('/shipments/edit/:shipmentIndex', { templateUrl: 'views/shipments/edit.html', controller: 'ShipmentFormCtrl' })
+      .when('/shipments/:shipmentIndex',      { templateUrl: 'views/shipments/detail.html', controller: 'ShipmentCtrl' })
+      .when('/shipments',                     { templateUrl: 'views/shipments/index.html', controller: 'ShipmentCtrl' })
       
       .otherwise({ redirectTo: '/' });
 

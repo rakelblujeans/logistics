@@ -1,0 +1,57 @@
+<div class="panel panel-warning">
+	<div class="panel-heading">
+		<h3 class="panel-title">{{ header }}</h3>
+	</div>
+	<div class="panel-body">
+
+		<div class="row">
+			<div class="col-xs-6"><label for="fedex_out_code">Fedex Out Code:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="fedex_out_code"
+					ng-model="form.shipment.fedex_out_code" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="shipmentForm.fedex_out_code.$error" ng-messages-include="errors.html" 
+						 ng-if="shipmentForm.fedex_out_code.$dirty && shipmentForm.fedex_out_code.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="fedex_return_code">Fedex Return Code:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="fedex_return_code"
+					ng-model="form.shipment.fedex_return_code" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="shipmentForm.fedex_return_code.$error" ng-messages-include="errors.html" 
+						 ng-if="shipmentForm.fedex_return_code.$dirty && shipmentForm.fedex_return_code.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="qty">Quantity:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="qty"
+					ng-model="form.shipment.qty" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="shipmentForm.qty.$error" ng-messages-include="errors.html" 
+						 ng-if="shipmentForm.qty.$dirty && shipmentForm.qty.$invalid">
+	      </div>
+			</div>
+		</div>
+
+
+	</div>
+</div>

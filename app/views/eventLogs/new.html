@@ -1,0 +1,8 @@
+<form	name="logForm" novalidate>
+	<div ng-include src="'/views/eventLogs/_form.html'"></div>
+
+	<button ng-disabled="!logForm.$valid" ng-click="submitNew()">Submit Form</button>
+
+	&nbsp;&nbsp;&nbsp;<a href="#/eventLogs">Return to list</a>
+
+</form>

@@ -1,0 +1,8 @@
+<form	name="telcoForm" novalidate>
+	<div ng-include src="'/views/telcos/_form.html'"></div>
+
+	<button ng-disabled="!telcoForm.$valid" ng-click="submitNew()">Submit Form</button>
+
+	&nbsp;&nbsp;&nbsp;<a href="#/telcos">Return to list</a>
+
+</form>
