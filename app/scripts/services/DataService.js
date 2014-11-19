@@ -269,6 +269,22 @@ angular.module('logisticsApp.services')
         };
 
         //----------------------------------------
+        var createReceipt = function(data) {
+            return create('receipts', data);
+        };
+
+        var updateReceipt = function(id, data) {
+            return update('receipts', id, data);
+        };
+
+        var getReceipts = function() {
+            return getAll('receipts');
+        };
+
+        var getReceipt = function(index) {
+            return get('receipts', index);
+        };
+        //----------------------------------------
         var getTelcoName = function(id) {
             var promise = getData('providers/' + id).then(function(data) {
                 return data.name;
@@ -320,6 +336,11 @@ angular.module('logisticsApp.services')
             updateShipment: updateShipment,
             getShipments: getShipments,
             getShipment: getShipment,
+
+            createReceipt: createReceipt,
+            updateReceipt: updateReceipt,
+            getReceipt: getReceipt,
+            getReceipts: getReceipts,
 
             getTelcoName: getTelcoName,
         };

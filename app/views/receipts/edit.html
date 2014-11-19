@@ -1,0 +1,9 @@
+<form	name="receiptForm" novalidate>
+
+	<div ng-include src="'/views/receipts/_form.html'"></div>
+
+	<button ng-disabled="!receiptForm.$valid" ng-click="submitEdit()">Update</button>
+
+	&nbsp;&nbsp;&nbsp;<a href="#/receipts">Return to list</a>
+
+</form>

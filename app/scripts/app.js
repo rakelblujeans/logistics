@@ -57,6 +57,11 @@ angular
       .when('/shipments/edit/:shipmentIndex', { templateUrl: 'views/shipments/edit.html', controller: 'ShipmentFormCtrl' })
       .when('/shipments/:shipmentIndex',      { templateUrl: 'views/shipments/detail.html', controller: 'ShipmentCtrl' })
       .when('/shipments',                     { templateUrl: 'views/shipments/index.html', controller: 'ShipmentCtrl' })
+
+      .when('/receipts/new',                 { templateUrl: 'views/receipts/new.html', controller: 'ReceiptFormCtrl' })
+      .when('/receipts/edit/:receiptIndex', { templateUrl: 'views/receipts/edit.html', controller: 'ReceiptFormCtrl' })
+      .when('/receipts/:receiptIndex',      { templateUrl: 'views/receipts/detail.html', controller: 'ReceiptCtrl' })
+      .when('/receipts',                     { templateUrl: 'views/receipts/index.html', controller: 'ReceiptCtrl' })
       
       .otherwise({ redirectTo: '/' });
 

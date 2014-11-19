@@ -6,14 +6,14 @@ function InventoryCtrl($scope, $http, $window, $route, $routeParams, $location, 
 
   $scope.initFromData = function() {
     $scope.invId = parseInt($routeParams.invIndex, 10);
-    if ($scope.invId) {
+    if ($scope.invId) { // detail view
       DataService.getItem($scope.invId).then(function(item) {
         $scope.item = item;
         DataService.getTelcoName(item.provider_id).then(function(telcoName){
           $scope.item['providerName'] = telcoName;
         });
       });
-    } else {
+    } else { // list view
       DataService.getInventory().then(function(data) {
         $scope.inventory = data;
       });  

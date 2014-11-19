@@ -1,0 +1,231 @@
+<div class="panel panel-warning">
+	<div class="panel-heading">
+		<h3 class="panel-title">{{ header }}</h3>
+	</div>
+	<div class="panel-body">
+
+		<div class="row">
+			<div class="col-xs-6"><label for="bt_trans_id">Braintree Trans ID:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="bt_trans_id"
+					ng-model="form.receipt.bt_trans_id" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="receiptForm.bt_trans_id.$error" ng-messages-include="errors.html" 
+						 ng-if="receiptForm.bt_trans_id.$dirty && receiptForm.bt_trans_id.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="discount_code">Discount Code:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="discount_code"
+					ng-model="form.receipt.discount_code" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="receiptForm.discount_code.$error" ng-messages-include="errors.html" 
+						 ng-if="receiptForm.discount_code.$dirty && receiptForm.discount_code.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="shipping_string">Shipping String:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="shipping_string"
+					ng-model="form.receipt.shipping_string" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="100" 
+					required />
+				<div ng-messages="receiptForm.shipping_string.$error" ng-messages-include="errors.html" 
+						 ng-if="receiptForm.shipping_string.$dirty && receiptForm.shipping_string.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="referral_code">Referral Code:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="referral_code"
+					ng-model="form.receipt.referral_code" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="receiptForm.referral_code.$error" ng-messages-include="errors.html" 
+						 ng-if="receiptForm.referral_code.$dirty && receiptForm.referral_code.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="rental_charge">Rental Charge:</label></div>
+			<div class="col-xs-6">
+				<input type="number" 
+					name="rental_charge"
+					ng-model="form.receipt.rental_charge" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					min="0"
+					step="0.01"
+					required />
+				<div ng-messages="receiptForm.rental_charge.$error" ng-messages-include="errors.html" 
+						 ng-if="receiptForm.rental_charge.$dirty && receiptForm.rental_charge.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="shipping_charge">Shipping Charge:</label></div>
+			<div class="col-xs-6">
+				<input type="number" 
+					name="shipping_charge"
+					ng-model="form.receipt.shipping_charge" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					min="0"
+					step="0.01"
+					required />
+				<div ng-messages="receiptForm.shipping_charge.$error" ng-messages-include="errors.html" 
+						 ng-if="receiptForm.shipping_charge.$dirty && receiptForm.shipping_charge.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="rental_discount">Rental Discount:</label></div>
+			<div class="col-xs-6">
+				<input type="number" 
+					name="rental_discount"
+					ng-model="form.receipt.rental_discount" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					min="0"
+					step="0.01"
+					required />
+				<div ng-messages="receiptForm.rental_discount.$error" ng-messages-include="errors.html" 
+						 ng-if="receiptForm.rental_discount.$dirty && receiptForm.rental_discount.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="tax_charge">Tax Charge:</label></div>
+			<div class="col-xs-6">
+				<input type="number" 
+					name="tax_charge"
+					ng-model="form.receipt.tax_charge" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					min="0"
+					step="0.01"
+					required />
+				<div ng-messages="receiptForm.tax_charge.$error" ng-messages-include="errors.html" 
+						 ng-if="receiptForm.tax_charge.$dirty && receiptForm.tax_charge.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="payment_amount">Payment Amount:</label></div>
+			<div class="col-xs-6">
+				<input type="number" 
+					name="payment_amount"
+					ng-model="form.receipt.payment_amount" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					min="0"
+					step="0.01"
+					required />
+				<div ng-messages="receiptForm.payment_amount.$error" ng-messages-include="errors.html" 
+						 ng-if="receiptForm.payment_amount.$dirty && receiptForm.payment_amount.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="payment_date">Payment Date:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="payment_date"
+					ng-model="form.receipt.payment_date" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="receiptForm.payment_date.$error" ng-messages-include="errors.html" 
+						 ng-if="receiptForm.payment_date.$dirty && receiptForm.payment_date.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="payment_status">Payment Status:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="payment_status"
+					ng-model="form.receipt.payment_status" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="receiptForm.payment_status.$error" ng-messages-include="errors.html" 
+						 ng-if="receiptForm.payment_status.$dirty && receiptForm.payment_status.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="discount_string">Discount String:</label></div>
+			<div class="col-xs-6">
+				<input type="text" 
+					name="discount_string"
+					ng-model="form.receipt.discount_string" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div ng-messages="receiptForm.discount_string.$error" ng-messages-include="errors.html" 
+						 ng-if="receiptForm.discount_string.$dirty && receiptForm.discount_string.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="last_4_digits">Last 4 Digits:</label></div>
+			<div class="col-xs-6">
+				<input type="number" 
+					name="last_4_digits"
+					ng-model="form.receipt.last_4_digits" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					min="0"
+					required />
+				<div ng-messages="receiptForm.last_4_digits.$error" ng-messages-include="errors.html" 
+						 ng-if="receiptForm.last_4_digits.$dirty && receiptForm.last_4_digits.$invalid">
+	      </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-6"><label for="refunded">Refunded:</label></div>
+			<div class="col-xs-6">
+				<input type="checkbox" 
+					name="refunded"
+					ng-model="form.receipt.refunded" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					/>
+				<div ng-messages="receiptForm.refunded.$error" ng-messages-include="errors.html" 
+						 ng-if="receiptForm.refunded.$dirty && receiptForm.refunded.$invalid">
+	      </div>
+			</div>
+		</div>
+
+  </div>
+</div>
+
+</div>
