@@ -19,14 +19,7 @@ function ReceiptCtrl($scope, $http, $window, $route, $routeParams, DataService) 
   $scope.$on('$viewContentLoaded', $scope.initFromData);
 }
 
-ReceiptCtrl.prototype.toggleActivation = function(index) {
-  DataService.setActive('receipts', $scope.receipts[index].id, 
-    !$scope.receipts[index].active).then(function(success){
-    if (success) {
-      $scope.receipts[index].active = !$scope.receipts[index].active;
-    }
-  });
-};
+ReceiptCtrl.prototype = Object.create(ListCtrl.prototype);
 
 angular.module('logisticsApp.controllers')
 .controller('ReceiptCtrl', ReceiptCtrl);

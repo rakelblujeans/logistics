@@ -2,7 +2,7 @@
 
 function InventoryCtrl($scope, $http, $window, $route, $routeParams, $location, DataService) {
 
-  ListCtrl.call(this, $scope);
+  ListCtrl.call(this, $scope, DataService);
 
   $scope.initFromData = function() {
     $scope.invId = parseInt($routeParams.invIndex, 10);
@@ -22,14 +22,7 @@ function InventoryCtrl($scope, $http, $window, $route, $routeParams, $location, 
   $scope.$on('$viewContentLoaded', $scope.initFromData);
 };
 
-InventoryCtrl.prototype.toggleActivation = function(index) {
-  DataService.setActive('phones', $scope.inventory[index].id, 
-    !$scope.inventory[index].active).then(function(success){
-    if (success) {
-      $scope.inventory[index].active = !$scope.inventory[index].active;
-    }
-  });
-};
+InventoryCtrl.prototype = Object.create(ListCtrl.prototype);
 
 angular.module('logisticsApp.controllers')
 .controller('InventoryCtrl', InventoryCtrl);

@@ -3,7 +3,6 @@
 <p>Search: <input ng-model="query">&nbsp;&nbsp;&nbsp;
 <a href="#/inventory/new">Add +</a></p>
 
-
 <table class="table">
 <thead>
 <tr>
@@ -41,7 +40,7 @@
 		<!--button type="button" class="btn btn-xs btn-default" ng-click="viewDetail($index)">Details</button-->
 		<a href="#/inventory/{{ inv.id }}">Details</a>
 
-		<a href="" ng-click="toggleActivation($index)">
+		<a href="" ng-click="toggleActivation(inv, 'phones')">
 			{{ inv.active ? 'Deactivate' : 'Activate' }}
 		</a>
 	</td>

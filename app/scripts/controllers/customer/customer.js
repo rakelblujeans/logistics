@@ -23,14 +23,7 @@ function CustomerCtrl($scope, $http, $window, $route, $routeParams, DataService)
     $scope.$on('$viewContentLoaded', $scope.initFromData);
 };
 
-CustomerCtrl.prototype.toggleActivation = function(index) {
-  DataService.setActive('customers', $scope.customers[index].id, 
-    !$scope.customers[index].active).then(function(success){
-    if (success) {
-      $scope.customers[index].active = !$scope.customers[index].active;
-    }
-  });
-};
+CustomerCtrl.prototype = Object.create(ListCtrl.prototype);
 
 angular.module('logisticsApp.controllers')
 .controller('CustomerCtrl', CustomerCtrl);

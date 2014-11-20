@@ -19,14 +19,7 @@ function ShipmentCtrl($scope, $http, $window, $route, $routeParams, DataService)
   $scope.$on('$viewContentLoaded', $scope.initFromData);
 }
 
-ShipmentCtrl.prototype.toggleActivation = function(index) {
-  DataService.setActive('shipments', $scope.shipments[index].id, 
-    !$scope.shipments[index].active).then(function(success){
-    if (success) {
-      $scope.shipments[index].active = !$scope.shipments[index].active;
-    }
-  });
-};
+ShipmentCtrl.prototype = Object.create(ListCtrl.prototype);
 
 angular.module('logisticsApp.controllers')
 .controller('ShipmentCtrl', ShipmentCtrl);

@@ -44,7 +44,7 @@
 	<td ng-class-odd="'odd'" ng-class-even="'even'">
 		<a href="#/orders/{{ order.id }}">Details</a>
 
-		<a href="" ng-click="toggleActivation($index)">
+		<a href="" ng-click="toggleActivation(order, 'orders')">
 			{{ order.active ? 'Deactivate' : 'Activate' }}
 		</a>
 	</td>

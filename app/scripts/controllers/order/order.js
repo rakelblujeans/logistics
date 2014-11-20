@@ -18,14 +18,7 @@ function OrderCtrl($scope, $http, $window, $route, $routeParams, DataService) {
   $scope.$on('$viewContentLoaded', $scope.initFromData);
 };
 
-OrderCtrl.prototype.toggleActivation = function(index) {
-  DataService.setActive('orders', $scope.orders[index].id, 
-    !$scope.orders[index].active).then(function(success){
-    if (success) {
-      $scope.orders[index].active = !$scope.orders[index].active;
-    }
-  });
-};
+OrderCtrl.prototype = Object.create(ListCtrl.prototype);
 
 angular.module('logisticsApp.controllers')
   .controller('OrderCtrl', OrderCtrl);
