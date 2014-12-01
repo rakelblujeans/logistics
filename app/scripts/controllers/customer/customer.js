@@ -2,7 +2,7 @@
 
 function CustomerCtrl($scope, $http, $window, $route, $routeParams, DataService) {
     
-    ListCtrl.call(this, $scope);
+    ListCtrl.call(this, $scope, DataService);
 
     $scope.initFromData = function() {
       $scope.custId = parseInt($routeParams.custIndex, 10);

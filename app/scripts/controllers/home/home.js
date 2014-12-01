@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('logisticsApp.controllers')
-  .controller('HomeCtrl', ['$scope',
-  	function ($scope) {
+  .controller('HomeCtrl', [
+  	function () {
     
 
   }]);

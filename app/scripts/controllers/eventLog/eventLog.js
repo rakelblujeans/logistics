@@ -2,7 +2,7 @@
 
 function EventLogCtrl($scope, $http, $window, $route, $routeParams, DataService) {
     
-    ListCtrl.call(this, $scope);
+    ListCtrl.call(this, $scope, DataService);
 
     $scope.initFromData = function() {
       $scope.logId = parseInt($routeParams.logIndex, 10);

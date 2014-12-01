@@ -2,7 +2,7 @@
 
 function ShipmentCtrl($scope, $http, $window, $route, $routeParams, DataService) {
     
-  ListCtrl.call(this, $scope);
+  ListCtrl.call(this, $scope, DataService);
   
   $scope.initFromData = function() {
     $scope.shipmentId = parseInt($routeParams.shipmentIndex, 10);

@@ -2,7 +2,7 @@
 
 function CreditCardCtrl($scope, $http, $window, $route, $routeParams, DataService) {
     
-  ListCtrl.call(this, $scope);
+  ListCtrl.call(this, $scope, DataService);
 
   $scope.initFromData = function() {
     $scope.cardId = parseInt($routeParams.cardIndex, 10);
