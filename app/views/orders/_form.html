@@ -14,7 +14,7 @@
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div ng-messages="orderForm.delivery_type_str.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="orderForm.delivery_type_str.$error" ng-messages-include="errors.html" 
 						 ng-if="orderForm.delivery_type_str.$dirty && orderForm.delivery_type_str.$invalid">
 	      </div>
 			</div>
@@ -30,7 +30,7 @@
 					ng-minlength="1"
 					ng-maxlength="50" 
 					required />
-				<div ng-messages="orderForm.full_address.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="orderForm.full_address.$error" ng-messages-include="errors.html" 
 						 ng-if="orderForm.full_address.$dirty && orderForm.full_address.$invalid">
 	      </div>
 			</div>
@@ -46,7 +46,7 @@
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div ng-messages="orderForm.shipping_name.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="orderForm.shipping_name.$error" ng-messages-include="errors.html" 
 						 ng-if="orderForm.shipping_name.$dirty && orderForm.shipping_name.$invalid">
 	      </div>
 			</div>
@@ -62,7 +62,7 @@
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div ng-messages="orderForm.shipping_city.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="orderForm.shipping_city.$error" ng-messages-include="errors.html" 
 						 ng-if="orderForm.shipping_city.$dirty && orderForm.shipping_city.$invalid">
 	      </div>
 			</div>
@@ -78,7 +78,7 @@
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div ng-messages="orderForm.shipping_state.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="orderForm.shipping_state.$error" ng-messages-include="errors.html" 
 						 ng-if="orderForm.shipping_state.$dirty && orderForm.shipping_state.$invalid">
 	      </div>
 			</div>
@@ -94,7 +94,7 @@
 					ng-minlength="1"
 					ng-maxlength="5" 
 					required />
-				<div ng-messages="orderForm.shipping_zip.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="orderForm.shipping_zip.$error" ng-messages-include="errors.html" 
 						 ng-if="orderForm.shipping_zip.$dirty && orderForm.shipping_zip.$invalid">
 	      </div>
 			</div>
@@ -110,7 +110,7 @@
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div ng-messages="orderForm.shipping_country.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="orderForm.shipping_country.$error" ng-messages-include="errors.html" 
 						 ng-if="orderForm.shipping_country.$dirty && orderForm.shipping_country.$invalid">
 	      </div>
 			</div>
@@ -126,7 +126,7 @@
 					ng-minlength="1"
 					ng-maxlength="20" 
 					/>
-				<div ng-messages="orderForm.shipping_apt_suite.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="orderForm.shipping_apt_suite.$error" ng-messages-include="errors.html" 
 						 ng-if="orderForm.shipping_apt_suite.$dirty && orderForm.shipping_apt_suite.$invalid">
 	      </div>
 			</div>
@@ -142,7 +142,7 @@
 					ng-minlength="1"
 					ng-maxlength="20" 
 					/>
-				<div ng-messages="orderForm.shipping_notes.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="orderForm.shipping_notes.$error" ng-messages-include="errors.html" 
 						 ng-if="orderForm.shipping_notes.$dirty && orderForm.shipping_notes.$invalid">
 	      </div>
 			</div>
@@ -158,7 +158,7 @@
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div ng-messages="orderForm.arrival_date.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="orderForm.arrival_date.$error" ng-messages-include="errors.html" 
 						 ng-if="orderForm.arrival_date.$dirty && orderForm.arrival_date.$invalid">
 	      </div>
 			</div>
@@ -174,7 +174,7 @@
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div ng-messages="orderForm.departure_date.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="orderForm.departure_date.$error" ng-messages-include="errors.html" 
 						 ng-if="orderForm.departure_date.$dirty && orderForm.departure_date.$invalid">
 	      </div>
 			</div>
@@ -183,32 +183,32 @@
 		<div class="row">
 			<div class="col-xs-6"><label for="language">Language:</label></div>
 			<div class="col-xs-6">
-				<!-- input type="text" 
+				<input type="text" 
 					name="language"
 					ng-model="form.order.language" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div ng-messages="orderForm.language.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="orderForm.language.$error" ng-messages-include="errors.html" 
 						 ng-if="orderForm.language.$dirty && orderForm.language.$invalid">
-	      </div-->
+	      </div>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-xs-6"><label for="num_phones">Num Phones:</label></div>
 			<div class="col-xs-6">
-				<!--input type="text" 
+				<input type="text" 
 					name="num_phones"
 					ng-model="form.order.num_phones" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div ng-messages="orderForm.num_phones.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="orderForm.num_phones.$error" ng-messages-include="errors.html" 
 						 ng-if="orderForm.num_phones.$dirty && orderForm.num_phones.$invalid">
-	      </div-->
+	      </div>
 			</div>
 		</div>
 

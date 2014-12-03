@@ -2,10 +2,6 @@
 
 angular.module('logisticsApp.services')
 .provider('DataService', function () {
-    /*var inventory = '', 
-    customers = '', 
-    orders = '', 
-    telcos = '';*/
 
     // configurable fields. look up values in app.js
     this.localUrl = '';
@@ -192,8 +188,12 @@ angular.module('logisticsApp.services')
             return update('orders', id, data);
         };
 
-        var getOrders = function() {
-            return getAll('orders');
+        var getOrders = function(unmatched) {
+            if (unmatched) {
+                return getAll('orders');    
+            } else {
+                return getAll('orders/unmatched');
+            }
         };
 
         var getOrder = function(index) {

@@ -14,7 +14,7 @@
           ng-minlength="1"
           ng-maxlength="20" 
           required />
-        <div ng-messages="logForm.description.$error" ng-messages-include="errors.html" 
+        <div class="error-msg" ng-messages="logForm.description.$error" ng-messages-include="errors.html" 
              ng-if="logForm.description.$dirty && logForm.description.$invalid">
         </div>
       </div>

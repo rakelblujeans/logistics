@@ -21,13 +21,14 @@ angular
   .config(['$routeProvider', 'DataServiceProvider', '$httpProvider',
     function ($routeProvider, DataServiceProvider, $httpProvider) {
     $routeProvider
-      .when('/', { templateUrl: 'views/home.html', controller: 'HomeCtrl' })
+      .when('/', { templateUrl: 'views/home/index.html', controller: 'HomeCtrl' })
 
       .when('/inventory/new/',            { templateUrl: 'views/inventory/new.html', controller: 'InventoryFormCtrl', controllerAs: 'Inventory' })
       .when('/inventory/:invIndex',       { templateUrl: 'views/inventory/detail.html', controller: 'InventoryCtrl', controllerAs: 'Inventory' })
       .when('/inventory/edit/:invIndex',  { templateUrl: 'views/inventory/edit.html', controller: 'InventoryFormCtrl', controllerAs: 'Inventory' })
       .when('/inventory',                 { templateUrl: 'views/inventory/index.html', controller: 'InventoryCtrl', controllerAs: 'Inventory' })
 
+      .when('/orders/unmatched/',         { templateUrl: 'views/orders/unmatched.html', controller: 'OrderCtrl', controllerAs: 'Order' })
       .when('/orders/new/',               { templateUrl: 'views/orders/new.html', controller: 'OrderFormCtrl', controllerAs: 'Order' })
       .when('/orders/:orderIndex',        { templateUrl: 'views/orders/detail.html', controller: 'OrderCtrl', controllerAs: 'Order' })
       .when('/orders/edit/:orderIndex',   { templateUrl: 'views/orders/edit.html', controller: 'OrderFormCtrl', controllerAs: 'Order' })
@@ -59,9 +60,11 @@ angular
       .when('/shipments',                     { templateUrl: 'views/shipments/index.html', controller: 'ShipmentCtrl', controllerAs: 'Shipment' })
 
       .when('/receipts/new',                 { templateUrl: 'views/receipts/new.html', controller: 'ReceiptFormCtrl', controllerAs: 'Receipt' })
-      .when('/receipts/edit/:receiptIndex', { templateUrl: 'views/receipts/edit.html', controller: 'ReceiptFormCtrl', controllerAs: 'Receipt' })
-      .when('/receipts/:receiptIndex',      { templateUrl: 'views/receipts/detail.html', controller: 'ReceiptCtrl', controllerAs: 'Receipt' })
+      .when('/receipts/edit/:receiptIndex',  { templateUrl: 'views/receipts/edit.html', controller: 'ReceiptFormCtrl', controllerAs: 'Receipt' })
+      .when('/receipts/:receiptIndex',       { templateUrl: 'views/receipts/detail.html', controller: 'ReceiptCtrl', controllerAs: 'Receipt' })
       .when('/receipts',                     { templateUrl: 'views/receipts/index.html', controller: 'ReceiptCtrl', controllerAs: 'Receipt' })
+
+      .when('/calendar',                     { templateUrl: 'views/calendar/index.html', controller: 'CalendarCtrl', controllerAs: 'Calendar' })
       
       .otherwise({ redirectTo: '/' });
 

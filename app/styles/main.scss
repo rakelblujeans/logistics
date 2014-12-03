@@ -112,3 +112,14 @@ body {
 .selected-th {
   background-color: #99CCFF;
 }
+
+// TODO: add ngAnimate
+.error-msg {
+  transition:1s linear all;
+  color: red;
+}
+.error-msg.ng-enter {}
+.error-msg.ng-enter.ng-enter-active {}
+
+.error-msg.ng-leave {}
+.error-msg.ng-leave.ng-leave-active {}

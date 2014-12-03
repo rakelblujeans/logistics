@@ -14,7 +14,7 @@
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div ng-messages="shipmentForm.fedex_out_code.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="shipmentForm.fedex_out_code.$error" ng-messages-include="errors.html" 
 						 ng-if="shipmentForm.fedex_out_code.$dirty && shipmentForm.fedex_out_code.$invalid">
 	      </div>
 			</div>
@@ -30,7 +30,7 @@
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div ng-messages="shipmentForm.fedex_return_code.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="shipmentForm.fedex_return_code.$error" ng-messages-include="errors.html" 
 						 ng-if="shipmentForm.fedex_return_code.$dirty && shipmentForm.fedex_return_code.$invalid">
 	      </div>
 			</div>
@@ -46,7 +46,7 @@
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div ng-messages="shipmentForm.qty.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="shipmentForm.qty.$error" ng-messages-include="errors.html" 
 						 ng-if="shipmentForm.qty.$dirty && shipmentForm.qty.$invalid">
 	      </div>
 			</div>

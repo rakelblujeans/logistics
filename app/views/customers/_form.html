@@ -14,7 +14,7 @@
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div ng-messages="customerForm.fname.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="customerForm.fname.$error" ng-messages-include="errors.html" 
 						 ng-if="customerForm.fname.$dirty && customerForm.fname.$invalid">
 	      </div>
 			</div>
@@ -30,7 +30,7 @@
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div ng-messages="customerForm.lname.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="customerForm.lname.$error" ng-messages-include="errors.html" 
 						 ng-if="customerForm.lname.$dirty && customerForm.lname.$invalid">
 	      </div>
 			</div>
@@ -46,7 +46,7 @@
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div ng-messages="customerForm.email.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="customerForm.email.$error" ng-messages-include="errors.html" 
 						 ng-if="customerForm.email.$dirty && customerForm.email.$invalid">
 	      </div>
 			</div>

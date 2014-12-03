@@ -14,7 +14,7 @@
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div ng-messages="telcoForm.name.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="telcoForm.name.$error" ng-messages-include="errors.html" 
 						 ng-if="telcoForm.name.$dirty && telcoForm.name.$invalid">
 	      </div>
 			</div>

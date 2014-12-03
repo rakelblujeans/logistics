@@ -14,7 +14,7 @@
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div ng-messages="cardForm.bt_id.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="cardForm.bt_id.$error" ng-messages-include="errors.html" 
 						 ng-if="cardForm.bt_id.$dirty && cardForm.bt_id.$invalid">
 	      </div>
 			</div>
@@ -30,7 +30,7 @@
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div ng-messages="cardForm.last4.$error" ng-messages-include="errors.html" 
+				<div class="error-msg" ng-messages="cardForm.last4.$error" ng-messages-include="errors.html" 
 						 ng-if="cardForm.last4.$dirty && cardForm.last4.$invalid">
 	      </div>
 			</div>
