@@ -21,9 +21,21 @@ function OrderCtrl($scope, $route, $routeParams, DataService) {
   };
   $scope.$on('$viewContentLoaded', $scope.initFromData);
 
+  $scope.pullInventory = function(order) {
+
+    order.assignSelectIsVisible = !order.assignSelectIsVisible;
+    console.log('pull inventory', order.assignSelectIsVisible);
     /*DataService.getInventoryAvailability(order.order_id).then(function(inventory) {
       order.availableInventory = inventory;
     });*/
+  };
+    
+  $scope.updateAssignedInventory = function(order) {
+    console.log('updated');
+    // scope.item is currently selected item
+    // model : order.assignedInventoryItem
+    order.assignSelectIsVisible = false;
+  };
 
 };
 
