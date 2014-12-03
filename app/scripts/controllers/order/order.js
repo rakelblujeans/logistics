@@ -23,7 +23,7 @@ function OrderCtrl($scope, $route, $routeParams, DataService) {
 
     /*DataService.getInventoryAvailability(order.order_id).then(function(inventory) {
       order.availableInventory = inventory;
-    });* /
+    });*/
 
 };
 
