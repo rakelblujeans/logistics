@@ -14,7 +14,7 @@ angular.module('logisticsApp.services')
         var useRemote = this.useRemote;
 
         // get object data
-        var getData = function(dataPoint) {
+        var getData = function(dataPoint, params) {
             var d = $q.defer();
             var url;
             if (useRemote) {
@@ -26,11 +26,14 @@ angular.module('logisticsApp.services')
             $http({
                 method: 'GET',
                 url: url,
+                params: params,
             })
             .success(function(data) {
+                //console.log("SUCCESS", data);
                 d.resolve(data);
             }).error(function(reason) {
                 d.reject(reason);
+                //console.log("REJECT", reason);
             });
             return d.promise;
         };
@@ -51,11 +54,11 @@ angular.module('logisticsApp.services')
                 data: params,
             })
             .success(function(output) {
-                console.log(output);
+                //console.log(output);
                 d.resolve(output);
             }).error(function(reason) {
                 d.reject(reason);
-                console.log(reason);
+                //console.log(reason);
             });
             return d.promise;
         };
@@ -73,7 +76,7 @@ angular.module('logisticsApp.services')
             // all creations should be active by default!
             params['active'] = 'true';
 
-            console.log(params);
+            //console.log(params);
             $http({
                 method: 'POST',
                 url: url,
@@ -114,8 +117,8 @@ angular.module('logisticsApp.services')
         };
 
         // TODO: handle errors?
-        var getAll = function(collectionName) {
-            var promise = getData(collectionName).then(function(output) {
+        var getAll = function(collectionName, data) {
+            var promise = getData(collectionName, data).then(function(output) {
                 return output;
             });
             return promise;
@@ -200,6 +203,37 @@ angular.module('logisticsApp.services')
             return get('orders', index);
         };
 
+        var getInventoryAvailability = function(startDate, endDate) {
+            console.log('getting inventory available between ', startDate, endDate);
+            return getAll('orders/availableInventory', {
+                'startDate': startDate.toString(),
+                'endDate': endDate.toString()
+            });
+        };
+
+        var checkInventoryState = function(order) {
+            var promise = getAll('phones/inventorySnapshot/' + order.id)
+            .then(function(data) {
+              
+              //console.log("[" + order.id + "]", data);
+              // initialize array to final size, leaving placeholder spots
+              // for unassigned phones
+              var assignedInventory = new Array(order.num_phones);
+              if (data.assignedInventory) {
+                  for(var i=0; i<data.assignedInventory.length; i++) {
+                    assignedInventory[i] = data.assignedInventory[i];
+                  }
+              }
+
+              return {
+                availableInventory: data.availableInventory,
+                assignedInventory: assignedInventory
+              };
+            });
+
+            return promise;            
+        };
+
         //----------------------------------------
         var createCreditCard = function(data) {
             return create('credit_cards', data);
@@ -218,20 +252,28 @@ angular.module('logisticsApp.services')
         };
 
         //----------------------------------------
-        var createEventLog = function(data) {
-            return create('event_logs', data);
+        var createEvent = function(data) {
+            return create('events', data);
         };
 
-        var updateEventLog = function(id, data) {
-            return update('event_logs', id, data);
+        var sendMatchedInventoryEvent = function(orderId, phoneId) {
+            //console.log('SENDING', orderId, phoneId);
+            return create('events/createMatched', {
+                'order_id': orderId,
+                'phone_id': phoneId
+            });
         };
 
-        var getEventLogs = function() {
-            return getAll('event_logs');
+        var updateEvent = function(id, data) {
+            return update('events', id, data);
         };
 
-        var getEventLog = function(index) {
-            return get('event_logs', index);
+        var getEvents = function() {
+            return getAll('events');
+        };
+
+        var getEvent = function(index) {
+            return get('events', index);
         };
 
         //----------------------------------------
@@ -292,7 +334,6 @@ angular.module('logisticsApp.services')
             return promise;
         };
 
-
         var service = {
             create: create,
             update: update,
@@ -306,7 +347,7 @@ angular.module('logisticsApp.services')
             getInventory: getInventory,
             getItem: getItem,
             updateInventory: updateInventory,
-
+            
             createCustomer: createCustomer,
             getCustomers: getCustomers,
             getCustomer: getCustomer,
@@ -322,10 +363,14 @@ angular.module('logisticsApp.services')
             getCreditCards: getCreditCards,
             getCreditCard: getCreditCard,
 
-            createEventLog: createEventLog,
-            updateEventLog: updateEventLog,
-            getEventLogs: getEventLogs,
-            getEventLog: getEventLog,
+            createEvent: createEvent,
+            updateEvent: updateEvent,
+            getEvents: getEvents,
+            getEvent: getEvent,
+            getInventoryAvailability: getInventoryAvailability,
+            checkInventoryState: checkInventoryState,
+
+            sendMatchedInventoryEvent: sendMatchedInventoryEvent,
 
             createTelco: createTelco,
             updateTelco: updateTelco,

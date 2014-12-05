@@ -1,7 +1,7 @@
 <h3>Event Logs</h3>
 
 <p>Search: <input ng-model="query">&nbsp;&nbsp;&nbsp;
-<a href="#/eventLogs/new">Add +</a></p>
+<a href="#/events/new">Add +</a></p>
 
 <table class="table">
 <thead>
@@ -14,12 +14,12 @@
 	</tr>
 </thead>
 <tbody>
-	<tr ng-repeat="log in eventLogs | filter:query | orderBy:sort.column:sort.descending">
+	<tr ng-repeat="log in events | filter:query | orderBy:sort.column:sort.descending">
 
 		<td ng-class-odd="'odd'" ng-class-even="'even'">
 			{{ log.description }}</td>
 		<td ng-class-odd="'odd'" ng-class-even="'even'">
-			<a href="#/eventLogs/{{ log.id }}">Details</a>
+			<a href="#/events/{{ log.id }}">Details</a>
 
 			<a href="" ng-click="toggleActivation(log, 'event_logs')">
 			{{ log.active ? 'Deactivate' : 'Activate' }}</a>

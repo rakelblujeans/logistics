@@ -1,6 +1,6 @@
 'use strict';
 
-function OrderCtrl($scope, $route, $routeParams, DataService) {
+function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
   
   ListCtrl.call(this, $scope, DataService);
 
@@ -21,21 +21,49 @@ function OrderCtrl($scope, $route, $routeParams, DataService) {
   };
   $scope.$on('$viewContentLoaded', $scope.initFromData);
 
-  $scope.pullInventory = function(order) {
+  self._updateState = function(order) {
+    var promise = DataService.checkInventoryState(order).then(function(data) {
+      order.availableInventory = data.availableInventory;
+      order.phoneSlots = data.assignedInventory;
+      order.slotsAvailable = 0;
+      for (var i=0; i<order.phoneSlots.length; i++) {
+        if (order.phoneSlots[0] === undefined) {
+          order.slotsAvailable++;
+        }
+      }
+    });
 
+    return promise;
+  };
+
+
+  $scope.pullInventory = function(order) {
     order.assignSelectIsVisible = !order.assignSelectIsVisible;
-    console.log('pull inventory', order.assignSelectIsVisible);
-    /*DataService.getInventoryAvailability(order.order_id).then(function(inventory) {
-      order.availableInventory = inventory;
-    });*/
+    //console.log('pull inventory', order.assignSelectIsVisible);
+    self._updateState(order);
   };
-    
+
   $scope.updateAssignedInventory = function(order) {
-    console.log('updated');
-    // scope.item is currently selected item
-    // model : order.assignedInventoryItem
-    order.assignSelectIsVisible = false;
+    console.log('updated', order.assignedInventoryItem);
+    order.slotsEmpty = false;
+    
+    DataService.sendMatchedInventoryEvent(order.id, order.assignedInventoryItem).then(
+      function(new_event) {
+        // refresh order with latest confirmed info from the server
+        self._updateState(order).then(function() {
+          
+            // TODO
+            // if all are full, setTimeout and fade collapse
+            //order.assignSelectIsVisible = false;
+            //$timeout(function() {}, 2000);
+        });
+    });
   };
+
+  $scope.removeMatch = function(inventory_id) {
+
+  };
+
 
 };
 

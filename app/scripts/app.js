@@ -44,15 +44,15 @@ angular
       .when('/creditCards/edit/:cardIndex', { templateUrl: 'views/creditCards/edit.html', controller: 'CreditCardFormCtrl', controllerAs: 'CreditCard' })
       .when('/creditCards',                 { templateUrl: 'views/creditCards/index.html', controller: 'CreditCardCtrl', controllerAs: 'CreditCard' })
 
-      .when('/eventLogs/new',             { templateUrl: 'views/eventLogs/new.html', controller: 'EventLogFormCtrl', controllerAs: 'EventLog' })
-      .when('/eventLogs/edit/:logIndex',  { templateUrl: 'views/eventLogs/edit.html', controller: 'EventLogFormCtrl', controllerAs: 'EventLog' })
-      .when('/eventLogs/:logIndex',       { templateUrl: 'views/eventLogs/detail.html', controller: 'EventLogCtrl', controllerAs: 'EventLog' })
-      .when('/eventLogs',                 { templateUrl: 'views/eventLogs/index.html', controller: 'EventLogCtrl', controllerAs: 'EventLog' })
+      .when('/events/new',                  { templateUrl: 'views/events/new.html', controller: 'EventFormCtrl', controllerAs: 'Event' })
+      .when('/events/edit/:logIndex',       { templateUrl: 'views/events/edit.html', controller: 'EventFormCtrl', controllerAs: 'Event' })
+      .when('/events/:logIndex',            { templateUrl: 'views/events/detail.html', controller: 'EventCtrl', controllerAs: 'Event' })
+      .when('/events',                      { templateUrl: 'views/events/index.html', controller: 'EventCtrl', controllerAs: 'Event' })
       
-      .when('/telcos/new',                { templateUrl: 'views/telcos/new.html', controller: 'TelcoFormCtrl', controllerAs: 'Telco' })
-      .when('/telcos/edit/:telcoIndex',   { templateUrl: 'views/telcos/edit.html', controller: 'TelcoFormCtrl', controllerAs: 'Telco' })
-      .when('/telcos/:telcoIndex',        { templateUrl: 'views/telcos/detail.html', controller: 'TelcoCtrl', controllerAs: 'Telco' })
-      .when('/telcos',                    { templateUrl: 'views/telcos/index.html', controller: 'TelcoCtrl', controllerAs: 'Telco' })
+      .when('/telcos/new',                  { templateUrl: 'views/telcos/new.html', controller: 'TelcoFormCtrl', controllerAs: 'Telco' })
+      .when('/telcos/edit/:telcoIndex',     { templateUrl: 'views/telcos/edit.html', controller: 'TelcoFormCtrl', controllerAs: 'Telco' })
+      .when('/telcos/:telcoIndex',          { templateUrl: 'views/telcos/detail.html', controller: 'TelcoCtrl', controllerAs: 'Telco' })
+      .when('/telcos',                      { templateUrl: 'views/telcos/index.html', controller: 'TelcoCtrl', controllerAs: 'Telco' })
 
       .when('/shipments/new',                 { templateUrl: 'views/shipments/new.html', controller: 'ShipmentFormCtrl', controllerAs: 'Shipment' })
       .when('/shipments/edit/:shipmentIndex', { templateUrl: 'views/shipments/edit.html', controller: 'ShipmentFormCtrl', controllerAs: 'Shipment' })
