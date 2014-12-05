@@ -92,6 +92,31 @@ angular.module('logisticsApp.services')
             return d.promise;
         };
 
+        // delete objects
+        var deleteData = function(dataPoint, params) {
+            var d = $q.defer();
+            var url;
+            if (useRemote) {
+                url = remoteUrl + dataPoint + '.json';
+            } else {
+                url = localUrl + dataPoint + '.json';
+            }
+            
+            $http({
+                method: 'DELETE',
+                url: url,
+                params: params,
+            })
+            .success(function(data) {
+                //console.log("SUCCESS", data);
+                d.resolve(data);
+            }).error(function(reason) {
+                d.reject(reason);
+                //console.log("REJECT", reason);
+            });
+            return d.promise;
+        };
+
         // TODO: handle errors?
         var create = function(collectionName, data) {
             var promise = postData(collectionName, data).then(function(output) {
@@ -119,6 +144,14 @@ angular.module('logisticsApp.services')
         // TODO: handle errors?
         var getAll = function(collectionName, data) {
             var promise = getData(collectionName, data).then(function(output) {
+                return output;
+            });
+            return promise;
+        };
+
+        // "delete" is a protected token so I had to use a diff name...
+        var deleteObj = function(collectionName, data) {
+            var promise = deleteData(collectionName, data).then(function(output) {
                 return output;
             });
             return promise;
@@ -206,8 +239,8 @@ angular.module('logisticsApp.services')
         var getInventoryAvailability = function(startDate, endDate) {
             console.log('getting inventory available between ', startDate, endDate);
             return getAll('orders/availableInventory', {
-                'startDate': startDate.toString(),
-                'endDate': endDate.toString()
+                'start_date': startDate.toString(),
+                'end_date': endDate.toString()
             });
         };
 
@@ -261,6 +294,13 @@ angular.module('logisticsApp.services')
             return create('events/createMatched', {
                 'order_id': orderId,
                 'phone_id': phoneId
+            });
+        };
+
+        var removeMatchedInventory = function(orderId, inventoryId) {
+            return deleteObj('events/removeMatched', {
+                'order_id': orderId,
+                'phone_id': inventoryId
             });
         };
 
@@ -369,8 +409,8 @@ angular.module('logisticsApp.services')
             getEvent: getEvent,
             getInventoryAvailability: getInventoryAvailability,
             checkInventoryState: checkInventoryState,
-
             sendMatchedInventoryEvent: sendMatchedInventoryEvent,
+            removeMatchedInventory: removeMatchedInventory,
 
             createTelco: createTelco,
             updateTelco: updateTelco,

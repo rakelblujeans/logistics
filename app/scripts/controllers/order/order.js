@@ -22,10 +22,12 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
   $scope.$on('$viewContentLoaded', $scope.initFromData);
 
   self._updateState = function(order) {
+    order.slotsAvailable = 0;
     var promise = DataService.checkInventoryState(order).then(function(data) {
       order.availableInventory = data.availableInventory;
       order.phoneSlots = data.assignedInventory;
-      order.slotsAvailable = 0;
+      //console.log("phoneSlots", order.phoneSlots);
+
       for (var i=0; i<order.phoneSlots.length; i++) {
         if (order.phoneSlots[0] === undefined) {
           order.slotsAvailable++;
@@ -43,8 +45,9 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
     self._updateState(order);
   };
 
+  // WARNING: be careful to refer to phone by id, not inventory_id field
   $scope.updateAssignedInventory = function(order) {
-    console.log('updated', order.assignedInventoryItem);
+    //console.log('updated', order.assignedInventoryItem);
     order.slotsEmpty = false;
     
     DataService.sendMatchedInventoryEvent(order.id, order.assignedInventoryItem).then(
@@ -60,10 +63,13 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
     });
   };
 
-  $scope.removeMatch = function(inventory_id) {
-
+  // WARNING: be careful to refer to phone by id, not inventory_id field
+  $scope.removeMatch = function(order, phoneId) {
+    DataService.removeMatchedInventory(order.id, phoneId).then(function() {
+      // refresh order with latest confirmed info from the server
+      self._updateState(order);
+    });
   };
-
 
 };
 

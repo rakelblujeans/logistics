@@ -1,6 +1,5 @@
 <h3>Orders</h3>
 
-<p>Search: <input ng-model="query">&nbsp;&nbsp;&nbsp;
 <a href="#/orders/new">Add +</a> | 
 <a href="#/orders/unshipped">View awaiting shipments</a></p>
 
@@ -55,16 +54,16 @@
 			<p>
 				Assigned phones: {{order.slotsAvailable == order.num_phones ? 'none' : ''}}
 				<!-- TODO: turn into directive -->
-				<button ng-repeat="phoneSlot in order.phoneSlots" ng-if="phoneSlot" type="button" class="btn btn-xs btn-default"
-					ng-click="removeMatch(phoneSlot.inventory_id)">{{ phoneSlot.inventory_id}} &nbsp;<span class="glyphicon glyphicon-remove"></span></button>
-
+				<button class="phoneSlot-{{order.id}}-{{phoneSlot.id}}" ng-repeat="phoneSlot in order.phoneSlots" ng-if="phoneSlot" type="button" class="btn btn-xs btn-default"
+					ng-click="removeMatch(order, phoneSlot.id)">{{ phoneSlot.inventory_id}} &nbsp;<span class="glyphicon glyphicon-remove"></span></button>
 				&nbsp;
 				&nbsp;
-				&nbsp;
-				<button type="button" class="btn btn-xs btn-success" ng-if="!order.slotsAvailable" ng-click="goShip()">Ship it! &nbsp;<span class="glyphicon glyphicon-thumbs-up"></span></a>
+				<button type="button" class="btn btn-xs btn-success" ng-if="!order.slotsAvailable" ng-click="goShip()">
+					Ship it! &nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>
+				</button>
 			</p>
 			
-			<div ng-if="order.slotsAvailable">
+			<div ng-if="order.slotsAvailable > 0">
 				<p>You have {{order.slotsAvailable}} open slot(s). Assign the next:</p>
 	      <select class="dropdown"
 	          name="assign"
@@ -72,7 +71,9 @@
 	          ng-options="it.id as it.inventory_id for it in order.availableInventory">
 	          <option value="">Select...</option>
 	      </select>
-				<button type="button" class="btn btn-xs btn-primary" ng-click="updateAssignedInventory(order)"><span class="glyphicon glyphicon-ok"></span></button>
+				<button type="button" class="btn btn-xs btn-primary" ng-click="updateAssignedInventory(order)">
+					<span class="glyphicon glyphicon-ok"></span>
+				</button>
 			</div>
 		</td>
 	</tr>
