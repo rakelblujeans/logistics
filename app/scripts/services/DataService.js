@@ -83,11 +83,11 @@ angular.module('logisticsApp.services')
                 data: params,
             })
             .success(function(output) {
-                //console.log("SUCCESS", output);
+                console.log("SUCCESS", output);
                 d.resolve(output);
             }).error(function(reason) {
                 d.reject(reason);
-                //console.log('ERROR', reason);
+                console.log('ERROR', reason);
             });
             return d.promise;
         };

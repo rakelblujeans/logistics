@@ -24,12 +24,18 @@
 
 	<nav class="col-md-4">
 		<a href="#/orders/new">Add order</a><br />
-		<a href="">Edit order</a><br />
-		<hr />
 		<a href="#/orders/unmatched">Unmatched orders</a><br />
 		<a href="#/orders/unshipped">Unshipped orders</a><br />
-		<a href="">Mark inventory in/out</a><br />
-		<hr />
 		<a href="#/inventory/new">Add inventory</a><br />
+		<hr />
+
+		<p>Order id:
+		<input type="text" placeholder="123" ng-model="order_id"/></p>
+		<a href="#/orders/edit/{{order_id}}">Edit order</a><br />
+		<a href="#/orders/ship/{{order_id}}">Ship order</a>
+		<hr />
+
+		<a href="#/inventory/received">Mark inventory in</a><br />
+		
 	</nav>
 </div>

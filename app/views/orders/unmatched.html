@@ -1,19 +1,11 @@
 <h3>Orders</h3>
 
 <a href="#/orders/new">Add +</a> | 
-<a href="#/orders/unshipped">View awaiting shipments</a></p>
+<a href="#/orders/unshipped">View unshipped orders</a></p>
 
 <table class="table table-striped table-hover table-responsive">
 <thead>
 <tr>
-	<th ng-class="{ascending: sort.column == 'order_state' && !sort.descending, 
-								 descending: sort.column == 'order_state' && sort.descending}" ng-click="changeSorting('id')">
-		State <span ng-show="sort.column == 'id'"> {{ sort.descending | sortOrderIcon }}</span>
-	</th>
-	<th ng-class="{ascending: sort.column == 'delivery_type' && !sort.descending, 
-								 descending: sort.column == 'delivery_type' && sort.descending}" ng-click="changeSorting('delivery_type')">
-		Type <span ng-show="sort.column == 'delivery_type'"> {{ sort.descending | sortOrderIcon }}</span>
-	</th>
 	<th ng-class="{ascending: sort.column == 'shipping_name' && !sort.descending, 
 								 descending: sort.column == 'shipping_name' && sort.descending}" ng-click="changeSorting('shipping_name')">
 		Customer Name <span ng-show="sort.column == 'shipping_name'"> {{ sort.descending | sortOrderIcon }}</span>
@@ -30,16 +22,14 @@
 								 descending: sort.column == 'departure_date' && sort.descending}" ng-click="changeSorting('departure_date')">
 		Departure <span ng-show="sort.column == 'departure_date'"> {{ sort.descending | sortOrderIcon }}</span>
 	</th>
-	<th></th>
+	<th>Options</th>
 </tr>
 </thead>
 <tbody>
 <tr ng-repeat="order in orders | filter:query | orderBy:sort.column:sort.descending">
-<td colspan="7">
+<td colspan="5">
 	<table class="table borderless">
 	<tr>
-		<td>{{ order.order_state }}</td>
-		<td>{{ order.delivery_type }}</td>
 		<td>{{ order.shipping_name }}</td>
 		<td>{{ order.full_address }}</td>
 		<td>{{ order.arrival_date }}</td>
@@ -50,7 +40,7 @@
 		</td>
 	</tr>
 	<tr ng-show="order.assignSelectIsVisible">
-		<td colspan="7">
+		<td>
 			<p>
 				Assigned phones: {{order.slotsAvailable == order.num_phones ? 'none' : ''}}
 				<!-- TODO: turn into directive -->

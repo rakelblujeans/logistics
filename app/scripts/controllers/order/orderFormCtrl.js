@@ -6,7 +6,7 @@ function OrderFormCtrl($scope, $route, $routeParams, $location, DataService) {
   $scope.header = 'New Order';
 
   $scope.initFromData = function() {
-    $scope.orderId = parseInt($routeParams.orderIndex, 10);
+    $scope.orderId = parseInt($routeParams.id, 10);
     if ($scope.orderId) { // if editing
       DataService.getOrder($scope.orderId).then(function(order) {
         $scope.form = { 'order': order };

@@ -1,13 +1,13 @@
 'use strict';
 
 function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
-  
+
   ListCtrl.call(this, $scope, DataService);
 
   $scope.initFromData = function() {
     
     $scope.unmatched = parseInt($routeParams.unmatched);
-    $scope.orderId = parseInt($routeParams.orderIndex, 10);
+    $scope.orderId = parseInt($routeParams.id, 10);
 
     if ($scope.orderId) { // detail view
       DataService.getOrder($scope.orderId).then(function(order) {
@@ -29,7 +29,7 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
       //console.log("phoneSlots", order.phoneSlots);
 
       for (var i=0; i<order.phoneSlots.length; i++) {
-        if (order.phoneSlots[0] === undefined) {
+        if (order.phoneSlots[i] === undefined) {
           order.slotsAvailable++;
         }
       }

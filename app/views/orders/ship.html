@@ -1,0 +1,103 @@
+<h3>Ship Order - Invoice #{{order.invoice_id}}</h3>
+
+<div class="row">
+	<div class="col-xs-3">Customer</div>
+	<div class="col-xs-3">Address</div>
+	<div class="col-xs-3">Arrival</div>
+	<div class="col-xs-3">Departure</div>
+</div>
+<div class="row">
+	<div class="col-xs-3">{{order.shipping_name}}</div>
+	<div class="col-xs-3">{{order.full_address}}</div>
+	<div class="col-xs-3">{{order.arrival_date}}</div>
+	<div class="col-xs-3">{{order.departure_date}}</div>
+</div>
+
+<br />
+<br />
+
+<form name="shipForm" novalidate>
+	<div class="row">
+		<div class="col-xs-3">
+			<label for="fedex_out_code">Fedex code out: </label>
+		</div>
+		<div class="col-xs-3">
+			<input type="text" 
+				name="fedex_out_code"
+				ng-model="form.shipment.fedex_out_code" 
+				ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+				ng-minlength="1"
+				ng-maxlength="20" 
+				required />
+			<div class="error-msg" ng-messages="shipForm.fedex_out_code.$error" ng-messages-include="errors.html" 
+					 ng-if="shipForm.fedex_out_code.$dirty && shipForm.fedex_out_code.$invalid">
+      </div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-3">
+			<label for="fedex_out_code">Fedex code return:</label>
+		</div>
+		<div class="col-xs-3">
+			<input type="text" 
+				name="fedex_return_code"
+				ng-model="form.shipment.fedex_return_code" 
+				ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+				ng-minlength="1"
+				ng-maxlength="20" 
+				required />
+			<div class="error-msg" ng-messages="shipForm.fedex_return_code.$error" ng-messages-include="errors.html" 
+					 ng-if="shipForm.fedex_return_code.$dirty && shipForm.fedex_return_code.$invalid">
+      </div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<p>
+
+				Assigned phones: {{slotsAvailable == order.num_phones ? 'none' : ''}}
+				
+				<button ng-repeat="phone in phoneSlots" ng-if="phone" 
+					type="button" class="btn btn-xs btn-default"
+					ng-click="removeMatch(phone.id)">{{ phone.inventory_id }} &nbsp;<span class="glyphicon glyphicon-remove"></span></button>
+			</p>
+			
+			<div ng-if="slotsAvailable > 0">
+				<p>You can assign {{slotsAvailable}} more phone(s). Assign the next:</p>
+	      <select class="dropdown"
+	          name="assign"
+	          ng-model="order.assignedPhoneId"
+	          ng-options="it.id as it.inventory_id for it in order.availableInventory">
+	          <option value="">Select...</option>
+	      </select>
+				<button type="button" class="btn btn-xs btn-primary" 
+					ng-click="assignInventory()"
+					ng-disabled="!order.assignedPhoneId">
+					<span class="glyphicon glyphicon-ok"></span>
+				</button>
+			</div>
+
+		</div>
+	</div>
+
+<br />
+
+	<div class="row">
+		<div class="col-xs-12">
+			<button type="button" class="btn btn-xs btn-primary" 
+					ng-disabled="!shipForm.$valid || slotsAvailable" 
+					ng-click="shipIt()">Ship it
+						<span class="glyphicon glyphicon-ok"></span>
+				</button>
+		</div>
+	</div>
+
+</form>
+
+<div class="row">
+	<div class="col-xs-12">
+		<h3>Delivery history</h3>	
+		<p>All phones for this order have already shipped</p>
+	</div>
+</div>
