@@ -3,26 +3,28 @@
 		<h3 class="panel-title">{{ header }}</h3>
 	</div>
 	<div class="panel-body">
-		<div class="row">
-			<div class="col-xs-6"><label for="MEID">MEID:</label></div>
+
+		<div class="form-group">
+			<label class="col-xs-3" for="MEID">MEID:</label>
 			<div class="col-xs-6">
-				<input type="text" 
-					name="MEID"
+				<input type="text" class="form-control"
+					name="MEID" 
 					ng-model="form.item.MEID" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div class="error-msg" ng-messages="inventoryForm.MEID.$error" ng-messages-include="errors.html" 
-						 ng-if="inventoryForm.MEID.$dirty && inventoryForm.MEID.$invalid">
+				<div class="error-msg" ng-messages="inventoryForm.MEID.$error" 
+					ng-messages-include="errors.html" 
+					ng-if="inventoryForm.MEID.$dirty && inventoryForm.MEID.$invalid">
 	      </div>
-			</div>
-		</div>
+	    </div>
+		</div><!-- form-group -->
 
-		<div class="row">
-			<div class="col-xs-6"><label for="ICCID">ICCID:</label></div>
+		<div class="form-group">
+			<label class="col-xs-3" for="ICCID">ICCID:</label>
 			<div class="col-xs-6">
-				<input type="text" 
+				<input type="text" class="form-control"
 					name="ICCID"
 					ng-model="form.item.ICCID" 
 					ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }"
@@ -32,13 +34,14 @@
 				<div class="error-msg" ng-messages="inventoryForm.ICCID.$error" ng-messages-include="errors.html" 
 							 ng-if="inventoryForm.ICCID.$dirty && inventoryForm.ICCID.$invalid">
 		    </div>
-			</div>
-		</div>
+		  </div>
+		</div><!-- form-group -->
 
-		<div class="row">
-			<div class="col-xs-6"><label for="phone_num">Phone Number:</label></div>
+		<div class="form-group">
+			<label class="col-xs-3" for="phone_num">
+				Phone Number:</label>
 			<div class="col-xs-6">
-				<input type="text" 
+				<input type="text" class="form-control"
 					name="phone_num"
 					ng-model="form.item.phone_num" 
 					ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }"
@@ -47,13 +50,14 @@
 				<div class="error-msg" ng-messages="inventoryForm.phone_num.$error" ng-messages-include="errors.html" 
 							 ng-if="inventoryForm.phone_num.$dirty && inventoryForm.phone_num.$invalid">
 		    </div>
-			</div>
-		</div>
+		  </div>
+		</div><!-- form-group -->
 
-		<div class="row">
-			<div class="col-xs-6"><label for="last_imaged">Last Imaged On:</label></div>
+		<div class="form-group">
+			<label class="col-xs-3" for="last_imaged">
+				Last Imaged On:</label>
 			<div class="col-xs-6">
-				<input type="date" 
+				<input type="date" class="form-control"
 					name="last_imaged"
 					max="{{form.maxDate | date:'yyyy-MM-dd'}}" 
 					ng-model="form.item.last_imaged" 
@@ -62,13 +66,13 @@
 				<div class="error-msg" ng-messages="inventoryForm.last_imaged.$error" ng-messages-include="errors.html" 
 							 ng-if="inventoryForm.last_imaged.$dirty && inventoryForm.last_imaged.$invalid">
 		    </div>
-			</div>
-		</div>
+		  </div>
+		</div><!-- form-group -->
 
-		<div class="row">
-			<div class="col-xs-6"><label for="provider">Provider:</div>
+		<div class="form-group">
+			<label class="col-xs-3" for="provider">Provider:</label>
 			<div class="col-xs-6">
-				<select class="dropdown"
+				<select class="dropdown form-control"
 						name="provider" 
 						ng-model="form.item.provider_id" 
 						ng-options="provider.id as provider.name for provider in misc.providers"
@@ -76,24 +80,23 @@
 						<option value="">Select...</option>
 				</select>
 			</div>
-		</div>
-
-		
-		<div class="row">
-			<div class="col-xs-6"><label for="notes">Notes:</label></div>
+		</div><!-- form-group -->
+	
+		<div class="form-group">
+			<label class="col-xs-3" for="notes">Notes:</label>
 			<div class="col-xs-6">
-				<input type="text" 
+				<textarea type="text" class="form-control"
 					name="notes"
 					ng-model="form.item.notes" 
 					ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }"
 					ng-maxlength="200" 
-					/>
+				>
+				</textarea>
 				<div class="error-msg" ng-messages="inventoryForm.notes.$error" ng-messages-include="errors.html" 
 						ng-if="inventoryForm.notes.$dirty && inventoryForm.notes.$invalid">
 		    </div>
-			</div>
-		</div>
-
+		  </div>
+		</div><!-- form-group -->
 
 	</div>
 </div>
