@@ -307,7 +307,7 @@ angular.module('logisticsApp.services')
         };
 
         //----------------------------------------
-        var createEvent = function(data) {
+        /*var createEvent = function(data) {
             return post('events', data);
         };
 
@@ -321,7 +321,7 @@ angular.module('logisticsApp.services')
 
         var getEvent = function(index) {
             return get('events', index);
-        };
+        };*/
 
         //----------------------------------------
         var createTelco = function(data) {
@@ -394,6 +394,8 @@ angular.module('logisticsApp.services')
             getInventory: getInventory,
             getItem: getItem,
             updateInventory: updateInventory,
+            getInventoryAvailability: getInventoryAvailability,
+            checkInventoryState: checkInventoryState,
             
             createCustomer: createCustomer,
             getCustomers: getCustomers,
@@ -413,12 +415,10 @@ angular.module('logisticsApp.services')
             getCreditCards: getCreditCards,
             getCreditCard: getCreditCard,
 
-            createEvent: createEvent,
+            /*createEvent: createEvent,
             updateEvent: updateEvent,
             getEvents: getEvents,
-            getEvent: getEvent,
-            getInventoryAvailability: getInventoryAvailability,
-            checkInventoryState: checkInventoryState,
+            getEvent: getEvent,*/
             
             createTelco: createTelco,
             updateTelco: updateTelco,

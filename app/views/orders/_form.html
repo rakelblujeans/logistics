@@ -4,10 +4,12 @@
 	</div>
 	<div class="panel-body">
 
-		<div class="row">
-			<div class="col-xs-6"><label for="delivery_type_str">Delivery Type:</label></div>
+		<div class="form-group">
+			<div class="col-xs-3">
+				<label for="delivery_type_str">Delivery Type:</label>
+			</div>
 			<div class="col-xs-6">
-				<input type="text" 
+				<input type="text" class="form-control" 
 					name="delivery_type_str"
 					ng-model="form.order.delivery_type_str" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
@@ -18,12 +20,14 @@
 						 ng-if="orderForm.delivery_type_str.$dirty && orderForm.delivery_type_str.$invalid">
 	      </div>
 			</div>
-		</div>
+		</div><!-- form-group -->
 
-		<div class="row">
-			<div class="col-xs-6"><label for="delivery_type_str">Full address:</label></div>
+		<div class="form-group">
+			<div class="col-xs-3">
+				<label for="delivery_type_str">Full address:</label>
+			</div>
 			<div class="col-xs-6">
-				<input type="text" 
+				<input type="text" class="form-control"
 					name="full_address"
 					ng-model="form.order.full_address" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
@@ -34,12 +38,14 @@
 						 ng-if="orderForm.full_address.$dirty && orderForm.full_address.$invalid">
 	      </div>
 			</div>
-		</div>
+		</div><!-- form-group -->
 
-		<div class="row">
-			<div class="col-xs-6"><label for="shipping_name">Shipping Name:</label></div>
+		<div class="form-group">
+			<div class="col-xs-3">
+				<label for="shipping_name">Shipping Name:</label>
+			</div>
 			<div class="col-xs-6">
-				<input type="text" 
+				<input type="text" class="form-control"
 					name="shipping_name"
 					ng-model="form.order.shipping_name" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
@@ -50,12 +56,14 @@
 						 ng-if="orderForm.shipping_name.$dirty && orderForm.shipping_name.$invalid">
 	      </div>
 			</div>
-		</div>
+		</div><!-- form-group -->
 
-		<div class="row">
-			<div class="col-xs-6"><label for="shipping_city">Shipping City:</label></div>
+		<div class="form-group">
+			<div class="col-xs-3">
+				<label for="shipping_city">Shipping City:</label>
+			</div>
 			<div class="col-xs-6">
-				<input type="text" 
+				<input type="text" class="form-control"
 					name="shipping_city"
 					ng-model="form.order.shipping_city" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
@@ -66,12 +74,14 @@
 						 ng-if="orderForm.shipping_city.$dirty && orderForm.shipping_city.$invalid">
 	      </div>
 			</div>
-		</div>
+		</div><!-- form-group -->
 
-		<div class="row">
-			<div class="col-xs-6"><label for="shipping_state">Shipping State:</label></div>
+		<div class="form-group">
+			<div class="col-xs-3">
+				<label for="shipping_state">Shipping State:</label>
+			</div>
 			<div class="col-xs-6">
-				<input type="text" 
+				<input type="text" class="form-control"
 					name="shipping_state"
 					ng-model="form.order.shipping_state" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
@@ -82,12 +92,14 @@
 						 ng-if="orderForm.shipping_state.$dirty && orderForm.shipping_state.$invalid">
 	      </div>
 			</div>
-		</div>
+		</div><!-- form-group -->
 
-		<div class="row">
-			<div class="col-xs-6"><label for="shipping_zip">Shipping Zip:</label></div>
+		<div class="form-group">
+			<div class="col-xs-3">
+				<label for="shipping_zip">Shipping Zip:</label>
+			</div>
 			<div class="col-xs-6">
-				<input type="text" 
+				<input type="text" class="form-control"
 					name="shipping_zip"
 					ng-model="form.order.shipping_zip" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
@@ -98,12 +110,14 @@
 						 ng-if="orderForm.shipping_zip.$dirty && orderForm.shipping_zip.$invalid">
 	      </div>
 			</div>
-		</div>
+		</div><!-- form-group -->
 
-		<div class="row">
-			<div class="col-xs-6"><label for="shipping_country">Shipping Country:</label></div>
+		<div class="form-group">
+			<div class="col-xs-3">
+				<label for="shipping_country">Shipping Country:</label>
+			</div>
 			<div class="col-xs-6">
-				<input type="text" 
+				<input type="text" class="form-control"
 					name="shipping_country"
 					ng-model="form.order.shipping_country" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
@@ -114,12 +128,14 @@
 						 ng-if="orderForm.shipping_country.$dirty && orderForm.shipping_country.$invalid">
 	      </div>
 			</div>
-		</div>
+		</div><!-- form-group -->
 
-		<div class="row">
-			<div class="col-xs-6"><label for="shipping_apt_suite">Shipping Apt/Suite:</label></div>
+		<div class="form-group">
+			<div class="col-xs-3">
+				<label for="shipping_apt_suite">Shipping Apt/Suite:</label>
+			</div>
 			<div class="col-xs-6">
-				<input type="text" 
+				<input type="text" class="form-control"
 					name="shipping_apt_suite"
 					ng-model="form.order.shipping_apt_suite" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
@@ -130,12 +146,14 @@
 						 ng-if="orderForm.shipping_apt_suite.$dirty && orderForm.shipping_apt_suite.$invalid">
 	      </div>
 			</div>
-		</div>
+		</div><!-- form-group -->
 
-		<div class="row">
-			<div class="col-xs-6"><label for="shipping_notes">Shipping Notes:</label></div>
+		<div class="form-group">
+			<div class="col-xs-3">
+				<label for="shipping_notes">Shipping Notes:</label>
+			</div>
 			<div class="col-xs-6">
-				<input type="text" 
+				<input type="text" class="form-control"
 					name="shipping_notes"
 					ng-model="form.order.shipping_notes" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
@@ -146,12 +164,14 @@
 						 ng-if="orderForm.shipping_notes.$dirty && orderForm.shipping_notes.$invalid">
 	      </div>
 			</div>
-		</div>
+		</div><!-- form-group -->
 
-		<div class="row">
-			<div class="col-xs-6"><label for="arrival_date">Arrival Date:</label></div>
+		<div class="form-group">
+			<div class="col-xs-3">
+				<label for="arrival_date">Arrival Date:</label>
+			</div>
 			<div class="col-xs-6">
-				<input type="text"  
+				<input type="text"  class="form-control"
 					name="arrival_date"
 					ng-model="form.order.arrival_date" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
@@ -162,12 +182,14 @@
 						 ng-if="orderForm.arrival_date.$dirty && orderForm.arrival_date.$invalid">
 	      </div>
 			</div>
-		</div>
+		</div><!-- form-group -->
 
-		<div class="row">
-			<div class="col-xs-6"><label for="departure_date">Departure Date:</label></div>
+		<div class="form-group">
+			<div class="col-xs-3">
+				<label for="departure_date">Departure Date:</label>
+			</div>
 			<div class="col-xs-6">
-				<input type="text" 
+				<input type="text" class="form-control"
 					name="departure_date"
 					ng-model="form.order.departure_date" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
@@ -178,12 +200,14 @@
 						 ng-if="orderForm.departure_date.$dirty && orderForm.departure_date.$invalid">
 	      </div>
 			</div>
-		</div>
+		</div><!-- form-group -->
 
-		<div class="row">
-			<div class="col-xs-6"><label for="language">Language:</label></div>
+		<div class="form-group">
+			<div class="col-xs-3">
+				<label for="language">Language:</label>
+			</div>
 			<div class="col-xs-6">
-				<input type="text" 
+				<input type="text" class="form-control" 
 					name="language"
 					ng-model="form.order.language" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
@@ -194,12 +218,14 @@
 						 ng-if="orderForm.language.$dirty && orderForm.language.$invalid">
 	      </div>
 			</div>
-		</div>
+		</div><!-- form-group -->
 
-		<div class="row">
-			<div class="col-xs-6"><label for="num_phones">Num Phones:</label></div>
+		<div class="form-group">
+			<div class="col-xs-3">
+				<label for="num_phones">Num Phones:</label>
+			</div>
 			<div class="col-xs-6">
-				<input type="text" 
+				<input type="text" class="form-control"
 					name="num_phones"
 					ng-model="form.order.num_phones" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
@@ -210,8 +236,7 @@
 						 ng-if="orderForm.num_phones.$dirty && orderForm.num_phones.$invalid">
 	      </div>
 			</div>
-		</div>
-
+		</div><!-- form-group -->
 
 	</div>
 </div>
