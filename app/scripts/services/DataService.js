@@ -233,11 +233,11 @@ angular.module('logisticsApp.services')
             return update('orders', id, data);
         };
 
-        var getOrders = function(unmatched) {
-            if (unmatched) {
+        var getOrders = function(unverified) {
+            if (unverified) {
                 return getAll('orders');    
             } else {
-                return getAll('orders/unmatched');
+                return getAll('orders/unverified');
             }
         };
 

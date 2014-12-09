@@ -29,7 +29,8 @@ angular
       .when('/inventory',                 { templateUrl: 'views/inventory/index.html', controller: 'InventoryCtrl', controllerAs: 'Inventory' })
 
       .when('/orders/ship/:id',           { templateUrl: 'views/orders/ship.html', controller: 'ShipOrderCtrl', controllerAs: 'Order' })
-      .when('/orders/unmatched/',         { templateUrl: 'views/orders/unmatched.html', controller: 'OrderCtrl', controllerAs: 'Order' })
+      .when('/orders/unverified/',         { templateUrl: 'views/orders/unverified.html', controller: 'OrderCtrl', controllerAs: 'Order' })
+      .when('/orders/unshipped/',         { templateUrl: 'views/orders/unshipped.html', controller: 'OrderCtrl', controllerAs: 'Order' })
       .when('/orders/new/',               { templateUrl: 'views/orders/new.html', controller: 'OrderFormCtrl', controllerAs: 'Order' })
       .when('/orders/:id',        { templateUrl: 'views/orders/detail.html', controller: 'OrderCtrl', controllerAs: 'Order' })
       .when('/orders/edit/:id',   { templateUrl: 'views/orders/edit.html', controller: 'OrderFormCtrl', controllerAs: 'Order' })

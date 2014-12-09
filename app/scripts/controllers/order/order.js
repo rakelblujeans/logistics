@@ -35,7 +35,7 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
 
   $scope.initFromData = function() {
     
-    $scope.unmatched = parseInt($routeParams.unmatched);
+    $scope.unverified = parseInt($routeParams.unverified);
     var orderId = parseInt($routeParams.id, 10);
 
     if (orderId) { // detail view
@@ -43,7 +43,7 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
         $scope.order = order;
       });
     } else { // list view
-      DataService.getOrders($scope.unmatched).then(function(data) {
+      DataService.getOrders($scope.unverified).then(function(data) {
         $scope.orders = data;
         for (var i=0; i<$scope.orders.length; i++) {
           var id = $scope.orders[i].id;
@@ -111,6 +111,11 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
   };
 
   $scope.verifyOrder = function(order) {
+    // modal css clean up (bug in bootstrap related to fade-in)
+    $('#myModal').modal('hide');
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
+
     DataService.markVerified(order.id).then(function() {
       delete $scope.data[order.id];
       for(var i=0; i<$scope.orders.length; i++) {
