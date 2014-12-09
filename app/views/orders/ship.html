@@ -1,10 +1,12 @@
 <h3>Ship Order - Invoice #{{order.invoice_id}}</h3>
 
+<br />
+
 <div class="row">
-	<div class="col-xs-3">Customer</div>
-	<div class="col-xs-3">Address</div>
-	<div class="col-xs-3">Arrival</div>
-	<div class="col-xs-3">Departure</div>
+	<div class="col-xs-3"><strong>Customer</strong></div>
+	<div class="col-xs-3"><strong>Address</strong></div>
+	<div class="col-xs-3"><strong>Arrival</strong></div>
+	<div class="col-xs-3"><strong>Departure</strong></div>
 </div>
 <div class="row">
 	<div class="col-xs-3">{{order.shipping_name}}</div>
@@ -16,88 +18,103 @@
 <br />
 <br />
 
-<form name="shipForm" novalidate>
-	<div class="row">
-		<div class="col-xs-3">
-			<label for="fedex_out_code">Fedex code out: </label>
-		</div>
-		<div class="col-xs-3">
-			<input type="text" 
-				name="fedex_out_code"
-				ng-model="form.shipment.fedex_out_code" 
-				ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
-				ng-minlength="1"
-				ng-maxlength="20" 
-				required />
-			<div class="error-msg" ng-messages="shipForm.fedex_out_code.$error" ng-messages-include="errors.html" 
-					 ng-if="shipForm.fedex_out_code.$dirty && shipForm.fedex_out_code.$invalid">
-      </div>
-		</div>
+<div class="panel panel-warning">
+	<div class="panel-heading">
+		<h3 class="panel-title">Create new delivery</h3>
 	</div>
-	<div class="row">
-		<div class="col-xs-3">
-			<label for="fedex_out_code">Fedex code return:</label>
-		</div>
-		<div class="col-xs-3">
-			<input type="text" 
-				name="fedex_return_code"
-				ng-model="form.shipment.fedex_return_code" 
-				ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
-				ng-minlength="1"
-				ng-maxlength="20" 
-				required />
-			<div class="error-msg" ng-messages="shipForm.fedex_return_code.$error" ng-messages-include="errors.html" 
-					 ng-if="shipForm.fedex_return_code.$dirty && shipForm.fedex_return_code.$invalid">
-      </div>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-xs-12">
-			<p>
-
-				Assigned phones: {{slotsAvailable == order.num_phones ? 'none' : ''}}
-				
-				<button ng-repeat="phone in phoneSlots" ng-if="phone" 
-					type="button" class="btn btn-xs btn-default"
-					ng-click="removeMatch(phone.id)">{{ phone.inventory_id }} &nbsp;<span class="glyphicon glyphicon-remove"></span></button>
-			</p>
+	<div class="panel-body">
+		<form name="shipForm" novalidate>
+			<div class="row">
+				<div class="col-xs-4 form-group">
+					<label class="control-label" for="delivery_out_code">Delivery code out: </label>
+				<!--/div>
+				<div class="col-xs-3"-->
+					<input type="text" 
+						class="form-control"
+						name="delivery_out_code"
+						ng-model="form.shipment.delivery_out_code" 
+						ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+						ng-minlength="1"
+						ng-maxlength="20" 
+						placeholder="tracking code" />
+					<div class="text-danger" ng-messages="shipForm.delivery_out_code.$error" ng-messages-include="errors.html" 
+							 ng-if="shipForm.delivery_out_code.$dirty && shipForm.delivery_out_code.$invalid">
+		      </div><!-- text-danger -->
+				</div><!-- col -->
+				<div class="col-xs-5 form-group">
+					<label class="control-label" for="hand_delivered_by">or hand delivery by:</label>
+					<input type="text"
+						class="form-control"
+						name="hand_delivered_by"
+						ng-model="form.shipment.hand_delivered_by"
+						ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+						ng-minlength="1"
+						ng-maxlength="20" 
+						placeholder="employee's name" />
+					<div class="text-danger" ng-messages="shipForm.hand_delivered_by.$error" ng-messages-include="errors.html" 
+							 ng-if="shipForm.hand_delivered_by.$dirty && shipForm.hand_delivered_by.$invalid">
+		      </div><!-- text-danger -->
+				</div><!-- col -->
+			</div><!-- row -->
+			<div class="row">
+				<div class="col-xs-4 form-group">
+					<label class="control-label" for="delivery_return_code">Delivery code return:</label>
+					<input type="text" 
+						class="form-control"
+						name="delivery_return_code"
+						ng-model="form.shipment.delivery_return_code" 
+						ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+						ng-minlength="1"
+						ng-maxlength="20" 
+						placeholder="tracking code"
+						required />
+					<div class="text-danger" ng-messages="shipForm.delivery_return_code.$error" ng-messages-include="errors.html" 
+							 ng-if="shipForm.delivery_return_code.$dirty && shipForm.delivery_return_code.$invalid">
+		      </div>
+				</div>
+			</div><!-- row -->
+			<br />
 			
-			<div ng-if="slotsAvailable > 0">
-				<p>You can assign {{slotsAvailable}} more phone(s). Assign the next:</p>
-	      <select class="dropdown"
-	          name="assign"
-	          ng-model="order.assignedPhoneId"
-	          ng-options="it.id as it.inventory_id for it in order.availableInventory">
-	          <option value="">Select...</option>
-	      </select>
-				<button type="button" class="btn btn-xs btn-primary" 
-					ng-click="assignInventory()"
-					ng-disabled="!order.assignedPhoneId">
-					<span class="glyphicon glyphicon-ok"></span>
-				</button>
-			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<p><strong>Phones included in this delivery:</strong></p>
+				</div>
+				<div class="col-xs-12">
+					<div class="checkbox">
+				    <label ng-repeat="phone in order.phones">
+				    	<input type="checkbox"
+				      	name="selectedPhones[]"
+				      	value="{{phone.id}}"
+				      	ng-checked="data.selection.indexOf(phone.id) > -1"
+				      	ng-click="toggleSelection(phone.id)">
+				      {{phone.inventory_id}}&nbsp;&nbsp;&nbsp;&nbsp;
+				    </label>
+				  </div>
+				</div>
+			</div><!-- row -->
 
-		</div>
+			<br />
+			<div class="row">
+				<div class="col-xs-12">
+					<button type="button" class="btn btn-success" 
+						ng-disabled="shouldDisableForm(shipForm.$valid)" 
+						ng-click="ship()">
+				  	Mark Shipped <span class="glyphicon glyphicon-thumbs-up">
+					</button>
+				</div>
+			</div><!-- row -->
+		</form>
 	</div>
-
-<br />
-
-	<div class="row">
-		<div class="col-xs-12">
-			<button type="button" class="btn btn-xs btn-primary" 
-					ng-disabled="!shipForm.$valid || slotsAvailable" 
-					ng-click="shipIt()">Ship it
-						<span class="glyphicon glyphicon-ok"></span>
-				</button>
-		</div>
-	</div>
-
-</form>
+</div><!-- panel  -->
 
 <div class="row">
 	<div class="col-xs-12">
 		<h3>Delivery history</h3>	
-		<p>All phones for this order have already shipped</p>
+			<p ng-repeat="shipment in order.shipments">
+				{{shipment.qty}} phone(s) {{data.shipmentPhoneIds[shipment.id]}} went out on {{shipment.out_on_date}} via {{shipment.delivery_type.name}}.
+			</p>
+			<p ng-if="data.doneShipping">All phones for this order have already shipped</p>
+
+		</div>
 	</div>
-</div>
+</div><!-- row -->

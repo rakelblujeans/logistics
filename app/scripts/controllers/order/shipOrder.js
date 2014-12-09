@@ -1,104 +1,77 @@
 'use strict';
 
 function ShipOrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
-
-  /*
-
-  NOTES:
-  slotsAvailable
-  phoneSlots
-  order.assignedPhoneId
-
-  */
+  
+  $scope.form = { 'shipment': {} };
+    $scope.data = {
+      selection: [],
+      shipmentPhoneIds: {},
+      doneShipping: false
+    };
 
   $scope.initFromData = function() {
-    
-    $scope.orderId = parseInt($routeParams.id, 10);
-    $scope.form = { 'shipment': {} };
-    $scope.phoneSlots = {};
-    $scope.slotsAvailable = 0;
-
-    if ($scope.orderId) { // detail view
-      DataService.getOrder($scope.orderId).then(function(order) {
+    var orderId = parseInt($routeParams.id, 10);
+    if (orderId) {
+      DataService.getOrder(orderId).then(function(order) {
         $scope.order = order;
-        // pull latest inventory
-        //console.log('pull inventory', order.assignSelectIsVisible);
-        self._updateState();
+        // display a list of unshipped phones the user can choose from
+        for(var i=0; i<order.phones.length; i++) {
+          $scope.data.selection[i] = order.phones[i].id;
+        }
+
+        // build a list of which phones went out in each prior delivery.
+        // this is stricly for use in the view.
+
+        for(var j=0; j<order.shipments.length; j++) {
+          var phoneIds = [];
+          
+          for(var k=0; k<order.shipments[j].phones.length; k++) {
+            phoneIds[k] = order.shipments[j].phones[k].id;
+          }
+          $scope.data.shipmentPhoneIds[order.shipments[j].id] = '[' + phoneIds.join(',') + ']';
+
+        }
       });
     }
   };
   $scope.$on('$viewContentLoaded', $scope.initFromData);
 
-  self._updateState = function() {
+  // toggle selection for a given fruit by name
+  $scope.toggleSelection = function(phoneId) {
+    var idx = $scope.data.selection.indexOf(phoneId);
 
-    $scope.slotsAvailable = 0;
-    DataService.checkInventoryState($scope.order).then(function(data) {
-      $scope.order.availableInventory = data.availableInventory;
-      //console.log($scope.order.availableInventory);
-      $scope.phoneSlots = data.assignedInventory;
-      //console.log("phoneSlots", $scope.phoneSlots);
+    // is currently selected
+    if (idx > -1) {
+      $scope.data.selection.splice(idx, 1);
+    }
 
-      for (var i=0; i<$scope.order.num_phones; i++) {
-        if ($scope.phoneSlots[0] === undefined) {
-          $scope.slotsAvailable++;
-          //console.log($scope.slotsAvailable);
-        }
-      }
-    });
-
-  };
-
-  self._findPhoneInAvailable = function(phoneId) {
-    for (var i=0; i<$scope.order.availableInventory.length; i++) {
-      if ($scope.order.availableInventory[i].id === phoneId) {
-        return $scope.order.availableInventory[i];
-      }
+    // is newly selected
+    else {
+      $scope.data.selection.push(phoneId);
     }
   };
 
-  /*$scope.pullInventory = function() {
-    $scope.order.assignSelectIsVisible = !$scope.order.assignSelectIsVisible;
-    //console.log('pull inventory', order.assignSelectIsVisible);
-    self._updateState();
-  };*/
-
-  // WARNING: be careful to refer to phone by id, not inventory_id field
-  $scope.assignInventory = function() {
-    console.log('assigning ' + $scope.order.assignedPhoneId);
-    for (var i=0; i<$scope.phoneSlots.length; i++) {
-      if ($scope.phoneSlots[i] === undefined) {
-        $scope.phoneSlots[i] = self._findPhoneInAvailable($scope.order.assignedPhoneId);
-        $scope.slotsAvailable--;
-        break;
-      }
+  $scope.shouldDisableForm = function(formIsValid) {
+    //console.log($scope.form.shipment);
+    var formData = $scope.form.shipment;
+    // one of the two must be filled out
+    if (!formData.delivery_out_code && !formData.hand_delivered_by) {
+      return true;
     }
 
+    return !formIsValid;
   };
 
-  // WARNING: be careful to refer to phone by id, not inventory_id field
-  $scope.removeMatch = function(phoneId) {
-    //console.log(phoneId, $scope.phoneSlots);
-    for (var i=0; i<$scope.phoneSlots.length; i++) {
-      if ($scope.phoneSlots[i].id === phoneId) {
-        $scope.phoneSlots[i] = undefined;
-        $scope.slotsAvailable++;
-        break;
-      }
-    }
-
-  };
-
-  $scope.shipIt = function() {
-    console.log("HELLO", $scope.form);
-    $scope.form.shipment['qty'] = $scope.order.num_phones - $scope.slotsAvailable;
+  $scope.ship = function() {
+    //console.log($scope.form.shipment);
+    $scope.form.shipment['phone_ids'] = $scope.data.selection;
     $scope.form.shipment['order_id'] = $scope.order.id;
-    $scope.form.shipment['phone_ids'] = $scope.phoneSlots;
-    //$scope.form.shipment['delivery_type'] = ''
-    DataService.createShipment($scope.form.shipment).then(function() {
+    $scope.form.shipment['out_on_date'] = new Date().toISOString();
 
+    DataService.createShipment($scope.form).then(function(new_shipment) {
+      //console.log("received: ", new_shipment);
+      $scope.data.pastShipments[$scope.data.pastShipments.length] = new_shipment;
     });
-    // create shipment
-    // create events
   };
 
 };

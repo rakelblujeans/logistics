@@ -307,23 +307,6 @@ angular.module('logisticsApp.services')
         };
 
         //----------------------------------------
-        /*var createEvent = function(data) {
-            return post('events', data);
-        };
-
-        var updateEvent = function(id, data) {
-            return update('events', id, data);
-        };
-
-        var getEvents = function() {
-            return getAll('events');
-        };
-
-        var getEvent = function(index) {
-            return get('events', index);
-        };*/
-
-        //----------------------------------------
         var createTelco = function(data) {
             return post('providers', data);
         };
@@ -409,16 +392,11 @@ angular.module('logisticsApp.services')
             assignDevice: assignDevice,
             unassignDevice: unassignDevice,
             markVerified: markVerified,
-
+            
             createCreditCard: createCreditCard,
             updateCreditCard: updateCreditCard,
             getCreditCards: getCreditCards,
             getCreditCard: getCreditCard,
-
-            /*createEvent: createEvent,
-            updateEvent: updateEvent,
-            getEvents: getEvents,
-            getEvent: getEvent,*/
             
             createTelco: createTelco,
             updateTelco: updateTelco,
@@ -429,7 +407,7 @@ angular.module('logisticsApp.services')
             updateShipment: updateShipment,
             getShipments: getShipments,
             getShipment: getShipment,
-
+        
             createReceipt: createReceipt,
             updateReceipt: updateReceipt,
             getReceipt: getReceipt,

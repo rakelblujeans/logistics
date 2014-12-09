@@ -45,11 +45,6 @@ angular
       .when('/creditCards/:cardIndex',      { templateUrl: 'views/creditCards/detail.html', controller: 'CreditCardCtrl', controllerAs: 'CreditCard' })
       .when('/creditCards/edit/:cardIndex', { templateUrl: 'views/creditCards/edit.html', controller: 'CreditCardFormCtrl', controllerAs: 'CreditCard' })
       .when('/creditCards',                 { templateUrl: 'views/creditCards/index.html', controller: 'CreditCardCtrl', controllerAs: 'CreditCard' })
-
-      .when('/events/new',                  { templateUrl: 'views/events/new.html', controller: 'EventFormCtrl', controllerAs: 'Event' })
-      .when('/events/edit/:logIndex',       { templateUrl: 'views/events/edit.html', controller: 'EventFormCtrl', controllerAs: 'Event' })
-      .when('/events/:logIndex',            { templateUrl: 'views/events/detail.html', controller: 'EventCtrl', controllerAs: 'Event' })
-      .when('/events',                      { templateUrl: 'views/events/index.html', controller: 'EventCtrl', controllerAs: 'Event' })
       
       .when('/telcos/new',                  { templateUrl: 'views/telcos/new.html', controller: 'TelcoFormCtrl', controllerAs: 'Telco' })
       .when('/telcos/edit/:telcoIndex',     { templateUrl: 'views/telcos/edit.html', controller: 'TelcoFormCtrl', controllerAs: 'Telco' })

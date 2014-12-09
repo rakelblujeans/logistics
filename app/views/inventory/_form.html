@@ -14,7 +14,7 @@
 					ng-minlength="1"
 					ng-maxlength="20" 
 					required />
-				<div class="error-msg" ng-messages="inventoryForm.MEID.$error" 
+				<div class="text-danger" ng-messages="inventoryForm.MEID.$error" 
 					ng-messages-include="errors.html" 
 					ng-if="inventoryForm.MEID.$dirty && inventoryForm.MEID.$invalid">
 	      </div>
@@ -31,7 +31,7 @@
 					ng-minlength="1"
 					ng-maxlength="30" 
 					required />
-				<div class="error-msg" ng-messages="inventoryForm.ICCID.$error" ng-messages-include="errors.html" 
+				<div class="text-danger" ng-messages="inventoryForm.ICCID.$error" ng-messages-include="errors.html" 
 							 ng-if="inventoryForm.ICCID.$dirty && inventoryForm.ICCID.$invalid">
 		    </div>
 		  </div>
@@ -47,7 +47,7 @@
 					ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }"
 					ng-maxlength="20"
 					required />
-				<div class="error-msg" ng-messages="inventoryForm.phone_num.$error" ng-messages-include="errors.html" 
+				<div class="text-danger" ng-messages="inventoryForm.phone_num.$error" ng-messages-include="errors.html" 
 							 ng-if="inventoryForm.phone_num.$dirty && inventoryForm.phone_num.$invalid">
 		    </div>
 		  </div>
@@ -63,7 +63,7 @@
 					ng-model="form.item.last_imaged" 
 					ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }"
 					required />
-				<div class="error-msg" ng-messages="inventoryForm.last_imaged.$error" ng-messages-include="errors.html" 
+				<div class="text-danger" ng-messages="inventoryForm.last_imaged.$error" ng-messages-include="errors.html" 
 							 ng-if="inventoryForm.last_imaged.$dirty && inventoryForm.last_imaged.$invalid">
 		    </div>
 		  </div>
@@ -92,7 +92,7 @@
 					ng-maxlength="200" 
 				>
 				</textarea>
-				<div class="error-msg" ng-messages="inventoryForm.notes.$error" ng-messages-include="errors.html" 
+				<div class="text-danger" ng-messages="inventoryForm.notes.$error" ng-messages-include="errors.html" 
 						ng-if="inventoryForm.notes.$dirty && inventoryForm.notes.$invalid">
 		    </div>
 		  </div>
