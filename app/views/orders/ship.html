@@ -18,7 +18,7 @@
 <br />
 <br />
 
-<div class="panel panel-warning">
+<div ng-if="!data.doneShipping" class="panel panel-warning">
 	<div class="panel-heading">
 		<h3 class="panel-title">Create new delivery</h3>
 	</div>
@@ -110,10 +110,11 @@
 <div class="row">
 	<div class="col-xs-12">
 		<h3>Delivery history</h3>	
-			<p ng-repeat="shipment in order.shipments">
-				{{shipment.qty}} phone(s) {{data.shipmentPhoneIds[shipment.id]}} went out on {{shipment.out_on_date}} via {{shipment.delivery_type.name}}.
+			<p class="text-success" ng-if="data.doneShipping">All phones for this order have already shipped</p>
+
+			<p ng-repeat="shipment in order.shipments | orderBy:shipment.out_on_date:true">
+				[ {{shipment.out_on_date}} ] {{shipment.qty}} phone(s) {{data.shipmentPhoneIds[shipment.id]}} went out via {{shipment.delivery_type.name}}.
 			</p>
-			<p ng-if="data.doneShipping">All phones for this order have already shipped</p>
 
 		</div>
 	</div>
