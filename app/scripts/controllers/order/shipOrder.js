@@ -3,36 +3,47 @@
 function ShipOrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
   
   $scope.form = { 'shipment': {} };
-    $scope.data = {
-      selection: [],
-      shipmentPhoneIds: {},
-      doneShipping: false
-    };
+  $scope.data = {
+    unshippedPhones: [],
+    selection: [],
+    shipmentPhoneIds: {},
+    doneShipping: false
+  };
 
   function updateOrderData(orderId) {
     DataService.getOrder(orderId).then(function(order) {
       $scope.order = order;
-      // display a list of unshipped phones the user can choose from
+
+      // get phones assigned to this order
+      $scope.data.unshippedPhones = order.phones;
       for(var i=0; i<order.phones.length; i++) {
-      $scope.data.selection[i] = order.phones[i].id;
+        $scope.data.selection[i] = order.phones[i].id;
       }
 
-      // build a list of which phones went out in each prior delivery.
-      // this is stricly for use in the view.
-
+      // Build a list of which phones went out in each prior delivery.
       var numPhones = 0;
       for(var j=0; j<order.shipments.length; j++) {
         var phoneIds = [];
         
         for(var k=0; k<order.shipments[j].phones.length; k++) {
           phoneIds[k] = order.shipments[j].phones[k].id;
+
+          // filter out phones that have already shipped - don't send this
+          // info to the view
+          var foundIdx = $scope.data.selection.indexOf(phoneIds[k])
+          if (foundIdx > -1) {
+            $scope.data.selection.splice(foundIdx, 1);
+            $scope.data.unshippedPhones.splice(foundIdx, 1);
+          }
         }
         $scope.data.shipmentPhoneIds[order.shipments[j].id] = '[' + phoneIds.join(',') + ']';
         numPhones += order.shipments[j].qty;
       }
+
       if (numPhones >= order.num_phones) {
         $scope.data.doneShipping = true;
       }
+
     });
   }
 
@@ -60,10 +71,13 @@ function ShipOrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
   };
 
   $scope.shouldDisableForm = function(formIsValid) {
-    //console.log($scope.form.shipment);
     var formData = $scope.form.shipment;
     // one of the two must be filled out
     if (!formData.delivery_out_code && !formData.hand_delivered_by) {
+      return true;
+    }
+
+    if ($scope.data.selection.length <= 0) {
       return true;
     }
 
@@ -76,7 +90,7 @@ function ShipOrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
     $scope.form.shipment['out_on_date'] = new Date().toISOString();
 
     DataService.createShipment($scope.form).then(function(new_shipment) {
-      updateOrderData($scope.orderId);
+      updateOrderData($scope.order.id);
     });
   };
 
