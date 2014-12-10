@@ -218,14 +218,14 @@ angular.module('logisticsApp.services')
 
         var getInventoryAvailability = function(startDate, endDate) {
             //console.log('getting inventory available between ', startDate, endDate);
-            return getAll('phones/availableInventory', {
+            return getAll('phones/available_inventory', {
                 'start_date': startDate.toString(),
                 'end_date': endDate.toString()
             });
         };
 
         var checkInventoryState = function(order) {
-            var promise = getAll('phones/inventorySnapshot/' + order.id)
+            var promise = getAll('phones/inventory_snapshot/' + order.id)
             .then(function(data) {
               
               //console.log("[" + order.id + "]", data);
@@ -274,21 +274,21 @@ angular.module('logisticsApp.services')
 
         var assignDevice = function(orderId, phoneId) {
             //console.log('SENDING', orderId, phoneId);
-            return post('orders/assignDevice', {
+            return post('orders/assign_device', {
                 'order_id': orderId,
                 'phone_id': phoneId
             });
         };
 
         var unassignDevice = function(orderId, inventoryId) {
-            return deleteObj('orders/unassignDevice', {
+            return deleteObj('orders/unassign_device', {
                 'order_id': orderId,
                 'phone_id': inventoryId
             });
         };
 
         var markVerified = function(orderId) {
-            return post('orders/markVerified', {
+            return post('orders/mark_verified', {
                 'order_id': orderId
             });
         };
