@@ -4,6 +4,10 @@ function InventoryCtrl($scope, $http, $window, $route, $routeParams, $location, 
 
   ListCtrl.call(this, $scope, DataService);
 
+  $scope.data = {
+    'upcoming_orders': undefined
+  };
+
   $scope.initFromData = function() {
     $scope.invId = parseInt($routeParams.invIndex, 10);
     if ($scope.invId) { // detail view
@@ -11,6 +15,9 @@ function InventoryCtrl($scope, $http, $window, $route, $routeParams, $location, 
         $scope.item = item;
         DataService.getTelcoName(item.provider_id).then(function(telcoName){
           $scope.item['providerName'] = telcoName;
+        });
+        DataService.getUpcomingOrders($scope.invId).then(function(upcoming_orders) {
+          $scope.data.upcoming_orders = upcoming_orders;
         });
       });
     } else { // list view

@@ -1,5 +1,3 @@
-<div class="detail-column">
-
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">Inventory Detail #{{item.id}}</h3>
@@ -7,43 +5,61 @@
 	</div>
 	<div class="panel-body">
 		<div class="row">
-			<div class="col-xs-6">MEID:</div>
+			<div class="col-xs-3">MEID:</div>
 			<div class="col-xs-6">{{item.MEID}}</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-6">ICCID:</div>
+			<div class="col-xs-3">ICCID:</div>
 			<div class="col-xs-6">{{item.ICCID}}</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-6">Phone Number:</div>
+			<div class="col-xs-3">Phone Number:</div>
 			<div class="col-xs-6">{{item.phone_num}}</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-6">Last Imaged On:</div>
+			<div class="col-xs-3">Last Imaged On:</div>
 			<div class="col-xs-6">{{item.last_imaged}}</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-6">Provider:</div>
+			<div class="col-xs-3">Provider:</div>
 			<div class="col-xs-6">{{item.providerName}}</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-6">Notes:</div>
+			<div class="col-xs-3">Notes:</div>
 			<div class="col-xs-6">{{item.notes}}</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-6">Last updated on:</div>
+			<div class="col-xs-3">Last updated on:</div>
 			<div class="col-xs-6">{{item.updated_at}}</div>
-		</div>
-		<br />
-		<div class="row">
-			<div class="col-xs-12">Upcoming orders</div>
-			<div class="col-xs-12">...</div>
 		</div>
 	</div>
 </div>
 
+		<div class="row">
+			<h4 class="col-xs-12">Upcoming orders</h4>
+		</div>
+		<div ng-if="data.upcoming_orders">
+			<div class="row">
+				<div class="col-xs-3"><strong>Customer</strong></div>
+				<div class="col-xs-3"><strong>Address</strong></div>
+				<div class="col-xs-3"><strong>Arrival</strong></div>
+				<div class="col-xs-3"><strong>Departure</strong></div>
+			</div>
+			<div class="row" ng-repeat="order in data.upcoming_orders">
+				<div class="col-xs-3">
+					<a href="/#/orders/{{order.id}}">{{order.shipping_name}}</a>
+				</div>
+				<div class="col-xs-3">{{order.full_address}}</div>
+				<div class="col-xs-3">{{order.arrival_date}}</div>
+				<div class="col-xs-3">{{order.departure_date}}</div>
+			</div>
+		</div>
+		<div ng-if="!data.upcoming_orders">
+			<div class="row">
+				<div class="col-xs-12" ng-if="!item.upcoming_orders">
+					<p>No scheduled orders.</p>
+				</div>
+			</div>
+		</div>
 
-
-
-
-</div>
+<br />

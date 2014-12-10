@@ -224,27 +224,6 @@ angular.module('logisticsApp.services')
             });
         };
 
-        //----------------------------------------
-        var createOrder = function(data) {
-            return post('orders', data);
-        };
-
-        var updateOrder = function(id, data) {
-            return update('orders', id, data);
-        };
-
-        var getOrders = function(unverified) {
-            if (unverified) {
-                return getAll('orders');    
-            } else {
-                return getAll('orders/unverified');
-            }
-        };
-
-        var getOrder = function(index) {
-            return get('orders', index);
-        };
-
         var checkInventoryState = function(order) {
             var promise = getAll('phones/inventorySnapshot/' + order.id)
             .then(function(data) {
@@ -266,6 +245,31 @@ angular.module('logisticsApp.services')
             });
 
             return promise;            
+        };
+
+        var getUpcomingOrders = function(itemId) {
+            return getAll('phones/' + itemId + '/upcoming_orders');
+        };
+
+        //----------------------------------------
+        var createOrder = function(data) {
+            return post('orders', data);
+        };
+
+        var updateOrder = function(id, data) {
+            return update('orders', id, data);
+        };
+
+        var getOrders = function(unverified) {
+            if (unverified) {
+                return getAll('orders');    
+            } else {
+                return getAll('orders/unverified');
+            }
+        };
+
+        var getOrder = function(index) {
+            return get('orders', index);
         };
 
         var assignDevice = function(orderId, phoneId) {
@@ -379,6 +383,7 @@ angular.module('logisticsApp.services')
             updateInventory: updateInventory,
             getInventoryAvailability: getInventoryAvailability,
             checkInventoryState: checkInventoryState,
+            getUpcomingOrders: getUpcomingOrders,
             
             createCustomer: createCustomer,
             getCustomers: getCustomers,
