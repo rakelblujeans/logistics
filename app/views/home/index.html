@@ -8,7 +8,13 @@
 		<h2>Today</h2>
 
 		<h3>Incoming</h3>
+			<ul>
+				<li ng-repeat="phone in data.today.incoming">phone.inventory_id</li>
+			</ul>
 		<h3>Outbound</h3>
+			<ul>
+				<li ng-repeat="phone in data.today.outbound">phone.inventory_id</li>
+			</ul>
 		<h3>Warnings</h3>
 
 		<a href="">Mark business day done</a>
@@ -16,9 +22,15 @@
 
 	<div class="column col-md-4">
 		<h2>Tomorrow</h2>
-
+			
 		<h3>Incoming</h3>
+			<ul>
+				<li ng-repeat="phone in data.tomorrow.incoming">phone.inventory_id</li>
+			</ul>
 		<h3>Outbound</h3>
+			<ul>
+				<li ng-repeat="phone in data.tomorrow.outbound">phone.inventory_id</li>
+			</ul>
 		<h3>Warnings</h3>
 	</div>
 

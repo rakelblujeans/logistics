@@ -251,6 +251,16 @@ angular.module('logisticsApp.services')
             return getAll('phones/' + itemId + '/upcoming_orders');
         };
 
+        var getIncomingInventory = function(date) {
+            return getAll('phones/incoming_on', 
+                {'date': date });
+        };
+
+        var getOutboundInventory = function(date) {
+            return getAll('phones/outbound_on', 
+                {'date': date });
+        };
+
         //----------------------------------------
         var createOrder = function(data) {
             return post('orders', data);
@@ -384,6 +394,8 @@ angular.module('logisticsApp.services')
             getInventoryAvailability: getInventoryAvailability,
             checkInventoryState: checkInventoryState,
             getUpcomingOrders: getUpcomingOrders,
+            getIncomingInventory: getIncomingInventory,
+            getOutboundInventory: getOutboundInventory,
             
             createCustomer: createCustomer,
             getCustomers: getCustomers,
