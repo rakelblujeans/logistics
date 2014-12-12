@@ -21,6 +21,7 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
    * 
    */
   $scope.data = {};
+  $scope.options = {}; // holds routeParam options
 
   function buildPhoneIdString(order) {
     var assignedPhones = [];
@@ -33,9 +34,24 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
     return "[" + assignedPhones.join(",") + "]"
   };
 
+  function setPageTitle(options) {
+    if (options.unverified) {
+      $scope.data.pageTitle = "Unverified Orders";
+    } else if (options.unshipped) {
+      $scope.data.pageTitle = "Orders ready for delivery"
+    } else {
+      $scope.data.pageTitle = "All Orders";
+    }
+  };
+
   $scope.initFromData = function() {
     
-    $scope.unverified = parseInt($routeParams.unverified);
+    if ($routeParams.verifiedState) {
+      $scope.options = {
+        unverified: $routeParams.verifiedState == false,
+        unshipped: $routeParams.verifiedState == true };
+    }
+    setPageTitle($scope.options);
     var orderId = parseInt($routeParams.id, 10);
 
     if (orderId) { // detail view
@@ -43,7 +59,7 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
         $scope.order = order;
       });
     } else { // list view
-      DataService.getOrders($scope.unverified).then(function(data) {
+      DataService.getOrders($scope.options).then(function(data) {
         $scope.orders = data;
         for (var i=0; i<$scope.orders.length; i++) {
           var id = $scope.orders[i].id;

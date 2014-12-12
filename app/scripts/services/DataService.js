@@ -23,6 +23,7 @@ angular.module('logisticsApp.services')
                 url = localUrl + dataPoint + '.json';
             }
             
+            //console.log(url, params);
             $http({
                 method: 'GET',
                 url: url,
@@ -270,11 +271,14 @@ angular.module('logisticsApp.services')
             return update('orders', id, data);
         };
 
-        var getOrders = function(unverified) {
-            if (unverified) {
-                return getAll('orders');    
-            } else {
+        var getOrders = function(options) {
+            //console.log(options);
+            if (options.unverified) {
                 return getAll('orders/unverified');
+            } else if (options.unshipped) {
+                return getAll('orders/verified');
+            }else {
+                return getAll('orders');
             }
         };
 

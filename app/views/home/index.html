@@ -9,11 +9,13 @@
 
 		<h3>Incoming</h3>
 			<ul>
-				<li ng-repeat="phone in data.today.incoming">phone.inventory_id</li>
+				<li ng-repeat="phone in data.today.incoming">
+					<a href="/#/inventory/{{phone.id}}">{{phone.inventory_id}}</a></li>
 			</ul>
 		<h3>Outbound</h3>
 			<ul>
-				<li ng-repeat="phone in data.today.outbound">phone.inventory_id</li>
+				<li ng-repeat="phone in data.today.outbound">
+					<a href="/#/inventory/{{phone.id}}">{{phone.inventory_id}}</a></li>
 			</ul>
 		<h3>Warnings</h3>
 
@@ -25,11 +27,13 @@
 			
 		<h3>Incoming</h3>
 			<ul>
-				<li ng-repeat="phone in data.tomorrow.incoming">phone.inventory_id</li>
+				<li ng-repeat="phone in data.tomorrow.incoming">
+					<a href="/#/inventory/{{phone.id}}">{{phone.inventory_id}}</a></li>
 			</ul>
 		<h3>Outbound</h3>
 			<ul>
-				<li ng-repeat="phone in data.tomorrow.outbound">phone.inventory_id</li>
+				<li ng-repeat="phone in data.tomorrow.outbound">
+					<a href="/#/inventory/{{phone.id}}">{{phone.inventory_id}}</a></li>
 			</ul>
 		<h3>Warnings</h3>
 	</div>
@@ -38,8 +42,8 @@
 		<a href="#/orders/new">Add order</a><br />
 		<a href="#/inventory/received">Mark inventory in</a><br />
 		<a href="#/calendar">Calendar</a><br />
-		<a href="#/orders/unverified">Unverified orders</a><br />
-		<a href="#/orders/unshipped">Unshipped orders</a><br />
+		<a href="#/orders?verifiedState=0">Unverified orders</a><br />
+		<a href="#/orders?verifiedState=1">Unshipped orders</a><br />
 		<a href="#/inventory/new">Add inventory</a><br />
 		<hr />
 
@@ -47,6 +51,7 @@
 		<input type="text" placeholder="123" ng-model="order_id"/></p>
 		<a href="#/orders/edit/{{order_id}}">Edit order</a><br />
 		<a href="#/orders/ship/{{order_id}}">Ship order</a>
-		
 	</nav>
 </div>
+
+<br />

@@ -1,5 +1,3 @@
-<div class="detail-column">
-
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Order Detail #{{order.id}}</h3>
@@ -61,4 +59,51 @@
   </div>
 </div>
 
+
+<div class="row">
+  <h4 class="col-xs-12">Assigned Phones</h4>
 </div>
+  <table class="table" ng-if="order.phones.length > 0">
+  <thead>
+  <tr>
+    <th ng-class="{ascending: sort.column == 'id' && !sort.descending, 
+                   descending: sort.column == 'id' && sort.descending}" ng-click="changeSorting('id')">
+      # <span ng-show="sort.column == 'id'"> {{ sort.descending | sortOrderIcon }}</span>
+    </th>
+    <th ng-class="{ascending: sort.column == 'phone_num' && !sort.descending, 
+                   descending: sort.column == 'phone_num' && sort.descending}" ng-click="changeSorting('phone_num')">
+      Number <span ng-show="sort.column == 'phone_num'"> {{ sort.descending | sortOrderIcon }}</span>
+    </th>
+    <th ng-class="{ascending: sort.column == 'provider_id' && !sort.descending, 
+                   descending: sort.column == 'provider_id' && sort.descending}" ng-click="changeSorting('provider_id')">
+      Telco <span ng-show="sort.column == 'provider_id'"> {{ sort.descending | sortOrderIcon }}</span>
+    </th>
+    <th ng-class="{ascending: sort.column == 'MEID' && !sort.descending, 
+                   descending: sort.column == 'MEID' && sort.descending}" ng-click="changeSorting('MEID')">
+      MEID <span ng-show="sort.column == 'MEID'"> {{ sort.descending | sortOrderIcon }}</span>
+    </th>
+    <th ng-class="{ascending: sort.column == 'last_imaged' && !sort.descending, 
+                   descending: sort.column == 'last_imaged' && sort.descending}" ng-click="changeSorting('last_imaged')">
+      Last Imaged On <span ng-show="sort.column == 'last_imaged'"> {{ sort.descending | sortOrderIcon }}</span>
+    </th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="inv in order.phones | filter:query | orderBy: orderProp | orderBy:sort.column:sort.descending">
+    <td ng-class-odd="'odd'" ng-class-even="'even'">
+      <a href="#/inventory/{{ inv.id }}">{{ inv.id }}</a></td>
+    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.phone_num }}</td>
+    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.provider_id }}</td>
+    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.MEID }}</td>
+    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.last_imaged }}</td>
+    <td ng-class-odd="'odd'" ng-class-even="'even'">
+      <!--button type="button" class="btn btn-xs btn-default" ng-click="viewDetail($index)">Details</button-->
+      <a href="" ng-click="toggleActivation(inv, 'phones')">
+        {{ inv.active ? 'Deactivate' : 'Activate' }}
+      </a>
+    </td>
+  </tr>
+  </tbody>
+  </table>
+<p ng-if="order.phones.length == 0">No phones assigned.</p>
