@@ -23,18 +23,18 @@ angular.module('logisticsApp.services')
                 url = localUrl + dataPoint + '.json';
             }
             
-            //console.log(url, params);
+            console.log(url, params);
             $http({
                 method: 'GET',
                 url: url,
                 params: params,
             })
             .success(function(data) {
-                //console.log("SUCCESS", data);
+                //console.log('SUCCESS', data);
                 d.resolve(data);
             }).error(function(reason) {
                 d.reject(reason);
-                //console.log("REJECT", reason);
+                //console.log('REJECT', reason);
             });
             return d.promise;
         };
@@ -252,6 +252,10 @@ angular.module('logisticsApp.services')
             return getAll('phones/' + itemId + '/upcoming_orders');
         };
 
+        var getCurrentOrder = function(itemId) {
+            return getAll('phones/' + itemId + '/current_order');
+        };
+
         var getIncomingInventory = function(date) {
             return getAll('phones/incoming_on', 
                 {'date': date });
@@ -289,21 +293,21 @@ angular.module('logisticsApp.services')
         var assignDevice = function(orderId, phoneId) {
             //console.log('SENDING', orderId, phoneId);
             return post('orders/assign_device', {
-                'order_id': orderId,
+                'id': orderId,
                 'phone_id': phoneId
             });
         };
 
         var unassignDevice = function(orderId, inventoryId) {
-            return deleteObj('orders/unassign_device', {
-                'order_id': orderId,
+            return post('orders/unassign_device', {
+                'id': orderId,
                 'phone_id': inventoryId
             });
         };
 
         var markVerified = function(orderId) {
             return post('orders/mark_verified', {
-                'order_id': orderId
+                'id': orderId
             });
         };
 
@@ -398,6 +402,7 @@ angular.module('logisticsApp.services')
             getInventoryAvailability: getInventoryAvailability,
             checkInventoryState: checkInventoryState,
             getUpcomingOrders: getUpcomingOrders,
+            getCurrentOrder: getCurrentOrder,
             getIncomingInventory: getIncomingInventory,
             getOutboundInventory: getOutboundInventory,
             

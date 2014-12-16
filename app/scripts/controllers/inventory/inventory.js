@@ -5,6 +5,7 @@ function InventoryCtrl($scope, $http, $window, $route, $routeParams, $location, 
   ListCtrl.call(this, $scope, DataService);
 
   $scope.data = {
+    'current_order': undefined,
     'upcoming_orders': undefined
   };
 
@@ -13,9 +14,15 @@ function InventoryCtrl($scope, $http, $window, $route, $routeParams, $location, 
     if ($scope.invId) { // detail view
       DataService.getItem($scope.invId).then(function(item) {
         $scope.item = item;
+
         DataService.getTelcoName(item.provider_id).then(function(telcoName){
           $scope.item['providerName'] = telcoName;
         });
+
+        DataService.getCurrentOrder($scope.invId).then(function(current_order) {
+          $scope.data.current_order = current_order;
+        });
+
         DataService.getUpcomingOrders($scope.invId).then(function(upcoming_orders) {
           $scope.data.upcoming_orders = upcoming_orders;
         });

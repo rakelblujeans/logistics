@@ -33,14 +33,26 @@ function HomeCtrl($scope, DataService) {
     DataService.getIncomingInventory(ymd(today)).then(function(inboundPhones) {
   		$scope.data.today.incoming = inboundPhones;
     });
+    DataService.getOutboundInventory(ymd(today)).then(function(inboundPhones) {
+  		$scope.data.today.outbound = inboundPhones;
+    });
 
     var tomorrow = new Date();
 		tomorrow.setDate(tomorrow.getDate() + 1);
-    DataService.getIncomingInventory(ymd(tomorrow)).then(function(outboundPhones) {
-  		$scope.data.today.outbound = outboundPhones;
+		DataService.getIncomingInventory(ymd(tomorrow)).then(function(inboundPhones) {
+  		$scope.data.tomorrow.incoming = inboundPhones;
+    });
+    DataService.getOutboundInventory(ymd(tomorrow)).then(function(outboundPhones) {
+  		$scope.data.tomorrow.outbound = outboundPhones;
     });
   };
   $scope.$on('$viewContentLoaded', $scope.initFromData);
+
+  $scope.doSearch = function() {
+
+  };
+
+  $scope.editOrd
 
 };
 

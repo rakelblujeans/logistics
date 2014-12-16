@@ -61,6 +61,7 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
     } else { // list view
       DataService.getOrders($scope.options).then(function(data) {
         $scope.orders = data;
+        //console.log(data);
         for (var i=0; i<$scope.orders.length; i++) {
           var id = $scope.orders[i].id;
           $scope.data[id] = {

@@ -38,20 +38,35 @@
 		<h3>Warnings</h3>
 	</div>
 
-	<nav class="col-md-4">
-		<a href="#/orders/new">Add order</a><br />
-		<a href="#/inventory/received">Mark inventory in</a><br />
-		<a href="#/calendar">Calendar</a><br />
-		<a href="#/orders?verifiedState=0">Unverified orders</a><br />
-		<a href="#/orders?verifiedState=1">Unshipped orders</a><br />
-		<a href="#/inventory/new">Add inventory</a><br />
-		<hr />
+<div class="col-md-4 sidebar">
+	<h4>Search</h4>
+	<input type="text" placeholder="invoice #, name, address, ..." ng-model="query" size="30" ng-click="doSearch()" />
 
-		<p>Order id:
-		<input type="text" placeholder="123" ng-model="order_id"/></p>
-		<a href="#/orders/edit/{{order_id}}">Edit order</a><br />
-		<a href="#/orders/ship/{{order_id}}">Ship order</a>
-	</nav>
+	<br />
+	<br />
+	<h4>Order Management</h4>
+	<p><a href="#/orders/new">Add order</a></p>
+	<p>Edit order:
+		<input type="text" placeholder="123" size="5" ng-model="order_id"/>
+		<button type="button" class="btn btn-default btn-sm" >
+			<span class="glyphicon glyphicon-chevron-right" ng-click="">
+		</button>
+	</p>
+
+	<br />
+	<h4>Inventory Management</h4>
+	<p><a href="#/inventory/new">Add inventory</a></p>
+	<p><a href="#/inventory/received">Mark inventory in</a></p>
+
+	<br />
+	<h4>Fulfillment Management</h4>
+	<p><a href="#/orders?verifiedState=0">Pending orders</a></p>
+	<p><a href="#/orders?verifiedState=1">Unshipped orders</a></p>
+	<p><a href="">Calendar</a></p>
+
+
+</div>
+
 </div>
 
 <br />
