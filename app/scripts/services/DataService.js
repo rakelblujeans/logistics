@@ -23,7 +23,7 @@ angular.module('logisticsApp.services')
                 url = localUrl + dataPoint + '.json';
             }
             
-            console.log(url, params);
+            //console.log(url, params);
             $http({
                 method: 'GET',
                 url: url,

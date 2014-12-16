@@ -1,0 +1,50 @@
+<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" 
+		        	data-dismiss="modal" ng-click="dismiss(order)">
+		        	<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+		        </button>
+		        <h4 class="modal-title" id="myModalLabel">Assign Phones</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>
+
+		        	Currently assigned: {{order.slotsAvailable == order.num_phones ? 'none' : ''}}
+							<button ng-repeat="phoneSlot in data[order.id].phoneSlots"
+								ng-if="phoneSlot" 
+								type="button" class="btn btn-xs btn-default"
+								ng-click="unassignDevice(order, phoneSlot.id)">
+									{{ phoneSlot.inventory_id}} &nbsp;<span class="glyphicon glyphicon-remove"></span>
+							</button>
+						</p>
+
+						<div ng-if="data[order.id].slotsAvailable > 0">
+							<p>You have {{data[order.id].slotsAvailable}} open slot(s). Assign the next:</p>
+				      <select class="dropdown"
+				          name="assign"
+				          ng-model="order.assignedInventoryItem"
+				          ng-options="it.id as it.inventory_id for it in data[order.id].availableInventory">
+				          <option value="">Select...</option>
+				      </select>
+							<button type="button" class="btn btn-xs btn-primary" ng-click="assignDevice(order)">
+								<span class="glyphicon glyphicon-ok"></span>
+							</button>
+						</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal"
+		        	ng-click="dismiss(order)">Close</button>
+		        <button type="button" class="btn btn-success" 
+		        	data-dismiss="modal"
+							ng-if="!data[order.id].slotsAvailable"
+							ng-click="verifyOrder(order)">
+							Mark verified &nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>
+						</button>
+						
+		      </div>
+		    </div>
+		  </div>
+		</div><!-- end Modal -->

@@ -44,40 +44,17 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
     }
   };
 
-  $scope.initFromData = function() {
-    
-    if ($routeParams.verifiedState) {
-      $scope.options = {
-        unverified: $routeParams.verifiedState == false,
-        unshipped: $routeParams.verifiedState == true };
-    }
-    setPageTitle($scope.options);
-    var orderId = parseInt($routeParams.id, 10);
-
-    if (orderId) { // detail view
-      DataService.getOrder(orderId).then(function(order) {
-        $scope.order = order;
-      });
-    } else { // list view
-      DataService.getOrders($scope.options).then(function(data) {
-        $scope.orders = data;
-        //console.log(data);
-        for (var i=0; i<$scope.orders.length; i++) {
-          var id = $scope.orders[i].id;
-          $scope.data[id] = {
-              'assignedPhoneIds': buildPhoneIdString($scope.orders[i]),
-              'assignmentOptionsVisible': false
-          };
-        }
-
-      });
-    }
+  function _dismissModal() {
+    // modal css clean up (bug in bootstrap related to fade-in)
+    $('#myModal').modal('hide');
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
   };
-  $scope.$on('$viewContentLoaded', $scope.initFromData);
 
-  self._getAvailableInventory = function(order) {
+  function _getAvailableInventory(order) {
     var orderData = $scope.data[order.id];
     orderData.phoneSlots = order.phones;
+
     orderData.assignedPhoneIds = buildPhoneIdString(order);
 
     var promise = DataService.getInventoryAvailability(order.arrival_date, order.departure_date).then(function(data) {
@@ -95,15 +72,65 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
     return promise;
   };
 
-  $scope.showInventoryOptions = function(order) {
-    // collapse all other rows
-    for(var i=0; i<$scope.orders.length; i++) {
-      $scope.data[order.id].assignmentOptionsVisible = false;  
+  function _updateOrder(oldOrder, newOrder) {
+    if ($scope.order) { 
+      $scope.order = newOrder;
+    } else {
+      oldOrder = newOrder;
+      for(var i=0; i<$scope.orders.length; i++) {
+        if ($scope.orders[i].id === newOrder.id) {
+          $scope.orders[i].phones = newOrder.phones;
+        }
+      }
     }
-    // only expand this order's row
-    $scope.data[order.id].assignmentOptionsVisible = !$scope.data[order.id].assignmentOptionsVisible;
-    // pull latest inventory data
-    self._getAvailableInventory(order);
+  };
+
+  $scope.initFromData = function() {
+    
+    $scope.sort.column = 'inventory_id'
+    if ($routeParams.verifiedState) {
+      $scope.options = {
+        unverified: $routeParams.verifiedState == false,
+        unshipped: $routeParams.verifiedState == true };
+    }
+    setPageTitle($scope.options);
+    var orderId = parseInt($routeParams.id, 10);
+
+    if (orderId) { // detail view
+      DataService.getOrder(orderId).then(function(order) {
+        $scope.order = order;
+          $scope.data[order.id] = {};
+          _getAvailableInventory($scope.order);
+      });
+    } else { // list view
+      DataService.getOrders($scope.options).then(function(data) {
+        $scope.orders = data;
+        for (var i=0; i<$scope.orders.length; i++) {
+          var id = $scope.orders[i].id;
+          $scope.data[id] = {
+              'assignedPhoneIds': buildPhoneIdString($scope.orders[i]),
+              'assignmentOptionsVisible': false
+          };
+        }
+
+      });
+    }
+  };
+  $scope.$on('$viewContentLoaded', $scope.initFromData);
+
+  $scope.showInventoryOptions = function(order) {
+    if ($scope.order) {
+      _getAvailableInventory(order);
+    } else {
+      // collapse all other rows
+      for(var i=0; i<$scope.orders.length; i++) {
+        $scope.data[order.id].assignmentOptionsVisible = false;  
+      }
+      // only expand this order's row
+      $scope.data[order.id].assignmentOptionsVisible = !$scope.data[order.id].assignmentOptionsVisible;
+      // pull latest inventory data
+      _getAvailableInventory(order);
+    }
   };
 
   // WARNING: be careful to refer to phone by id, not inventory_id field
@@ -111,9 +138,9 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
     DataService.assignDevice(order.id, order.assignedInventoryItem).then(
       function(updatedOrder) {
         // refresh order with latest confirmed info from the server
-        order = updatedOrder;
+        _updateOrder(order, updatedOrder);
         $scope.data[order.id].slotsAvailable--;
-        self._getAvailableInventory(order);
+        _getAvailableInventory(updatedOrder);
     });
   };
 
@@ -121,28 +148,38 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
   $scope.unassignDevice = function(order, phoneId) {
     DataService.unassignDevice(order.id, phoneId).then(function(updatedOrder) {
       // refresh order with latest confirmed info from the server
-      order = updatedOrder;
+      _updateOrder(order, updatedOrder);
       $scope.data[order.id].slotsAvailable++;
-      self._getAvailableInventory(order);
+      _getAvailableInventory(updatedOrder);
     });
   };
 
   $scope.verifyOrder = function(order) {
-    // modal css clean up (bug in bootstrap related to fade-in)
-    $('#myModal').modal('hide');
-    $('body').removeClass('modal-open');
-    $('.modal-backdrop').remove();
+    _dismissModal();
 
     DataService.markVerified(order.id).then(function() {
       delete $scope.data[order.id];
-      for(var i=0; i<$scope.orders.length; i++) {
-        if ($scope.orders[i].id === order.id) {
-          $scope.orders.splice(i, 1);
+
+      if ($scope.orders) { // if on list page
+        for(var i=0; i<$scope.orders.length; i++) {
+          if ($scope.orders[i].id === order.id) {
+            $scope.orders.splice(i, 1);
+          }
         }
+      } else { // if on detail page
+        $scope.order.is_verified = true;
       }
     });
   }
 
+  $scope.dismiss = function(order) {
+    _dismissModal();
+    // only need to update the phone list if 
+    // we are on the detail page
+    if ($scope.order) {
+      _getAvailableInventory(order);
+    }
+  };
 };
 
 OrderCtrl.prototype = Object.create(ListCtrl.prototype);

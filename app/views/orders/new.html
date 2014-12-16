@@ -4,6 +4,9 @@
 
 	<button ng-disabled="!orderForm.$valid" ng-click="submitNew()">Submit Form</button>
 
-	&nbsp;&nbsp;&nbsp;<a href="#/orders">Return to list</a>
+	&nbsp;&nbsp;&nbsp;
+	<a href="#/orders?verifiedState=0">View pending orders</a> |
+	<a href="#/orders?verifiedState=1">Shippable</a>
+
 
 </form>

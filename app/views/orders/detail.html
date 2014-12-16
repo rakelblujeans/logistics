@@ -1,7 +1,26 @@
+<div ng-include src="'/views/orders/_modal.html'"></div>
+
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Order Detail #{{order.id}}</h3>
-    <a href="#/orders/edit/{{order.id}}">Edit</a>
+    
+    <a href="#/orders/edit/{{order.id}}">Edit</a> | 
+    
+    <span ng-if="!order.is_verified">
+    <a href="" 
+      data-toggle="modal" data-target="#myModal"
+      ng-click="showInventoryOptions(order)">
+      Adjust phones
+    </a>
+
+    <span ng-if="data[order.id].slotsAvailable == 0"> |
+    <a href="" 
+      ng-click="verifyOrder(order)">Mark Verified</a>
+    </span>
+    </span>
+    <a ng-if="order.is_verified" 
+      href="#/orders/ship/{{order.id}}">Ship</a>
+
   </div>
   <div class="panel-body">
     <div class="row">
@@ -63,7 +82,7 @@
 <div class="row">
   <h4 class="col-xs-12">Assigned Phones</h4>
 </div>
-  <table class="table" ng-if="order.phones.length > 0">
+  <table class="table" ng-if="data[order.id].phoneSlots.length > 0">
   <thead>
   <tr>
     <th ng-class="{ascending: sort.column == 'id' && !sort.descending, 
@@ -90,13 +109,13 @@
   </tr>
   </thead>
   <tbody>
-  <tr ng-repeat="inv in order.phones | filter:query | orderBy: orderProp | orderBy:sort.column:sort.descending">
+  <tr ng-repeat="phone in data[order.id].phoneSlots | orderBy: orderProp | orderBy:sort.column:sort.descending">
     <td ng-class-odd="'odd'" ng-class-even="'even'">
-      <a href="#/inventory/{{ inv.id }}">{{ inv.id }}</a></td>
-    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.phone_num }}</td>
-    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.provider_id }}</td>
-    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.MEID }}</td>
-    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.last_imaged }}</td>
+      <a href="#/inventory/{{ inv.id }}">{{ phone.inventory_id }}</a></td>
+    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.phone_num }}</td>
+    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.provider_id }}</td>
+    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.MEID }}</td>
+    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.last_imaged }}</td>
     <td ng-class-odd="'odd'" ng-class-even="'even'">
       <!--button type="button" class="btn btn-xs btn-default" ng-click="viewDetail($index)">Details</button-->
       <a href="" ng-click="toggleActivation(inv, 'phones')">
