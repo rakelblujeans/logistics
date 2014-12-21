@@ -256,16 +256,6 @@ angular.module('logisticsApp.services')
             return getAll('phones/' + itemId + '/current_order');
         };
 
-        var getIncomingInventory = function(date) {
-            return getAll('phones/incoming_on', 
-                {'date': date });
-        };
-
-        var getOutboundInventory = function(date) {
-            return getAll('orders/outbound_on', 
-                {'date': date });
-        };
-
         var checkInInventory = function(inventory_ids){
             console.log(inventory_ids);
             return post('phones/check_in', {
@@ -316,6 +306,16 @@ angular.module('logisticsApp.services')
             return post('orders/mark_verified', {
                 'id': orderId
             });
+        };
+
+        var getIncomingOrders = function(date) {
+            return getAll('orders/incoming_on', 
+                {'date': date });
+        };
+
+        var getOutboundOrders = function(date) {
+            return getAll('orders/outbound_on', 
+                {'date': date });
         };
 
         //----------------------------------------
@@ -410,8 +410,6 @@ angular.module('logisticsApp.services')
             checkInventoryState: checkInventoryState,
             getUpcomingOrders: getUpcomingOrders,
             getCurrentOrder: getCurrentOrder,
-            getIncomingInventory: getIncomingInventory,
-            getOutboundInventory: getOutboundInventory,
             checkInInventory: checkInInventory,
             
             createOrder: createOrder,
@@ -421,6 +419,8 @@ angular.module('logisticsApp.services')
             assignDevice: assignDevice,
             unassignDevice: unassignDevice,
             markVerified: markVerified,
+            getIncomingOrders: getIncomingOrders,
+            getOutboundOrders: getOutboundOrders,
             
             createShipment: createShipment,
             updateShipment: updateShipment,

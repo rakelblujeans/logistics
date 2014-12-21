@@ -36,20 +36,20 @@ function HomeCtrl($scope, DataService) {
 	$scope.initFromData = function() {
 		var today = new Date();
 
-    DataService.getIncomingInventory(ymd(today)).then(function(inboundPhones) {
-  		$scope.data.today.incoming = inboundPhones;
+    DataService.getIncomingOrders(ymd(today)).then(function(inboundData) {
+  		$scope.data.today.incoming = inboundData;
     });
-    DataService.getOutboundInventory(ymd(today)).then(function(outboundData) {
+    DataService.getOutboundOrders(ymd(today)).then(function(outboundData) {
   		$scope.data.today.outbound = outboundData;
       console.log('outbound today', outboundData);
     });
 
     var tomorrow = new Date();
 		tomorrow.setDate(tomorrow.getDate() + 1);
-		DataService.getIncomingInventory(ymd(tomorrow)).then(function(inboundPhones) {
-  		$scope.data.tomorrow.incoming = inboundPhones;
+		DataService.getIncomingOrders(ymd(tomorrow)).then(function(inboundData) {
+  		$scope.data.tomorrow.incoming = inboundData;
     });
-    DataService.getOutboundInventory(ymd(tomorrow)).then(function(outboundData) {
+    DataService.getOutboundOrders(ymd(tomorrow)).then(function(outboundData) {
   		$scope.data.tomorrow.outbound = outboundData;
       console.log('outbound tmrw', outboundData);
     });
