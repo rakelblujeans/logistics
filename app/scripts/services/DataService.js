@@ -262,7 +262,7 @@ angular.module('logisticsApp.services')
         };
 
         var getOutboundInventory = function(date) {
-            return getAll('phones/outbound_on', 
+            return getAll('orders/outbound_on', 
                 {'date': date });
         };
 

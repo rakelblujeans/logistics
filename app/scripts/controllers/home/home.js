@@ -39,8 +39,9 @@ function HomeCtrl($scope, DataService) {
     DataService.getIncomingInventory(ymd(today)).then(function(inboundPhones) {
   		$scope.data.today.incoming = inboundPhones;
     });
-    DataService.getOutboundInventory(ymd(today)).then(function(inboundPhones) {
-  		$scope.data.today.outbound = inboundPhones;
+    DataService.getOutboundInventory(ymd(today)).then(function(outboundData) {
+  		$scope.data.today.outbound = outboundData;
+      console.log('outbound today', outboundData);
     });
 
     var tomorrow = new Date();
@@ -48,8 +49,9 @@ function HomeCtrl($scope, DataService) {
 		DataService.getIncomingInventory(ymd(tomorrow)).then(function(inboundPhones) {
   		$scope.data.tomorrow.incoming = inboundPhones;
     });
-    DataService.getOutboundInventory(ymd(tomorrow)).then(function(outboundPhones) {
-  		$scope.data.tomorrow.outbound = outboundPhones;
+    DataService.getOutboundInventory(ymd(tomorrow)).then(function(outboundData) {
+  		$scope.data.tomorrow.outbound = outboundData;
+      console.log('outbound tmrw', outboundData);
     });
   };
   $scope.initFromData();
@@ -82,7 +84,6 @@ function HomeCtrl($scope, DataService) {
         $scope.initFromData();
       });  
     }
-  	
   };
 
   $scope.showCheckInModal = function(phones) {
@@ -101,6 +102,7 @@ function HomeCtrl($scope, DataService) {
       $scope.data.modal.selection.push(phoneId);
     }
   };
+
 };
 
 angular.module('logisticsApp.controllers')

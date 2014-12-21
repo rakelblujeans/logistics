@@ -92,7 +92,6 @@ function ShipOrderCtrl($scope, $location, $route, $routeParams, DataService, $ti
     $scope.form.shipment['phone_ids'] = $scope.data.selection;
     $scope.form.shipment['order_id'] = $scope.order.id;
     $scope.form.shipment['out_on_date'] = new Date().toISOString();
-
     DataService.createShipment($scope.form).then(function(new_shipment) {
       updateOrderData($scope.order.id);
     });

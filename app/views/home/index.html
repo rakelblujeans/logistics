@@ -8,9 +8,12 @@
 			data-toggle="modal" data-target="#myModal"
 			ng-click="showCheckInModal(data.today.incoming)">{{phone.inventory_id}} </a> 
 	<h3>Outbound</h3>
-		<a ng-repeat="phone in data.today.outbound" 
-			data-toggle="modal" data-target="#myModal"
-			ng-click="ship(data.today.outbound)">{{phone.inventory_id}} </a> 
+		<div class="row" ng-repeat="blob in data.today.outbound">
+		Order #{{blob.invoice_id}}: 
+		<a href="/#/orders/ship/{{blob.order_id}}">
+		 <span ng-repeat="phone in blob.unshipped_phones">{{phone.inventory_id}} </span></a>
+	</div>
+
 	<h3>Warnings</h3>
 </div>
 
@@ -20,10 +23,15 @@
 	<h3>Incoming</h3>
 	<a ng-repeat="phone in data.tomorrow.incoming" 
 			data-toggle="modal" data-target="#myModal"
-			ng-click="showCheckInModal(data.today.incoming)">{{phone.inventory_id}} </a>
+			ng-click="showCheckInModal(data.tomorrow.incoming)">{{phone.inventory_id}} </a>
+	
 	<h3>Outbound</h3>
-			<a ng-repeat="phone in data.tomorrow.outbound" 
-			href="/#/inventory/{{phone.inventory_id}}">{{phone.inventory_id}} </a> 
+	<div class="row" ng-repeat="blob in data.tomorrow.outbound">
+		Order #{{blob.invoice_id}}: 
+		<a href="/#/orders/ship/{{blob.order_id}}">
+		 <span ng-repeat="phone in blob.unshipped_phones">{{phone.inventory_id}} </span></a>
+	</div>
+
 	<h3>Warnings</h3>
 </div>
 	
