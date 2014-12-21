@@ -7,10 +7,11 @@ angular.module('logisticsApp.controllers')
     $scope.form = { 'item': {},
                     'maxDate': new Date() };
     $scope.misc = { 'providers': [] };
-    $scope.header = "New Inventory Item";
+    $scope.header = "New Phone";
     
     $scope.initFromData = function() {
       
+      // get by inventory_id, not database record id
       $scope.invId = parseInt($routeParams.invIndex, 10);
       
       DataService.getAll('providers').then(function(providers) {
@@ -20,7 +21,7 @@ angular.module('logisticsApp.controllers')
       if ($scope.invId) { // if editing
         $scope.other = DataService.getItem($scope.invId).then(function(item) {
           $scope.form.item = item;
-          $scope.header = "Update Inventory Item #" + item.id;
+          $scope.header = "Update Phone";
           var d = Date.parse($scope.form.item.last_imaged);
           $scope.form.item.last_imaged = new Date(d);
 
@@ -33,10 +34,10 @@ angular.module('logisticsApp.controllers')
         });
       }
     };
-    $scope.$on('$viewContentLoaded', $scope.initFromData);
+    $scope.initFromData();
 
     $scope.submitEdit = function(item, event) {
-      console.log('--> Submitting form', $scope.form.item);
+      //console.log('--> Submitting form', $scope.form.item);
       DataService.updateInventory($scope.invId, $scope.form.item).then(
         function(output) {
           $location.path('inventory/' + $scope.invId);
@@ -48,7 +49,7 @@ angular.module('logisticsApp.controllers')
 
     $scope.submitNew = function() {
       DataService.createInventory($scope.form.item).then(function(newObj) {
-        $location.path('inventory/' + newObj.id);
+        $location.path('inventory/' + newObj.inventory_id);
       }, 
         function() {
           console.log('error adding inventory');

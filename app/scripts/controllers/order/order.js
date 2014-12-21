@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 
 function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
 
@@ -22,7 +22,7 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
    */
   $scope.data = {};
   $scope.options = {}; // holds routeParam options
-
+  
   function buildPhoneIdString(order) {
     var assignedPhones = [];
     for(var i=0; i<order.phones.length; i++) {
@@ -36,7 +36,7 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
 
   function setPageTitle(options) {
     if (options.unverified) {
-      $scope.data.pageTitle = "Unverified Orders";
+      $scope.data.pageTitle = "Pending orders";
     } else if (options.unshipped) {
       $scope.data.pageTitle = "Orders ready for delivery"
     } else {
@@ -86,8 +86,8 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
   };
 
   $scope.initFromData = function() {
-    
     $scope.sort.column = 'inventory_id'
+
     if ($routeParams.verifiedState) {
       $scope.options = {
         unverified: $routeParams.verifiedState == false,
@@ -112,12 +112,11 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
               'assignmentOptionsVisible': false
           };
         }
-
       });
     }
   };
-  $scope.$on('$viewContentLoaded', $scope.initFromData);
-
+  $scope.initFromData();
+  
   $scope.showInventoryOptions = function(order) {
     if ($scope.order) {
       _getAvailableInventory(order);

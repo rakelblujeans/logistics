@@ -82,11 +82,11 @@ angular.module('logisticsApp.services')
                 data: params,
             })
             .success(function(output) {
-                //console.log("SUCCESS", output);
+                console.log("SUCCESS", output);
                 d.resolve(output);
             }).error(function(reason) {
                 d.reject(reason);
-                //console.log('ERROR', reason);
+                console.log('ERROR', reason);
             });
             return d.promise;
         };
@@ -205,8 +205,8 @@ angular.module('logisticsApp.services')
             return post('phones', data);
         };
 
-        var updateInventory = function(id, data) {
-            return update('phones', id, data);
+        var updateInventory = function(inventoryId, data) {
+            return update('phones', inventoryId, data);
         };
 
         var getInventory = function() {
@@ -264,6 +264,13 @@ angular.module('logisticsApp.services')
         var getOutboundInventory = function(date) {
             return getAll('phones/outbound_on', 
                 {'date': date });
+        };
+
+        var checkInInventory = function(inventory_ids){
+            console.log(inventory_ids);
+            return post('phones/check_in', {
+                'inventory_ids': inventory_ids
+            });
         };
 
         //----------------------------------------
@@ -405,11 +412,7 @@ angular.module('logisticsApp.services')
             getCurrentOrder: getCurrentOrder,
             getIncomingInventory: getIncomingInventory,
             getOutboundInventory: getOutboundInventory,
-            
-            createCustomer: createCustomer,
-            getCustomers: getCustomers,
-            getCustomer: getCustomer,
-            updateCustomer: updateCustomer,
+            checkInInventory: checkInInventory,
             
             createOrder: createOrder,
             getOrders: getOrders,
@@ -418,6 +421,16 @@ angular.module('logisticsApp.services')
             assignDevice: assignDevice,
             unassignDevice: unassignDevice,
             markVerified: markVerified,
+            
+            createShipment: createShipment,
+            updateShipment: updateShipment,
+            getShipments: getShipments,
+            getShipment: getShipment,
+        
+            /*createCustomer: createCustomer,
+            getCustomers: getCustomers,
+            getCustomer: getCustomer,
+            updateCustomer: updateCustomer,
             
             createCreditCard: createCreditCard,
             updateCreditCard: updateCreditCard,
@@ -429,15 +442,10 @@ angular.module('logisticsApp.services')
             getTelcos: getTelcos,
             getTelco: getTelco,
 
-            createShipment: createShipment,
-            updateShipment: updateShipment,
-            getShipments: getShipments,
-            getShipment: getShipment,
-        
             createReceipt: createReceipt,
             updateReceipt: updateReceipt,
             getReceipt: getReceipt,
-            getReceipts: getReceipts,
+            getReceipts: getReceipts,*/
 
             getTelcoName: getTelcoName,
         };

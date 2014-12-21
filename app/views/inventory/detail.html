@@ -1,10 +1,14 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">Inventory Detail #{{item.id}}</h3>
-		<a href="#/inventory/edit/{{item.id}}">Edit</a> | 
-		<a href="#/inventory">View all phones</a>
+		<a href="/inventory/edit/{{item.inventory_id}}">Edit</a> | 
+		<a href="/inventory">View all phones</a>
 	</div>
 	<div class="panel-body">
+	<div class="row">
+			<div class="col-xs-3">Inventory ID:</div>
+			<div class="col-xs-6">{{item.inventory_id}}</div>
+		</div>
 		<div class="row">
 			<div class="col-xs-3">MEID:</div>
 			<div class="col-xs-6">{{item.MEID}}</div>
@@ -63,7 +67,7 @@
 		</thead>
 		<tbody>
 		<tr ng-repeat="order in data.upcoming_orders | filter:query | orderBy:sort.column:sort.descending">
-			<td><a href="/#/orders/{{order.id}}">{{ current_order.shipping_name }}</a></td>
+			<td><a href="/orders/{{order.id}}">{{ current_order.shipping_name }}</a></td>
 			<td>{{ current_order.full_address }}</td>
 			<td>{{ current_order.arrival_date }}</td>
 			<td>{{ current_order.departure_date }}</td>
@@ -106,7 +110,7 @@
 		</thead>
 		<tbody>
 		<tr ng-repeat="order in data.upcoming_orders | filter:query | orderBy:sort.column:sort.descending">
-			<td><a href="/#/orders/{{order.id}}">{{ order.shipping_name }}</a></td>
+			<td><a href="/orders/{{order.id}}">{{ order.shipping_name }}</a></td>
 			<td>{{ order.full_address }}</td>
 			<td>{{ order.arrival_date }}</td>
 			<td>{{ order.departure_date }}</td>

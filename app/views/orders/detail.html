@@ -4,7 +4,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">Order Detail #{{order.id}}</h3>
     
-    <a href="#/orders/edit/{{order.id}}">Edit</a> | 
+    <a href="/#/orders/edit/{{order.id}}">Edit</a> | 
     
     <span ng-if="!order.is_verified">
     <a href="" 
@@ -19,10 +19,14 @@
     </span>
     </span>
     <a ng-if="order.is_verified" 
-      href="#/orders/ship/{{order.id}}">Ship</a>
+      href="/#/orders/ship/{{order.id}}">Ship</a>
 
   </div>
   <div class="panel-body">
+  <div class="row">
+      <div class="col-xs-6">Invoice #:</div>
+      <div class="col-xs-6">{{order.invoice_id}}</div>
+    </div>
     <div class="row">
       <div class="col-xs-6">Delivery Type:</div>
       <div class="col-xs-6">{{order.delivery_type_str}}</div>
@@ -111,7 +115,7 @@
   <tbody>
   <tr ng-repeat="phone in data[order.id].phoneSlots | orderBy: orderProp | orderBy:sort.column:sort.descending">
     <td ng-class-odd="'odd'" ng-class-even="'even'">
-      <a href="#/inventory/{{ inv.id }}">{{ phone.inventory_id }}</a></td>
+      <a href="/#/inventory/{{ inv.id }}">{{ phone.inventory_id }}</a></td>
     <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.phone_num }}</td>
     <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.provider_id }}</td>
     <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.MEID }}</td>

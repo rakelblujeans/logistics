@@ -5,6 +5,23 @@
 	<div class="panel-body">
 
 		<div class="form-group">
+			<label class="col-xs-3 control-label" for="inventory_id">Inventory ID:</label>
+			<div class="col-xs-6">
+				<input type="text" class="form-control"
+					name="inventory_id" 
+					ng-model="form.item.inventory_id" 
+					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
+					ng-minlength="1"
+					ng-maxlength="20" 
+					required />
+				<div class="text-danger" ng-messages="inventoryForm.inventory_id.$error" 
+					ng-messages-include="errors.html" 
+					ng-if="inventoryForm.inventory_id.$dirty && inventoryForm.inventory_id.$invalid">
+	      </div>
+	    </div>
+		</div><!-- form-group -->
+
+		<div class="form-group">
 			<label class="col-xs-3 control-label" for="MEID">MEID:</label>
 			<div class="col-xs-6">
 				<input type="text" class="form-control"

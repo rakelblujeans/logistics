@@ -8,8 +8,9 @@ function InventoryCtrl($scope, $http, $window, $route, $routeParams, $location, 
     'current_order': undefined,
     'upcoming_orders': undefined
   };
-
+  
   $scope.initFromData = function() {
+    // get by inventory_id, not database record id
     $scope.invId = parseInt($routeParams.invIndex, 10);
     if ($scope.invId) { // detail view
       DataService.getItem($scope.invId).then(function(item) {
@@ -33,8 +34,10 @@ function InventoryCtrl($scope, $http, $window, $route, $routeParams, $location, 
       });  
     }
   };
-  $scope.$on('$viewContentLoaded', $scope.initFromData);
+  $scope.initFromData();
+  
 };
+
 
 InventoryCtrl.prototype = Object.create(ListCtrl.prototype);
 

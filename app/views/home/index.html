@@ -1,72 +1,101 @@
 
-
 <div class="row">
-	
+<div class="column col-md-4">
+	<h2>Today</h2>
+
+	<h3>Incoming</h3>
+		<a ng-repeat="phone in data.today.incoming" 
+			data-toggle="modal" data-target="#myModal"
+			ng-click="showCheckInModal(data.today.incoming)">{{phone.inventory_id}} </a> 
+	<h3>Outbound</h3>
+		<a ng-repeat="phone in data.today.outbound" 
+			data-toggle="modal" data-target="#myModal"
+			ng-click="ship(data.today.outbound)">{{phone.inventory_id}} </a> 
+	<h3>Warnings</h3>
 </div>
-<div class="row">
-	<div class="column col-md-4">
-		<h2>Today</h2>
 
-		<h3>Incoming</h3>
-			<ul>
-				<li ng-repeat="phone in data.today.incoming">
-					<a href="/#/inventory/{{phone.id}}">{{phone.inventory_id}}</a></li>
-			</ul>
-		<h3>Outbound</h3>
-			<ul>
-				<li ng-repeat="phone in data.today.outbound">
-					<a href="/#/inventory/{{phone.id}}">{{phone.inventory_id}}</a></li>
-			</ul>
-		<h3>Warnings</h3>
-
-		<!--a href="">Mark business day done</a-->
-	</div>
-
-	<div class="column col-md-4">
-		<h2>Tomorrow</h2>
+<div class="column col-md-4">
+	<h2>Tomorrow</h2>
 			
-		<h3>Incoming</h3>
-			<ul>
-				<li ng-repeat="phone in data.tomorrow.incoming">
-					<a href="/#/inventory/{{phone.id}}">{{phone.inventory_id}}</a></li>
-			</ul>
-		<h3>Outbound</h3>
-			<ul>
-				<li ng-repeat="phone in data.tomorrow.outbound">
-					<a href="/#/inventory/{{phone.id}}">{{phone.inventory_id}}</a></li>
-			</ul>
-		<h3>Warnings</h3>
-	</div>
-
-<div class="col-md-4 sidebar">
+	<h3>Incoming</h3>
+	<a ng-repeat="phone in data.tomorrow.incoming" 
+			data-toggle="modal" data-target="#myModal"
+			ng-click="showCheckInModal(data.today.incoming)">{{phone.inventory_id}} </a>
+	<h3>Outbound</h3>
+			<a ng-repeat="phone in data.tomorrow.outbound" 
+			href="/#/inventory/{{phone.inventory_id}}">{{phone.inventory_id}} </a> 
+	<h3>Warnings</h3>
+</div>
+	
+<div class="column col-md-4">
+<div class="row">
 	<h4>Search</h4>
 	<input type="text" placeholder="invoice #, name, address, ..." ng-model="query" size="30" ng-click="doSearch()" />
+</div>
 
-	<br />
+
+<div class="row">
 	<br />
 	<h4>Order Management</h4>
-	<p><a href="#/orders/new">Add order</a></p>
-	<p>Edit order:
-		<input type="text" placeholder="123" size="5" ng-model="order_id"/>
-		<button type="button" class="btn btn-default btn-sm" >
-			<span class="glyphicon glyphicon-chevron-right" ng-click="">
-		</button>
-	</p>
+</div>
+<div class="row">
+	<a href="/#/orders/new">Add order</a>
+</div>
+<div class="row">
+	<a href="/#/orders/edit/{{order_id}}">Edit order:</a>
+	<input type="text" placeholder="id or invoice#" 
+		size="10" ng-model="order_id" />
+</div>
 
+
+<div class="row">
 	<br />
 	<h4>Inventory Management</h4>
-	<p><a href="#/inventory/new">Add inventory</a></p>
-	<p><a href="#/inventory/received">Mark inventory in</a></p>
+</div>
+<div class="row">
+	<a href="/#/inventory/new">Add inventory</a>
+</div>
+<div class="row">
+	<a href="/#/inventory/edit/{{inventory_id1}}">Edit inventory:</a>
+	<input type="text" placeholder="id" 
+			size="5" ng-model="inventory_id1" />
+</div>
 
+<div class="row">
+	<form name="receivedForm" class="form-inline" novalidate role="form">
+		<label class="sr-only" for="inventory_id2">Mark inventory received:</label>
+		<input name="inventory_id2" type="text" size="10" placeholder="id1, id2, ..."
+			ng-model="data.inventory_id2"
+			required />
+		<button class="btn btn-sm btn-default" type="submit"
+			ng-click="markReceived(data.inventory_id2)">
+			Mark Received
+		</button>
+	</form>
+</div>
+
+<div class="row">
 	<br />
 	<h4>Fulfillment Management</h4>
-	<p><a href="#/orders?verifiedState=0">Pending orders</a></p>
-	<p><a href="#/orders?verifiedState=1">Unshipped orders</a></p>
-	<p><a href="">Calendar</a></p>
-
-
 </div>
-
+<div class="row">
+	<a href="/#/orders?verifiedState=0">Pending orders</a>
 </div>
+<div class="row">
+	<a href="/#/orders?verifiedState=1">Unshipped orders</a>
+</div>
+<div class="row">
+	<a href="">Calendar</a>
+</div>
+<div class="row">
+	<br />
+</div>
+	
+	
+	
+</div><!-- col-4 -->
+</div><!-- row -->
 
-<br />
+
+<div ng-include src="'/views/home/_modal.html'"></div>
+<div ng-include src="'/views/home/_confirmation_modal.html'"></div>

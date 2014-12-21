@@ -4,9 +4,9 @@ function OrderFormCtrl($scope, $route, $routeParams, $location, DataService) {
 
   $scope.form = { 'order': {} };
   $scope.header = 'New Order';
-
+  
   $scope.initFromData = function() {
-    $scope.orderId = parseInt($routeParams.id, 10);
+    $scope.orderId = $routeParams.id;
     if ($scope.orderId) { // if editing
       DataService.getOrder($scope.orderId).then(function(order) {
         $scope.form = { 'order': order };
@@ -14,7 +14,7 @@ function OrderFormCtrl($scope, $route, $routeParams, $location, DataService) {
       });
     }
   };
-  $scope.$on('$viewContentLoaded', $scope.initFromData);
+  $scope.initFromData();
 
   $scope.submitEdit = function() {
     DataService.updateOrder($scope.orderId, $scope.form.order).then(function() {

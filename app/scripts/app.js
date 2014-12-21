@@ -19,22 +19,20 @@ angular
     'logisticsApp.controllers'
   ])
   .config(['$routeProvider', 'DataServiceProvider', '$httpProvider',
-    function ($routeProvider, DataServiceProvider, $httpProvider) {
+    function ($routeProvider, DataServiceProvider, $httpProvider, $locationProvider) {
     $routeProvider
       .when('/', { templateUrl: 'views/home/index.html', controller: 'HomeCtrl' })
 
-      .when('/inventory/new/',            { templateUrl: 'views/inventory/new.html', controller: 'InventoryFormCtrl', controllerAs: 'Inventory' })
-      .when('/inventory/:invIndex',       { templateUrl: 'views/inventory/detail.html', controller: 'InventoryCtrl', controllerAs: 'Inventory' })
-      .when('/inventory/edit/:invIndex',  { templateUrl: 'views/inventory/edit.html', controller: 'InventoryFormCtrl', controllerAs: 'Inventory' })
-      .when('/inventory',                 { templateUrl: 'views/inventory/index.html', controller: 'InventoryCtrl', controllerAs: 'Inventory' })
+      .when('/inventory/new/',               { templateUrl: 'views/inventory/new.html', controller: 'InventoryFormCtrl', controllerAs: 'Inventory' })
+      .when('/inventory/:invIndex',          { templateUrl: 'views/inventory/detail.html', controller: 'InventoryCtrl', controllerAs: 'Inventory' })
+      .when('/inventory/edit/:invIndex',     { templateUrl: 'views/inventory/edit.html', controller: 'InventoryFormCtrl', controllerAs: 'Inventory' })
+      .when('/inventory',                    { templateUrl: 'views/inventory/index.html', controller: 'InventoryCtrl', controllerAs: 'Inventory' })
 
-      .when('/orders/new/',               { templateUrl: 'views/orders/new.html', controller: 'OrderFormCtrl', controllerAs: 'Order' })
-      .when('/orders/ship/:id',           { templateUrl: 'views/orders/ship.html', controller: 'ShipOrderCtrl', controllerAs: 'Order' })
-      //.when('/orders/:verifiedState/',         { templateUrl: 'views/orders/unverified.html', controller: 'OrderCtrl', controllerAs: 'Order' })
-      //.when('/orders/:verified/',         { templateUrl: 'views/orders/unshipped.html', controller: 'OrderCtrl', controllerAs: 'Order' })
+      .when('/orders/new/',       { templateUrl: 'views/orders/new.html', controller: 'OrderFormCtrl', controllerAs: 'Order' })
+      .when('/orders/ship/:id',   { templateUrl: 'views/orders/ship.html', controller: 'ShipOrderCtrl', controllerAs: 'Order' })
       .when('/orders/:id',        { templateUrl: 'views/orders/detail.html', controller: 'OrderCtrl', controllerAs: 'Order' })
       .when('/orders/edit/:id',   { templateUrl: 'views/orders/edit.html', controller: 'OrderFormCtrl', controllerAs: 'Order' })
-      .when('/orders',                    { templateUrl: 'views/orders/index.html', controller: 'OrderCtrl', controllerAs: 'Order' })
+      .when('/orders',            { templateUrl: 'views/orders/index.html', controller: 'OrderCtrl', controllerAs: 'Order' })
       
       .when('/customers/new/',            { templateUrl: 'views/customers/new.html', controller: 'CustomerFormCtrl', controllerAs: 'Customer' })
       .when('/customers/:custIndex',      { templateUrl: 'views/customers/detail.html', controller: 'CustomerCtrl', controllerAs: 'Customer' })

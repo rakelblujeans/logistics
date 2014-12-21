@@ -10,9 +10,15 @@ function HomeCtrl($scope, DataService) {
 	  tomorrow: {
 	  	incoming: [],
 	  	outbound: []
-	  }
+	  },
+    modal: {
+      phones: [],
+      selection: []
+    },
+    received_inventory: [],
+    inventory_id2: ''
   };
-
+  
   function ymd(date) {
 		// GET YYYY, MM AND DD FROM THE DATE OBJECT
 		var yyyy = date.getFullYear().toString();
@@ -46,14 +52,55 @@ function HomeCtrl($scope, DataService) {
   		$scope.data.tomorrow.outbound = outboundPhones;
     });
   };
-  $scope.$on('$viewContentLoaded', $scope.initFromData);
+  $scope.initFromData();
 
   $scope.doSearch = function() {
 
   };
 
-  $scope.editOrd
+  function _processReceivedCallback(returned_phones) {
+    var returned_ids = [];
+    for (var i=0; i<returned_phones.length; i++) {
+      returned_ids[i] = returned_phones[i].id;
+    }
+    $scope.data.received_inventory = returned_ids;
+    $('#confirmationModal').modal('show');
+    $scope.data.inventory_id2 = '';
+  }
 
+  $scope.markReceived = function(ids) {
+    $scope.data.received_inventory = [];
+    if (ids) {
+      var idArray = ids.split(',');
+      DataService.checkInInventory(idArray).then(function(returned_phones) {
+        _processReceivedCallback(returned_phones);
+        $scope.initFromData();
+      });
+    } else {
+      DataService.checkInInventory($scope.data.modal.selection).then(function(returned_phones) {
+        _processReceivedCallback(returned_phones);
+        $scope.initFromData();
+      });  
+    }
+  	
+  };
+
+  $scope.showCheckInModal = function(phones) {
+    $scope.data.modal.phones = phones;
+  };
+
+  // toggle selection for a given phone by name
+  $scope.toggleSelection = function(phoneId) {
+    var idx = $scope.data.modal.selection.indexOf(phoneId);
+
+    // is currently selected
+    if (idx > -1) {
+      $scope.data.modal.selection.splice(idx, 1);
+    } else { 
+    // is newly selected
+      $scope.data.modal.selection.push(phoneId);
+    }
+  };
 };
 
 angular.module('logisticsApp.controllers')

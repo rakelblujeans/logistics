@@ -4,8 +4,9 @@
 <p ng-if="options.unverified">Please verify the orders below so we can move them into the delivery queue.</p>
 
 <p>
-<a href="#/orders/new">Add +</a> |
-<a href="#/orders?verifiedState=1">Shippable orders</a>
+<a href="/orders/new">Add +</a> |
+<a ng-if="options.unverified" href="/orders?verifiedState=1">Shippable orders</a>
+<a ng-if="options.unshipped" href="/orders?verifiedState=0">Pending orders</a>
 </p>
 
 <!-- TODO: add tab for verified orders? -->
@@ -43,7 +44,7 @@
 <tbody>
 <tr ng-repeat="order in orders | filter:query | orderBy:sort.column:sort.descending">
 	<td ng-class-odd="'odd'" ng-class-even="'even'">
-		<a href="#/orders/{{ order.id }}">{{ order.invoice_id }}</a></td>
+		<a href="/#/orders/{{ order.id }}">{{ order.invoice_id }}</a></td>
 	<td>{{ order.shipping_name }}</td>
 	<td>{{ order.full_address }}</td>
 	<td>{{ order.arrival_date }}</td>
@@ -67,7 +68,7 @@
 		</div>
 
 		<div ng-if="options.unshipped">
-			<a href="#/orders/ship/{{order.id}}">Ship</a>
+			<a href="/#/orders/ship/{{order.id}}">Ship</a>
 			<br />
 		</div>
 

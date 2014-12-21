@@ -1,6 +1,6 @@
 'use strict';
 
-function ShipOrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
+function ShipOrderCtrl($scope, $location, $route, $routeParams, DataService, $timeout) {
   
   $scope.form = { 'shipment': {} };
   $scope.data = {
@@ -12,6 +12,11 @@ function ShipOrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
 
   function updateOrderData(orderId) {
     DataService.getOrder(orderId).then(function(order) {
+
+      if (!order.is_verified) {
+        $location.path("/orders").search({ 'verifiedState': '0' });
+      }
+
       $scope.order = order;
 
       // get phones assigned to this order
@@ -53,9 +58,9 @@ function ShipOrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
       updateOrderData(orderId);
     }
   };
-  $scope.$on('$viewContentLoaded', $scope.initFromData);
+  $scope.initFromData();
 
-  // toggle selection for a given fruit by name
+  // toggle selection for a given phone by name
   $scope.toggleSelection = function(phoneId) {
     var idx = $scope.data.selection.indexOf(phoneId);
 
@@ -63,7 +68,6 @@ function ShipOrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
     if (idx > -1) {
       $scope.data.selection.splice(idx, 1);
     }
-
     // is newly selected
     else {
       $scope.data.selection.push(phoneId);
