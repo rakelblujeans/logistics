@@ -115,15 +115,14 @@
   <tbody>
   <tr ng-repeat="phone in data[order.id].phoneSlots | orderBy: orderProp | orderBy:sort.column:sort.descending">
     <td ng-class-odd="'odd'" ng-class-even="'even'">
-      <a href="/#/inventory/{{ inv.id }}">{{ phone.inventory_id }}</a></td>
+      <a href="/#/inventory/{{ phone.inventory_id }}">{{ phone.inventory_id }}</a></td>
     <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.phone_num }}</td>
     <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.provider_id }}</td>
     <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.MEID }}</td>
     <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.last_imaged }}</td>
     <td ng-class-odd="'odd'" ng-class-even="'even'">
-      <!--button type="button" class="btn btn-xs btn-default" ng-click="viewDetail($index)">Details</button-->
-      <a href="" ng-click="toggleActivation(inv, 'phones')">
-        {{ inv.active ? 'Deactivate' : 'Activate' }}
+      <a href="" ng-click="togglePhoneActivation(phone)">
+        {{ phone.active ? 'Deactivate' : 'Activate' }}
       </a>
     </td>
   </tr>

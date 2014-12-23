@@ -25,12 +25,4 @@ function ListCtrl($scope, DataService) {
     this.ascending = !sort.descending;
   };
 
-  $scope.toggleActivation = function(item, collectionName) {
-    DataService.setActive(collectionName, item.id, 
-      !item.active).then(function(success){
-      if (success) {
-        item.active = !item.active;
-      }
-    });
-  };
-}
+};

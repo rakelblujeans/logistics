@@ -86,7 +86,7 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
   };
 
   $scope.initFromData = function() {
-    $scope.sort.column = 'inventory_id'
+    $scope.sort.column = 'arrival_date'
 
     if ($routeParams.verifiedState) {
       $scope.options = {
@@ -178,6 +178,12 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
     if ($scope.order) {
       _getAvailableInventory(order);
     }
+  };
+
+  $scope.togglePhoneActivation = function(item) {
+    DataService.togglePhoneActivation(item.id).then(function(phone){
+      $scope.initFromData();
+    });
   };
 };
 

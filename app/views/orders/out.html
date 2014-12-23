@@ -1,12 +1,8 @@
 <h3>{{data.pageTitle}}</h3>
 <br />
 
-<p ng-if="options.unverified">Please verify the orders below so we can move them into the delivery queue.</p>
-
 <p>Search: <input ng-model="query">&nbsp;&nbsp;&nbsp;
-<a href="/#/orders/new">Add +</a> |
-<a ng-if="options.unverified" href="/#/orders?verifiedState=1">Shippable orders</a>
-<a ng-if="options.unshipped" href="/#/orders?verifiedState=0">Pending orders</a>
+<a href="/#/orders/new">Add +</a>
 </p>
 
 <!-- TODO: add tab for verified orders? -->
@@ -51,31 +47,6 @@
 	<td>{{ order.departure_date }}</td>
 	<td>{{ data[order.id].assignedPhoneIds }}</td>
 	<td>
-		<!-- Button trigger modal -->
-		<div ng-if="options.unverified">
-		<button type="button" class="btn btn-xs btn-default" 
-			data-toggle="modal" data-target="#myModal"
-			ng-click="showInventoryOptions(order)">
-		  Adjust phones
-		</button>
-		<br />
-
-		<button type="button" class="btn btn-xs btn-success" 
-			ng-if="data[order.id].slotsAvailable == 0"
-			ng-click="verifyOrder(order)">
-		  Mark verified
-		</button>
-		</div>
-
-		<div ng-if="options.unshipped">
-			<a href="/#/orders/ship/{{order.id}}">Ship</a>
-			<br />
-		</div>
-
-		<a href="" ng-click="toggleActivation(order, 'orders')">
-			{{ order.active ? 'Cancel' : 'Activate' }}
-		</a>
-		<div ng-include src="'/views/orders/_modal.html'"></div>
 
 	</td>
 </tr>

@@ -1,7 +1,7 @@
 <h3>Inventory</h3>
 
 <p>Search: <input ng-model="query">&nbsp;&nbsp;&nbsp;
-<a href="#/inventory/new">Add +</a></p>
+<a href="/#/inventory/new">Add +</a></p>
 
 <table class="table">
 <thead>
@@ -32,7 +32,7 @@
 <tbody>
 <tr ng-repeat="inv in inventory | filter:query | orderBy: orderProp | orderBy:sort.column:sort.descending">
 	<td ng-class-odd="'odd'" ng-class-even="'even'">
-		<a href="#/inventory/{{ inv.id }}">{{ inv.id }}</a></td>
+		<a href="/#/inventory/{{ inv.id }}">{{ inv.id }}</a></td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.phone_num }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.provider_id }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.MEID }}</td>

@@ -117,25 +117,20 @@ angular.module('logisticsApp.services')
             return d.promise;
         };
 
-        // TODO: handle errors?
         var post = function(collectionName, data) {
-            //console.log('property:', data, data[Object.keys(data)[0]]);
-            //data[Object.keys(data)[0]]['active'] = 'true';
             var promise = postData(collectionName, data).then(function(output) {
                 return output;
             });
             return promise;
         };
 
-        // TODO: handle errors?
-        var update = function(collectionName, id, data) {
-            var promise = updateData(collectionName + '/' + id, data).then(function(output) {
+        var update = function(collectionName, data) {
+            var promise = updateData(collectionName, data).then(function(output) {
                 return output;
             });
             return promise;
         };
 
-        // TODO: handle errors?
         var get = function(collectionName, id) {
             var promise = getData(collectionName + '/' + id).then(function(output) {
                 return output;
@@ -143,7 +138,6 @@ angular.module('logisticsApp.services')
             return promise;
         };
 
-        // TODO: handle errors?
         var getAll = function(collectionName, data) {
             var promise = getData(collectionName, data).then(function(output) {
                 return output;
@@ -158,7 +152,7 @@ angular.module('logisticsApp.services')
             });
             return promise;
         };
-
+        /*
         var setActive = function(objPlural, id, newVal) {
             var promise = updateData(objPlural + '/' + id, {
                 'active': newVal
@@ -181,7 +175,7 @@ angular.module('logisticsApp.services')
             updateData(objPlural + '/' + id, {
                 'active': true
             });   
-        };
+        };*/
 
         //----------------------------------------
         var createCustomer = function(data){
@@ -189,7 +183,7 @@ angular.module('logisticsApp.services')
         };
 
         var updateCustomer = function(id, data) {
-            return update('customers', id, data);
+            return update('customers/' + id, data);
         };
 
         var getCustomers = function() {
@@ -205,8 +199,9 @@ angular.module('logisticsApp.services')
             return post('phones', data);
         };
 
+        // user facing - so reference by inventory id
         var updateInventory = function(inventoryId, data) {
-            return update('phones', inventoryId, data);
+            return update('phones/' + inventoryId, data);
         };
 
         var getInventory = function() {
@@ -256,11 +251,15 @@ angular.module('logisticsApp.services')
             return getAll('phones/' + itemId + '/current_order');
         };
 
+        // user facing - so reference by inventory id
         var checkInInventory = function(inventory_ids){
-            console.log(inventory_ids);
             return post('phones/check_in', {
                 'inventory_ids': inventory_ids
             });
+        };
+
+        var togglePhoneActivation = function(itemId) {
+            return update('phones/' + itemId + '/toggle_activation');
         };
 
         //----------------------------------------
@@ -269,7 +268,7 @@ angular.module('logisticsApp.services')
         };
 
         var updateOrder = function(id, data) {
-            return update('orders', id, data);
+            return update('orders/' + id, data);
         };
 
         var getOrders = function(options) {
@@ -318,13 +317,17 @@ angular.module('logisticsApp.services')
                 {'date': date });
         };
 
+        var getOrdersOut = function(date) {
+            return getAll('orders/currently_out');
+        };
+
         //----------------------------------------
         var createCreditCard = function(data) {
             return post('credit_cards', data);
         };
 
         var updateCreditCard = function(id, data) {
-            return update('credit_cards', id, data);
+            return update('credit_cards/' + id, data);
         };
 
         var getCreditCards = function() {
@@ -341,7 +344,7 @@ angular.module('logisticsApp.services')
         };
 
         var updateTelco = function(id, data) {
-            return update('providers', id, data);
+            return update('providers/' + id, data);
         };
 
         var getTelcos = function() {
@@ -358,7 +361,7 @@ angular.module('logisticsApp.services')
         };
 
         var updateShipment = function(id, data) {
-            return update('shipments', id, data);
+            return update('shipments/' + id, data);
         };
 
         var getShipments = function() {
@@ -375,7 +378,7 @@ angular.module('logisticsApp.services')
         };
 
         var updateReceipt = function(id, data) {
-            return update('receipts', id, data);
+            return update('receipts/' + id, data);
         };
 
         var getReceipts = function() {
@@ -398,9 +401,9 @@ angular.module('logisticsApp.services')
             update: update,
             get: get,
             getAll: getAll,
-            deactivate: deactivate,
+            /*deactivate: deactivate,
             activate: activate,
-            setActive: setActive,
+            setActive: setActive,*/
 
             createInventory: createInventory,
             getInventory: getInventory,
@@ -411,7 +414,8 @@ angular.module('logisticsApp.services')
             getUpcomingOrders: getUpcomingOrders,
             getCurrentOrder: getCurrentOrder,
             checkInInventory: checkInInventory,
-            
+            togglePhoneActivation: togglePhoneActivation,
+
             createOrder: createOrder,
             getOrders: getOrders,
             getOrder: getOrder,
@@ -421,6 +425,7 @@ angular.module('logisticsApp.services')
             markVerified: markVerified,
             getIncomingOrders: getIncomingOrders,
             getOutboundOrders: getOutboundOrders,
+            getOrdersOut: getOrdersOut,
             
             createShipment: createShipment,
             updateShipment: updateShipment,

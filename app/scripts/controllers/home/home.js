@@ -88,6 +88,9 @@ function HomeCtrl($scope, DataService) {
 
   $scope.showCheckInModal = function(phones) {
     $scope.data.modal.phones = phones;
+    for (var i=0; i<phones.length; i++) {
+      $scope.data.modal.selection.push(phones[i].id);
+    }
   };
 
   // toggle selection for a given phone by name
