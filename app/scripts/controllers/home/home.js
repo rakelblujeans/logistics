@@ -11,6 +11,9 @@ function HomeCtrl($scope, DataService) {
 	  	incoming: [],
 	  	outbound: []
 	  },
+    warnings: {
+      overdue: [],
+    },
     modal: {
       phones: [],
       selection: []
@@ -33,6 +36,30 @@ function HomeCtrl($scope, DataService) {
 		return datestring;
   };
 
+  $scope.getWarnings = function() {
+    $scope.data.warnings.overdue = [];
+
+    // overdue incoming orders
+    DataService.getOverdueOrders().then(function(orders) {
+      $scope.data.warnings.overdue = orders;
+    });
+
+    // orders overdue on shipping
+    /*DataService.getOverdueShipping().then(function(orders) {
+      for (var i=0; i<orders.length; i++) {
+        $scope.data.warnings.push('Order[' + order[i].invoice_id + '] is late on shipping.');
+      }
+    });
+
+    // orders missing phones
+    DataService.getOrdersMissingPhones().then(function(orders) {
+      for (var i=0; i<orders.length; i++) {
+        $scope.data.warnings.push('Order[' + order[i].invoice_id + '] needs phones assigned.');
+      }
+    });*/
+    
+  };
+
 	$scope.initFromData = function() {
 		var today = new Date();
 
@@ -41,7 +68,7 @@ function HomeCtrl($scope, DataService) {
     });
     DataService.getOutboundOrders(ymd(today)).then(function(outboundData) {
   		$scope.data.today.outbound = outboundData;
-      console.log('outbound today', outboundData);
+      //console.log('outbound today', outboundData);
     });
 
     var tomorrow = new Date();
@@ -51,8 +78,10 @@ function HomeCtrl($scope, DataService) {
     });
     DataService.getOutboundOrders(ymd(tomorrow)).then(function(outboundData) {
   		$scope.data.tomorrow.outbound = outboundData;
-      console.log('outbound tmrw', outboundData);
+      //console.log('outbound tmrw', outboundData);
     });
+
+    $scope.getWarnings();
   };
   $scope.initFromData();
 

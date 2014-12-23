@@ -388,12 +388,26 @@ angular.module('logisticsApp.services')
         var getReceipt = function(index) {
             return get('receipts', index);
         };
+
         //----------------------------------------
         var getTelcoName = function(id) {
             var promise = getData('providers/' + id).then(function(data) {
                 return data.name;
             });
             return promise;
+        };
+
+        //----------------------------------------
+        var getOverdueOrders = function() {
+            return getAll('orders/overdue');
+        };
+
+        var getOverdueShipping = function() {
+
+        };
+
+        var getOrdersMissingPhones = function() {
+
         };
 
         var service = {
@@ -453,6 +467,10 @@ angular.module('logisticsApp.services')
             getReceipts: getReceipts,*/
 
             getTelcoName: getTelcoName,
+
+            getOverdueOrders: getOverdueOrders,
+            getOverdueShipping: getOverdueShipping,
+            getOrdersMissingPhones: getOrdersMissingPhones,
         };
         return service;
     }];
