@@ -55,6 +55,18 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
     $('.modal-backdrop').remove();
   };
 
+  function _buildOrderHistory(order) {
+    $scope.data.shipmentPhoneIds = {};
+    for(var j=0; j<order.shipments.length; j++) {
+      var phoneIds = [];
+      
+      for(var k=0; k<order.shipments[j].phones.length; k++) {
+        phoneIds[k] = order.shipments[j].phones[k].id;
+      }
+      $scope.data.shipmentPhoneIds[order.shipments[j].id] = '[' + phoneIds.join(',') + ']';
+    }
+  };
+
   function _getAvailableInventory(order) {
     var orderData = $scope.data[order.id];
     orderData.phoneSlots = order.phones;
@@ -105,6 +117,7 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
         $scope.order = order;
           $scope.data[order.id] = {};
           _getAvailableInventory($scope.order);
+          _buildOrderHistory(order);
       });
     } else { // list view
       DataService.getOrders($scope.options).then(function(data) {
