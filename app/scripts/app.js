@@ -19,7 +19,7 @@ angular
     'logisticsApp.controllers'
   ])
   .config(['$routeProvider', 'DataServiceProvider', '$httpProvider',
-    function ($routeProvider, DataServiceProvider, $httpProvider, $locationProvider) {
+    function ($routeProvider, DataServiceProvider, $httpProvider) {
     $routeProvider
       .when('/', { templateUrl: 'views/home/index.html', controller: 'HomeCtrl' })
 

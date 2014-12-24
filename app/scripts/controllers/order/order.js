@@ -23,7 +23,7 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
   $scope.data = {};
   $scope.options = {}; // holds routeParam options
   
-  function buildPhoneIdString(order) {
+  function getPhoneIds(order) {
     var assignedPhones = [];
     for(var i=0; i<order.phones.length; i++) {
       if (order.phones[i]) {
@@ -31,7 +31,11 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
         assignedPhones[assignedPhones.length] = order.phones[i].inventory_id;
       }
     }
-    return "[" + assignedPhones.join(",") + "]"
+    return assignedPhones;
+  };
+
+  function buildPhoneIdString(order) {
+    return "[" + getPhoneIds(order).join(",") + "]"
   };
 
   function setPageTitle(options) {
@@ -106,11 +110,14 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
       DataService.getOrders($scope.options).then(function(data) {
         $scope.orders = data;
         for (var i=0; i<$scope.orders.length; i++) {
-          var id = $scope.orders[i].id;
+          var order = $scope.orders[i];
+          var id = order.id;
+
           $scope.data[id] = {
-              'assignedPhoneIds': buildPhoneIdString($scope.orders[i]),
-              'assignmentOptionsVisible': false
+            'assignedPhoneIds': buildPhoneIdString(order),
+            'assignmentOptionsVisible': false
           };
+          $scope.data[order.id].slotsAvailable = order.num_phones - getPhoneIds(order).length;
         }
       });
     }
@@ -153,10 +160,10 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
     });
   };
 
-  $scope.verifyOrder = function(order) {
+  $scope.verifyOrder = function(order, isVerified) {
     _dismissModal();
 
-    DataService.markVerified(order.id).then(function() {
+    DataService.markVerified(order.id, isVerified).then(function() {
       delete $scope.data[order.id];
 
       if ($scope.orders) { // if on list page
@@ -166,7 +173,7 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
           }
         }
       } else { // if on detail page
-        $scope.order.is_verified = true;
+        $scope.order.is_verified = is_verified; //true;
       }
     });
   }

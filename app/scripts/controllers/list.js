@@ -5,7 +5,7 @@
 * 
 */
 
-function ListCtrl($scope, DataService) {
+function ListCtrl($scope) {
     
   $scope.sort = {
     column: 'id',
@@ -25,4 +25,4 @@ function ListCtrl($scope, DataService) {
     this.ascending = !sort.descending;
   };
 
-};
+}

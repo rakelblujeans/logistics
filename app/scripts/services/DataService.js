@@ -82,11 +82,11 @@ angular.module('logisticsApp.services')
                 data: params,
             })
             .success(function(output) {
-                console.log("SUCCESS", output);
+                //console.log('SUCCESS', output);
                 d.resolve(output);
             }).error(function(reason) {
                 d.reject(reason);
-                console.log('ERROR', reason);
+                //console.log('ERROR', reason);
             });
             return d.promise;
         };
@@ -252,9 +252,9 @@ angular.module('logisticsApp.services')
         };
 
         // user facing - so reference by inventory id
-        var checkInInventory = function(inventory_ids){
+        var checkInInventory = function(inventoryIds){
             return post('phones/check_in', {
-                'inventory_ids': inventory_ids
+                'inventory_ids': inventoryIds
             });
         };
 
@@ -301,9 +301,10 @@ angular.module('logisticsApp.services')
             });
         };
 
-        var markVerified = function(orderId) {
+        var markVerified = function(orderId, isVerified) {
             return post('orders/mark_verified', {
-                'id': orderId
+                'id': orderId,
+                'is_verified': isVerified
             });
         };
 
@@ -317,7 +318,7 @@ angular.module('logisticsApp.services')
                 {'date': date });
         };
 
-        var getOrdersOut = function(date) {
+        var getOrdersOut = function() {
             return getAll('orders/currently_out');
         };
 
@@ -451,7 +452,7 @@ angular.module('logisticsApp.services')
             getOutboundOrders: getOutboundOrders,
             getOrdersOut: getOrdersOut,
             toggleOrderActivation: toggleOrderActivation,
-            
+
             createShipment: createShipment,
             updateShipment: updateShipment,
             getShipments: getShipments,

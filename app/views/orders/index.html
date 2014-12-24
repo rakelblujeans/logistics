@@ -53,21 +53,25 @@
 	<td>
 		<!-- Button trigger modal -->
 		<div ng-if="options.unverified">
-		<button type="button" class="btn btn-xs btn-default" 
-			data-toggle="modal" data-target="#myModal"
-			ng-click="showInventoryOptions(order)">
-		  Adjust phones
-		</button>
-		<br />
-
-		<button type="button" class="btn btn-xs btn-success" 
-			ng-if="data[order.id].slotsAvailable == 0"
-			ng-click="verifyOrder(order)">
-		  Mark verified
-		</button>
+			<button type="button" class="btn btn-xs btn-default" 
+				data-toggle="modal" data-target="#myModal"
+				ng-click="showInventoryOptions(order)">
+			  Adjust phones
+			</button>
+			<br />
+			<button type="button" class="btn btn-xs btn-success" 
+				ng-if="data[order.id].slotsAvailable == 0"
+				ng-click="verifyOrder(order, true)">
+			  Mark verified
+			</button>
 		</div>
 
 		<div ng-if="options.unshipped">
+			<button type="button" class="btn btn-xs btn-default" 
+				ng-click="verifyOrder(order, false)">
+			  Unverify
+			</button>
+			</div>
 			<a href="/#/orders/ship/{{order.id}}">Ship</a>
 			<br />
 		</div>
