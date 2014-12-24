@@ -398,16 +398,21 @@ angular.module('logisticsApp.services')
         };
 
         //----------------------------------------
+
+        var getAllWarnings = function() {
+            return getAll('orders/warnings');
+        };
+
         var getOverdueOrders = function() {
             return getAll('orders/overdue');
         };
 
         var getOverdueShipping = function() {
-
+            return getAll('orders/overdue_shipping');
         };
 
         var getOrdersMissingPhones = function() {
-
+            return getAll('orders/missing_phones');
         };
 
         var service = {

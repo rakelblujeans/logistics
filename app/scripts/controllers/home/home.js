@@ -45,19 +45,14 @@ function HomeCtrl($scope, DataService) {
     });
 
     // orders overdue on shipping
-    /*DataService.getOverdueShipping().then(function(orders) {
-      for (var i=0; i<orders.length; i++) {
-        $scope.data.warnings.push('Order[' + order[i].invoice_id + '] is late on shipping.');
-      }
+    DataService.getOverdueShipping().then(function(orders) {
+      $scope.data.warnings.overdue_shipping = orders;
     });
 
     // orders missing phones
     DataService.getOrdersMissingPhones().then(function(orders) {
-      for (var i=0; i<orders.length; i++) {
-        $scope.data.warnings.push('Order[' + order[i].invoice_id + '] needs phones assigned.');
-      }
-    });*/
-    
+      $scope.data.warnings.missing_phones = orders;
+    });
   };
 
 	$scope.initFromData = function() {

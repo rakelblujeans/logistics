@@ -58,9 +58,17 @@
 <div class="row" ng-repeat="order in data.warnings.overdue">
 	<p>Order <a href="/#/orders/{{order.id}}">#{{order.invoice_id}}</a> is past due.</p>
 </div>
+<div class="row" ng-repeat="order in data.warnings.overdue_shipping">
+	<p>Order <a href="/#/orders/ship/{{order.id}}">#{{order.invoice_id}}</a> should have already shipped.</p>
+</div>
+
+<div class="row" ng-repeat="order in data.warnings.missing_phones">
+	<p>Order <a href="/#/orders/{{order.id}}">#{{order.invoice_id}}</a> is missing phones, possibly due to lack of available inventory.</p>
 </div>
 
 </div><!-- warnings -->
+
+</div>
 
 <div class="column col-md-4">
 <div class="row">
