@@ -72,9 +72,9 @@
 			<br />
 		</div>
 
-		<a href="" ng-click="toggleActivation(order, 'orders')">
-			{{ order.active ? 'Cancel' : 'Activate' }}
-		</a>
+		<a ng-if="isCancelable(order)" ng-click="toggleOrderCanceled(order)">Cancel</a>
+		<a ng-if="canReactivate(order)" ng-click="toggleOrderCanceled(order)">Reactivate</a>
+
 		<div ng-include src="'/views/orders/_modal.html'"></div>
 
 	</td>

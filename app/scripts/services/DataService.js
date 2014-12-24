@@ -321,6 +321,11 @@ angular.module('logisticsApp.services')
             return getAll('orders/currently_out');
         };
 
+        // i.e. cancel / uncancel an order
+        var toggleOrderActivation = function(itemId) {
+            return update('orders/' + itemId + '/toggle_activation');
+        };
+
         //----------------------------------------
         var createCreditCard = function(data) {
             return post('credit_cards', data);
@@ -445,6 +450,7 @@ angular.module('logisticsApp.services')
             getIncomingOrders: getIncomingOrders,
             getOutboundOrders: getOutboundOrders,
             getOrdersOut: getOrdersOut,
+            toggleOrderActivation: toggleOrderActivation,
             
             createShipment: createShipment,
             updateShipment: updateShipment,

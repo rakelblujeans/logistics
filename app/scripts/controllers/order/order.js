@@ -185,6 +185,39 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
       $scope.initFromData();
     });
   };
+
+  $scope.isCancelable = function(order) {
+    if (!order.active)
+      return false;
+
+    var cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() + 3)
+    var arrival = new Date(order.arrival_date)
+    if (arrival >= cutoff)
+      return true;
+    else
+      return false;
+  };
+
+  $scope.canReactivate = function(order) {
+    if (order.active)
+      return false;
+
+    var cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() + 3)
+    var arrival = new Date(order.arrival_date)
+    if (arrival >= cutoff)
+      return true;
+    else
+      return false;
+  };
+
+  $scope.toggleOrderCanceled = function(order) {
+    DataService.toggleOrderActivation(order.id).then(function() {
+      $scope.initFromData();
+    }); 
+  }
+
 };
 
 OrderCtrl.prototype = Object.create(ListCtrl.prototype);

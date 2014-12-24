@@ -50,14 +50,18 @@
 </div>
 </div>
 
-<div ng-if="data.warnings.overdue.length > 0">
+<div ng-if="data.warnings.overdue.length > 0 || data.warnings.overdue_shipping.length > 0 || data.warnings.missing_phones.length > 0">
 
 <div class="row">
 	<h3 class="text-danger">Warnings</h3>
 </div>
+
 <div class="row" ng-repeat="order in data.warnings.overdue">
-	<p>Order <a href="/#/orders/{{order.id}}">#{{order.invoice_id}}</a> is past due.</p>
+	<p>Order <a data-toggle="modal" data-target="#myModal"
+		ng-click="showCheckInModal(order.phones)">
+	 {{order.invoice_id}}</a> is past due.
 </div>
+
 <div class="row" ng-repeat="order in data.warnings.overdue_shipping">
 	<p>Order <a href="/#/orders/ship/{{order.id}}">#{{order.invoice_id}}</a> should have already shipped.</p>
 </div>
