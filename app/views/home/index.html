@@ -77,9 +77,11 @@
 <div class="column col-md-4">
 <div class="row">
 	<h4>Search</h4>
-	<input type="text" placeholder="invoice #, name, address, ..." ng-model="query" size="30" ng-click="doSearch(query)" />
+	<!-- submit search on key up -->
+   <input type="text" placeholder="invoice #, name, address, ..." 
+   	ng-keyup="$event.keyCode == 13 && doSearch()" 
+   	ng-model="data.query" size="30" />
 </div>
-
 
 <div class="row">
 	<br />
@@ -97,16 +99,15 @@
 	<a href="/#/orders/out">Orders currently out</a>
 </div>
 
-
 <div class="row">
 	<br />
 	<h4>Inventory Management</h4>
 </div>
 <div class="row">
-	<a href="/#/inventory/new">Add inventory</a>
+	<a href="/#/inventory/new">Add phone</a>
 </div>
 <div class="row">
-	<a href="/#/inventory/edit/{{inventory_id1}}">Edit inventory:</a>
+	<a href="/#/inventory/edit/{{inventory_id1}}">Edit phone:</a>
 	<input type="text" placeholder="id" 
 			size="5" ng-model="inventory_id1" />
 </div>

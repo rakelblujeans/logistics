@@ -1,6 +1,6 @@
 'use strict';
 
-function HomeCtrl($scope, DataService) {
+function HomeCtrl($scope, $location, DataService) {
     
   $scope.data = {
   	today: {
@@ -19,7 +19,8 @@ function HomeCtrl($scope, DataService) {
       selection: []
     },
     received_inventory: [],
-    inventory_id2: ''
+    inventory_id2: '',
+    query: ''
   };
   
   function ymd(date) {
@@ -63,7 +64,6 @@ function HomeCtrl($scope, DataService) {
     });
     DataService.getOutboundOrders(ymd(today)).then(function(outboundData) {
   		$scope.data.today.outbound = outboundData;
-      //console.log('outbound today', outboundData);
     });
 
     var tomorrow = new Date();
@@ -73,7 +73,6 @@ function HomeCtrl($scope, DataService) {
     });
     DataService.getOutboundOrders(ymd(tomorrow)).then(function(outboundData) {
   		$scope.data.tomorrow.outbound = outboundData;
-      //console.log('outbound tmrw', outboundData);
     });
 
     $scope.getWarnings();
@@ -81,7 +80,7 @@ function HomeCtrl($scope, DataService) {
   $scope.initFromData();
 
   $scope.doSearch = function() {
-
+    $location.path('search').search({ 'q': $scope.data.query });;
   };
 
   function _processReceivedCallback(returned_phones) {

@@ -110,7 +110,7 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
         unshipped: $routeParams.verifiedState == true };
     }
     setPageTitle($scope.options);
-    var orderId = parseInt($routeParams.id, 10);
+    var orderId = $routeParams.id;
 
     if (orderId) { // detail view
       DataService.getOrder(orderId).then(function(order) {
@@ -211,7 +211,7 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
       return false;
 
     var cutoff = new Date();
-    cutoff.setDate(cutoff.getDate() + 3)
+    cutoff.setDate(cutoff.getDate() + DataService.timeSpentSendingDelivery())
     var arrival = new Date(order.arrival_date)
     if (arrival >= cutoff)
       return true;
@@ -224,7 +224,7 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
       return false;
 
     var cutoff = new Date();
-    cutoff.setDate(cutoff.getDate() + 3)
+    cutoff.setDate(cutoff.getDate() + DataService.timeSpentSendingDelivery())
     var arrival = new Date(order.arrival_date)
     if (arrival >= cutoff)
       return true;

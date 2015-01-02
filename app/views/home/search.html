@@ -1,0 +1,20 @@
+<div class="row">
+	<h4>Search: <input type="text" placeholder="invoice #, name, address, ..."
+		ng-model="data.query" size="30"
+		ng-keyup="$event.keyCode == 13 && doSearch()" />
+	</h4>
+</div>
+
+<div class="row">
+	<h4>Phones Matched</h4>
+</div>
+<div class="row" ng-repeat="phone in data.results.phones">
+	<a href="/#/inventory/{{phone.inventory_id}}">#{{phone.inventory_id}}:</a> {{phone.MEID}} {{phone.ICCID}} {{phone.phone_num}} {{phone.notes}} {{phone.last_imaged}} ...
+</div>
+
+	<div class="row">
+	<h4>Orders Matched</h4>
+</div>
+<div class="row" ng-repeat="order in data.results.orders">
+	<a href="/#/orders/{{order.invoice_id}}">#{{order.invoice_id}}:</a> {{order.shipping_name}} {{order.full_address}} {{order.arrival_date}} {{order.departure_date}} ...
+</div>

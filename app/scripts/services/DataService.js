@@ -7,11 +7,23 @@ angular.module('logisticsApp.services')
     this.localUrl = '';
     this.remoteUrl = '';
     this.useRemote = '';
+    this.delivery_transit_time_sending = 0;
+    this.delivery_transit_time_return = 0;
 
     this.$get = ['$http', '$q', function($http, $q) {
         var remoteUrl = this.remoteUrl;
         var localUrl = this.localUrl;
         var useRemote = this.useRemote;
+        var delivery_transit_time_sending = this.delivery_transit_time_sending;
+        var delivery_transit_time_return = this.delivery_transit_time_return;
+        
+        var timeSpentSendingDelivery = function() {
+            return delivery_transit_time_sending;
+        };
+
+        var timeSpentReturningDelivery = function() {
+            return delivery_transit_time_return
+        };
 
         // get object data
         var getData = function(dataPoint, params) {
@@ -152,33 +164,9 @@ angular.module('logisticsApp.services')
             });
             return promise;
         };
-        /*
-        var setActive = function(objPlural, id, newVal) {
-            var promise = updateData(objPlural + '/' + id, {
-                'active': newVal
-            }).then(function(){
-                return true;
-            }, function() {
-                return false;
-            });
-
-            return promise;
-        };
-
-        var deactivate = function(objPlural, id) {
-            updateData(objPlural + '/' + id, {
-                'active': false
-            });
-        };
-
-        var activate = function(objPlural, id) {
-            updateData(objPlural + '/' + id, {
-                'active': true
-            });   
-        };*/
 
         //----------------------------------------
-        var createCustomer = function(data){
+        /*var createCustomer = function(data){
             return post('customers', data);
         };
 
@@ -192,7 +180,7 @@ angular.module('logisticsApp.services')
 
         var getCustomer = function(index) {
             return get('customers', index);
-        };
+        };*/
 
         //----------------------------------------
         var createInventory = function(data) {
@@ -213,7 +201,6 @@ angular.module('logisticsApp.services')
         };
 
         var getInventoryAvailability = function(startDate, endDate) {
-            //console.log('getting inventory available between ', startDate, endDate);
             return getAll('phones/available_inventory', {
                 'start_date': startDate.toString(),
                 'end_date': endDate.toString()
@@ -328,7 +315,7 @@ angular.module('logisticsApp.services')
         };
 
         //----------------------------------------
-        var createCreditCard = function(data) {
+        /*var createCreditCard = function(data) {
             return post('credit_cards', data);
         };
 
@@ -342,7 +329,7 @@ angular.module('logisticsApp.services')
 
         var getCreditCard = function(index) {
             return get('credit_cards', index);
-        };
+        };*/
 
         //----------------------------------------
         var createTelco = function(data) {
@@ -379,7 +366,7 @@ angular.module('logisticsApp.services')
         };
 
         //----------------------------------------
-        var createReceipt = function(data) {
+        /*var createReceipt = function(data) {
             return post('receipts', data);
         };
 
@@ -393,7 +380,7 @@ angular.module('logisticsApp.services')
 
         var getReceipt = function(index) {
             return get('receipts', index);
-        };
+        };*/
 
         //----------------------------------------
         var getTelcoName = function(id) {
@@ -421,15 +408,25 @@ angular.module('logisticsApp.services')
             return getAll('orders/missing_phones');
         };
 
+        //----------------------------------------
+        var searchAll = function(searchTerms) {
+            return getAll('home/search', {
+                'q': searchTerms
+            });
+        }
+
         var service = {
-            post: post,
+            // common function
+            timeSpentSendingDelivery: timeSpentSendingDelivery,
+            timeSpentReturningDelivery: timeSpentReturningDelivery,
+            /*post: post,
             update: update,
             get: get,
             getAll: getAll,
-            /*deactivate: deactivate,
+            deactivate: deactivate,
             activate: activate,
             setActive: setActive,*/
-
+            // inventory
             createInventory: createInventory,
             getInventory: getInventory,
             getItem: getItem,
@@ -440,7 +437,7 @@ angular.module('logisticsApp.services')
             getCurrentOrder: getCurrentOrder,
             checkInInventory: checkInInventory,
             togglePhoneActivation: togglePhoneActivation,
-
+            // orders
             createOrder: createOrder,
             getOrders: getOrders,
             getOrder: getOrder,
@@ -452,37 +449,39 @@ angular.module('logisticsApp.services')
             getOutboundOrders: getOutboundOrders,
             getOrdersOut: getOrdersOut,
             toggleOrderActivation: toggleOrderActivation,
-
+            // deliveries
             createShipment: createShipment,
             updateShipment: updateShipment,
             getShipments: getShipments,
             getShipment: getShipment,
+            // warnings
+            getOverdueOrders: getOverdueOrders,
+            getOverdueShipping: getOverdueShipping,
+            getOrdersMissingPhones: getOrdersMissingPhones,
         
-            /*createCustomer: createCustomer,
-            getCustomers: getCustomers,
-            getCustomer: getCustomer,
+            /* 
+            Disabled because it would put us out of sync with e-commerce website db/Braintree
+            createCustomer: createCustomer,
             updateCustomer: updateCustomer,
-            
             createCreditCard: createCreditCard,
             updateCreditCard: updateCreditCard,
+            createReceipt: createReceipt,
+            updateReceipt: updateReceipt,
+            getCustomers: getCustomers,
+            getCustomer: getCustomer,
             getCreditCards: getCreditCards,
             getCreditCard: getCreditCard,
-            
+            getReceipt: getReceipt,
+            getReceipts: getReceipts,
+            */
             createTelco: createTelco,
             updateTelco: updateTelco,
             getTelcos: getTelcos,
             getTelco: getTelco,
 
-            createReceipt: createReceipt,
-            updateReceipt: updateReceipt,
-            getReceipt: getReceipt,
-            getReceipts: getReceipts,*/
-
             getTelcoName: getTelcoName,
 
-            getOverdueOrders: getOverdueOrders,
-            getOverdueShipping: getOverdueShipping,
-            getOrdersMissingPhones: getOrdersMissingPhones,
+            searchAll: searchAll,
         };
         return service;
     }];
