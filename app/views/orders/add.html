@@ -1,4 +1,8 @@
-<div class="panel panel-warning">
+<form	name="orderForm" novalidate role="form"
+	class="form-horizontal">
+	
+
+	<div class="panel panel-warning">
 	<div class="panel-heading">
 		<h3 class="panel-title">{{ header }}</h3>
 	</div>
@@ -23,13 +27,16 @@
 		<div class="form-group">
 			<label class="col-xs-3 control-label" for="delivery_type_str">Delivery Type:</label>
 			<div class="col-xs-6">
-				<input type="text" class="form-control" 
-					name="delivery_type_str"
-					ng-model="form.order.delivery_type_str" 
-					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
-					ng-minlength="1"
-					ng-maxlength="20" 
-					required />
+				<select class="dropdown form-control"
+						name="delivery_type_str" 
+						ng-model="form.order.delivery_type_str" 
+						>
+						<option value="">Select...</option>
+						<option value="residential">Residential</option>
+						<option value="hotel">Hotel</option>
+						<option value="fedex">Fedex</option>
+				</select>
+
 				<div class="text-danger" ng-messages="orderForm.delivery_type_str.$error" ng-messages-include="errors.html" 
 						 ng-if="orderForm.delivery_type_str.$dirty && orderForm.delivery_type_str.$invalid">
 	      </div>
@@ -37,30 +44,14 @@
 		</div><!-- form-group -->
 
 		<div class="form-group">
-			<label class="col-xs-3 control-label" for="delivery_type_str">Full address:</label>
-			<div class="col-xs-6">
-				<input type="text" class="form-control"
-					name="full_address"
-					ng-model="form.order.full_address" 
-					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
-					ng-minlength="1"
-					ng-maxlength="50" 
-					required />
-				<div class="text-danger" ng-messages="orderForm.full_address.$error" ng-messages-include="errors.html" 
-						 ng-if="orderForm.full_address.$dirty && orderForm.full_address.$invalid">
-	      </div>
-			</div>
-		</div><!-- form-group -->
-
-		<div class="form-group">
-			<label class="col-xs-3 control-label" for="shipping_name">Shipping Name:</label>
+			<label class="col-xs-3 control-label" for="shipping_name">Customer Name:</label>
 			<div class="col-xs-6">
 				<input type="text" class="form-control"
 					name="shipping_name"
 					ng-model="form.order.shipping_name" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
-					ng-maxlength="20" 
+					ng-maxlength="50" 
 					required />
 				<div class="text-danger" ng-messages="orderForm.shipping_name.$error" ng-messages-include="errors.html" 
 						 ng-if="orderForm.shipping_name.$dirty && orderForm.shipping_name.$invalid">
@@ -76,7 +67,7 @@
 					ng-model="form.order.shipping_city" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
-					ng-maxlength="20" 
+					ng-maxlength="50" 
 					required />
 				<div class="text-danger" ng-messages="orderForm.shipping_city.$error" ng-messages-include="errors.html" 
 						 ng-if="orderForm.shipping_city.$dirty && orderForm.shipping_city.$invalid">
@@ -198,13 +189,18 @@
 		<div class="form-group">
 			<label class="col-xs-3 control-label" for="language">Language:</label>
 			<div class="col-xs-6">
-				<input type="text" class="form-control" 
-					name="language"
-					ng-model="form.order.language" 
-					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
-					ng-minlength="1"
-					ng-maxlength="20" 
-					required />
+				<select class="dropdown form-control"
+						name="language" 
+						ng-model="form.order.language" 
+						>
+						<option value="">Select...</option>
+						<option value="English">English</option>
+						<option value="French">French</option>
+						<option value="German">German</option>
+						<option value="Japanese">Japanese</option>
+						<option value="Mandarin">Mandarin</option>
+						<option value="Spanish">Spanish</option>
+				</select>
 				<div class="text-danger" ng-messages="orderForm.language.$error" ng-messages-include="errors.html" 
 						 ng-if="orderForm.language.$dirty && orderForm.language.$invalid">
 	      </div>
@@ -214,13 +210,16 @@
 		<div class="form-group">
 			<label class="col-xs-3 control-label" for="num_phones">Num Phones:</label>
 			<div class="col-xs-6">
-				<input type="text" class="form-control"
-					name="num_phones"
-					ng-model="form.order.num_phones" 
-					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
-					ng-minlength="1"
-					ng-maxlength="20" 
-					required />
+				<select class="dropdown form-control"
+						name="num_phones" 
+						ng-model="form.order.num_phones" 
+						>
+						<option value="">Select...</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+				</select>
 				<div class="text-danger" ng-messages="orderForm.num_phones.$error" ng-messages-include="errors.html" 
 						 ng-if="orderForm.num_phones.$dirty && orderForm.num_phones.$invalid">
 	      </div>
@@ -229,3 +228,15 @@
 
 	</div>
 </div>
+
+
+
+
+	<button ng-disabled="!orderForm.$valid" ng-click="submitNew()">Submit Form</button>
+
+	&nbsp;&nbsp;&nbsp;
+	<a href="/#/orders?verifiedState=0">View pending orders</a> |
+	<a href="/#/orders?verifiedState=1">Shippable</a>
+
+
+</form>

@@ -14,7 +14,7 @@ angular.module('logisticsApp.controllers')
       // get by inventory_id, not database record id
       $scope.invId = parseInt($routeParams.invIndex, 10);
       
-      DataService.getAll('providers').then(function(providers) {
+      DataService.getTelcos().then(function(providers) {
         $scope.misc = { 'providers': providers };
       });
 
@@ -25,19 +25,13 @@ angular.module('logisticsApp.controllers')
           var d = Date.parse($scope.form.item.last_imaged);
           $scope.form.item.last_imaged = new Date(d);
 
-          if (item.provider_id) {
-            DataService.getTelcoName(item.provider_id).then(function(telcoName){
-              $scope.form.item['providerName'] = telcoName;
-            });
-          }
-
+          console.log($scope.form.item.provider);
         });
       }
     };
     $scope.initFromData();
 
     $scope.submitEdit = function(item, event) {
-      //console.log('--> Submitting form', $scope.form.item);
       DataService.updateInventory($scope.invId, $scope.form.item).then(
         function(output) {
           $location.path('inventory/' + $scope.invId);

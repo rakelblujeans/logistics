@@ -23,19 +23,15 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-3">Last Imaged On:</div>
-			<div class="col-xs-6">{{item.last_imaged}}</div>
+			<div class="col-xs-6">{{item.last_imaged_display}}</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-3">Provider:</div>
-			<div class="col-xs-6">{{item.providerName}}</div>
+			<div class="col-xs-6">{{item.provider.name}}</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-3">Notes:</div>
 			<div class="col-xs-6">{{item.notes}}</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-3">Last updated on:</div>
-			<div class="col-xs-6">{{item.updated_at}}</div>
 		</div>
 	</div>
 </div>
@@ -69,8 +65,8 @@
 		<tr ng-repeat="order in data.upcoming_orders | filter:query | orderBy:sort.column:sort.descending">
 			<td><a href="/#/orders/{{order.id}}">{{ current_order.shipping_name }}</a></td>
 			<td>{{ current_order.full_address }}</td>
-			<td>{{ current_order.arrival_date }}</td>
-			<td>{{ current_order.departure_date }}</td>
+			<td>{{ current_order.arrival_date_display }}</td>
+			<td>{{ current_order.departure_date_display }}</td>
 		</tr>
 		</tbody>
 		</table>
@@ -112,8 +108,8 @@
 		<tr ng-repeat="order in data.upcoming_orders | filter:query | orderBy:sort.column:sort.descending">
 			<td><a href="/#/orders/{{order.id}}">{{ order.shipping_name }}</a></td>
 			<td>{{ order.full_address }}</td>
-			<td>{{ order.arrival_date }}</td>
-			<td>{{ order.departure_date }}</td>
+			<td>{{ order.arrival_date_display }}</td>
+			<td>{{ order.departure_date_display }}</td>
 		</tr>
 		</tbody>
 		</table>

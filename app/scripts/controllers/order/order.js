@@ -115,15 +115,29 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
     if (orderId) { // detail view
       DataService.getOrder(orderId).then(function(order) {
         $scope.order = order;
-          $scope.data[order.id] = {};
-          _getAvailableInventory($scope.order);
-          _buildOrderHistory(order);
+        $scope.order.arrival_date_display = $scope.getFormattedDate($scope.order.arrival_date);
+        $scope.order.departure_date_display = $scope.getFormattedDate($scope.order.departure_date);
+        for (var i=0; i<$scope.order.phones.length; i++) {
+          $scope.order.phones[i].last_imaged_display = $scope.getFormattedDate($scope.order.phones[i].last_imaged)
+        }
+        for (var z=0; z<$scope.order.shipments.length; z++) {
+          $scope.order.shipments[z].out_on_date_display = $scope.getFormattedDate($scope.order.shipments[z].out_on_date);
+        }
+
+        $scope.data[order.id] = {};
+        _getAvailableInventory($scope.order);
+        _buildOrderHistory(order);
       });
     } else { // list view
       DataService.getOrders($scope.options).then(function(data) {
         $scope.orders = data;
         for (var i=0; i<$scope.orders.length; i++) {
           var order = $scope.orders[i];
+          $scope.orders[i].arrival_date_display = $scope.getFormattedDate($scope.orders[i].arrival_date);
+          $scope.orders[i].departure_date_display = $scope.getFormattedDate($scope.orders[i].departure_date);
+          for (var z=0; z<$scope.orders[i].shipments.length; z++) {
+            $scope.orders[i].shipments[z].out_on_date_display = $scope.getFormattedDate($scope.orders[i].shipments[z].out_on_date);
+          }
           var id = order.id;
 
           $scope.data[id] = {

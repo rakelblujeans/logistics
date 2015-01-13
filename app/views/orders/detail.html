@@ -65,11 +65,11 @@
     </div>
     <div class="row">
       <div class="col-xs-6">Arrival Date:</div>
-      <div class="col-xs-6">{{order.arrival_date}}</div>
+      <div class="col-xs-6">{{order.arrival_date_display}}</div>
     </div>
     <div class="row">
       <div class="col-xs-6">Departure Date:</div>
-      <div class="col-xs-6">{{order.departure_date}}</div>
+      <div class="col-xs-6">{{order.departure_date_display}}</div>
     </div>
     <div class="row">
       <div class="col-xs-6">Language:</div>
@@ -119,7 +119,7 @@
     <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.phone_num }}</td>
     <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.provider_id }}</td>
     <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.MEID }}</td>
-    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.last_imaged }}</td>
+    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.last_imaged_display }}</td>
     <td ng-class-odd="'odd'" ng-class-even="'even'">
       <a href="" ng-click="togglePhoneActivation(phone)">
         {{ phone.active ? 'Deactivate' : 'Activate' }}
@@ -140,6 +140,6 @@
 </div>
 <div class="row" ng-repeat="shipment in order.shipments | orderBy:shipment.out_on_date:true">
   <div class="col-md-12">
-    [ {{shipment.out_on_date}} ] {{shipment.qty}} phone(s) {{data.shipmentPhoneIds[shipment.id]}} went out via {{shipment.delivery_type.name}}.
+    [ {{shipment.out_on_date_display}} ] {{shipment.qty}} phone(s) {{data.shipmentPhoneIds[shipment.id]}} went out via {{shipment.delivery_type.name}}.
   </div>
 </div>

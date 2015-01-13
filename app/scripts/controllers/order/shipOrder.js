@@ -10,6 +10,16 @@ function ShipOrderCtrl($scope, $location, $route, $routeParams, DataService, $ti
     doneShipping: false
   };
 
+  // getFormattedDate("yyyy/mm/dd");
+  function getFormattedDate(input){
+    var pattern=/(.*?)-(.*?)-(.*?)$/;
+    var result = input.replace(pattern,function(match,p1,p2,p3){
+      var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return p3+"-"+months[(p2-1)]+"-"+p1;
+    });
+    return result;
+  }
+
   function updateOrderData(orderId) {
     DataService.getOrder(orderId).then(function(order) {
 
@@ -17,7 +27,13 @@ function ShipOrderCtrl($scope, $location, $route, $routeParams, DataService, $ti
         $location.path("/orders").search({ 'verifiedState': '0' });
       }
 
+      order.arrival_date_display = getFormattedDate(order.arrival_date);
+      order.departure_date_display = getFormattedDate(order.departure_date);
+      for (var z=0; z<order.shipments.length; z++) {
+        order.shipments[z].out_on_date_display = getFormattedDate(order.shipments[z].out_on_date);
+      }
       $scope.order = order;
+
 
       // get phones assigned to this order
       $scope.data.unshippedPhones = order.phones;

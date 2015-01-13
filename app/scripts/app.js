@@ -6,7 +6,6 @@ angular.module('logisticsApp.controllers', []);
 
 angular
   .module('logisticsApp', [
-    'sprintf',
     'ngAnimate',
     'ngCookies',
     'ngResource',
@@ -28,7 +27,7 @@ angular
       .when('/inventory/edit/:invIndex',     { templateUrl: 'views/inventory/edit.html', controller: 'InventoryFormCtrl', controllerAs: 'Inventory' })
       .when('/inventory',                    { templateUrl: 'views/inventory/index.html', controller: 'InventoryCtrl', controllerAs: 'Inventory' })
 
-      .when('/orders/new/',       { templateUrl: 'views/orders/new.html', controller: 'OrderFormCtrl', controllerAs: 'Order' })
+      .when('/orders/new/',       { templateUrl: 'views/orders/add.html', controller: 'OrderFormCtrl', controllerAs: 'Order' })
       .when('/orders/out/',       { templateUrl: 'views/orders/index.html', controller: 'OrderOutCtrl', controllerAs: 'Order' })
       .when('/orders/ship/:id',   { templateUrl: 'views/orders/ship.html', controller: 'ShipOrderCtrl', controllerAs: 'Order' })
       .when('/orders/:id',        { templateUrl: 'views/orders/detail.html', controller: 'OrderCtrl', controllerAs: 'Order' })

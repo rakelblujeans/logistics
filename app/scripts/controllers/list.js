@@ -25,4 +25,15 @@ function ListCtrl($scope) {
     this.ascending = !sort.descending;
   };
 
+
+  // getFormattedDate("yyyy/mm/dd");
+  $scope.getFormattedDate = function(input){
+    var pattern=/(.*?)-(.*?)-(.*?)$/;
+    var result = input.replace(pattern,function(match,p1,p2,p3){
+      var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      return p3+"-"+months[(p2-1)]+"-"+p1;
+    });
+    return result;
+  }
+
 }

@@ -4,11 +4,13 @@ function OrderFormCtrl($scope, $route, $routeParams, $location, DataService) {
 
   $scope.form = { 'order': {} };
   $scope.header = 'New Order';
-  
+
   $scope.initFromData = function() {
     $scope.orderId = $routeParams.id;
     if ($scope.orderId) { // if editing
       DataService.getOrder($scope.orderId).then(function(order) {
+        order.arrival_date = new Date(order.arrival_date)
+        order.departure_date = new Date(order.departure_date)
         $scope.form = { 'order': order };
         $scope.header = 'Update order #' + order.id;
       });

@@ -382,16 +382,6 @@ angular.module('logisticsApp.services')
             return get('receipts', index);
         };*/
 
-        //----------------------------------------
-        var getTelcoName = function(id) {
-            var promise = getData('providers/' + id).then(function(data) {
-                return data.name;
-            });
-            return promise;
-        };
-
-        //----------------------------------------
-
         var getAllWarnings = function() {
             return getAll('orders/warnings');
         };
@@ -478,8 +468,6 @@ angular.module('logisticsApp.services')
             updateTelco: updateTelco,
             getTelcos: getTelcos,
             getTelco: getTelco,
-
-            getTelcoName: getTelcoName,
 
             searchAll: searchAll,
         };

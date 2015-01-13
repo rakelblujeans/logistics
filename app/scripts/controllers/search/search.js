@@ -1,7 +1,7 @@
 'use strict';
 
 function SearchCtrl($scope, $location, $route, $routeParams, DataService) {
-
+	
 	$scope.data = {
 		query: '',
 		results: []

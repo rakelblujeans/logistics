@@ -11,8 +11,8 @@
 <div class="row">
 	<div class="col-xs-3">{{order.shipping_name}}</div>
 	<div class="col-xs-3">{{order.full_address}}</div>
-	<div class="col-xs-3">{{order.arrival_date}}</div>
-	<div class="col-xs-3">{{order.departure_date}}</div>
+	<div class="col-xs-3">{{order.arrival_date_display}}</div>
+	<div class="col-xs-3">{{order.departure_date_display}}</div>
 </div>
 
 <br />
@@ -111,7 +111,7 @@
 			<p class="text-success" ng-if="data.doneShipping">All phones for this order have already shipped</p>
 
 			<p ng-repeat="shipment in order.shipments | orderBy:shipment.out_on_date:true">
-				[ {{shipment.out_on_date}} ] {{shipment.qty}} phone(s) {{data.shipmentPhoneIds[shipment.id]}} went out via {{shipment.delivery_type.name}}.
+				[ {{shipment.out_on_date_display}} ] {{shipment.qty}} phone(s) {{data.shipmentPhoneIds[shipment.id]}} went out via {{shipment.delivery_type.name}}.
 			</p>
 
 		</div>

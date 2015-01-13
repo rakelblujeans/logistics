@@ -34,9 +34,9 @@
 	<td ng-class-odd="'odd'" ng-class-even="'even'">
 		<a href="/#/inventory/{{ inv.id }}">{{ inv.id }}</a></td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.phone_num }}</td>
-	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.provider_id }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.provider.name }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.MEID }}</td>
-	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.last_imaged }}</td>
+	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.last_imaged_display }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">
 		<!--button type="button" class="btn btn-xs btn-default" ng-click="viewDetail($index)">Details</button-->
 		<a href="" ng-click="toggleActivation(inv, 'phones')">
