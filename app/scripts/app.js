@@ -17,8 +17,8 @@ angular
     'logisticsApp.services',
     'logisticsApp.controllers'
   ])
-  .config(['$routeProvider', 'DataServiceProvider', '$httpProvider',
-    function ($routeProvider, DataServiceProvider, $httpProvider) {
+  .config(['$routeProvider', 'DataServiceProvider', '$httpProvider', '$compileProvider',
+    function ($routeProvider, DataServiceProvider, $httpProvider, $compileProvider) {
     $routeProvider
       .when('/', { templateUrl: 'views/home/index.html', controller: 'HomeCtrl' })
 
@@ -65,14 +65,16 @@ angular
 
       .otherwise({ redirectTo: '/' });
 
-      DataServiceProvider.remoteUrl = 'http://localhost:3000/';
+      $compileProvider.debugInfoEnabled(false);
+
+      DataServiceProvider.remoteUrl = 'http://logisticsbackend.herokuapp.com/';
       DataServiceProvider.localUrl = 'data/';
       DataServiceProvider.useRemote = true;
-      DataServiceProvider.delivery_transit_time_sending = 3
-      DataServiceProvider.delivery_transit_time_return = 3
+      DataServiceProvider.delivery_transit_time_sending = 3;
+      DataServiceProvider.delivery_transit_time_return = 3;
 
       $httpProvider.defaults.headers.patch = {
         'Content-Type': 'application/json;charset=utf-8'
       };
-
+      $httpProvider.defaults.headers.common = { 'Authorization': 'Basic ' + btoa('admin:secret') };
   }]);

@@ -22,7 +22,7 @@ angular.module('logisticsApp.services')
         };
 
         var timeSpentReturningDelivery = function() {
-            return delivery_transit_time_return
+            return delivery_transit_time_return;
         };
 
         // get object data
@@ -403,7 +403,7 @@ angular.module('logisticsApp.services')
             return getAll('home/search', {
                 'q': searchTerms
             });
-        }
+        };
 
         var service = {
             // common function

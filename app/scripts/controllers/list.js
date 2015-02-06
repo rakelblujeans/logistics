@@ -31,9 +31,9 @@ function ListCtrl($scope) {
     var pattern=/(.*?)-(.*?)-(.*?)$/;
     var result = input.replace(pattern,function(match,p1,p2,p3){
       var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      return p3+"-"+months[(p2-1)]+"-"+p1;
+      return p3+'-'+months[(p2-1)]+'-'+p1;
     });
     return result;
-  }
+  };
 
 }
