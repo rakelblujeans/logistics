@@ -1,44 +1,35 @@
 'use strict';
 
-function ShipOrderCtrl($scope, $location, $route, $routeParams, DataService, $timeout) {
+function ShipOrderCtrl($location, $route, $routeParams, DataService, $timeout, CommonCode) {
   
-  $scope.form = { 'shipment': {} };
-  $scope.data = {
+  this.form = { 'shipment': {} };
+  this.data = {
     unshippedPhones: [],
     selection: [],
     shipmentPhoneIds: {},
     doneShipping: false
   };
 
-  // getFormattedDate("yyyy/mm/dd");
-  function getFormattedDate(input){
-    var pattern=/(.*?)-(.*?)-(.*?)$/;
-    var result = input.replace(pattern,function(match,p1,p2,p3){
-      var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      return p3+"-"+months[(p2-1)]+"-"+p1;
-    });
-    return result;
-  }
-
-  function updateOrderData(orderId) {
+  this.updateOrderData = function(orderId) {
+    var thisCopy = this;
     DataService.getOrder(orderId).then(function(order) {
 
       if (!order.is_verified) {
         $location.path("/orders").search({ 'verifiedState': '0' });
       }
 
-      order.arrival_date_display = getFormattedDate(order.arrival_date);
-      order.departure_date_display = getFormattedDate(order.departure_date);
+      order.arrival_date_display = CommonCode.getFormattedDate(order.arrival_date);
+      order.departure_date_display = CommonCode.getFormattedDate(order.departure_date);
       for (var z=0; z<order.shipments.length; z++) {
-        order.shipments[z].out_on_date_display = getFormattedDate(order.shipments[z].out_on_date);
+        order.shipments[z].out_on_date_display = CommonCode.getFormattedDate(order.shipments[z].out_on_date);
       }
-      $scope.order = order;
+      thisCopy.order = order;
 
 
       // get phones assigned to this order
-      $scope.data.unshippedPhones = order.phones;
+      thisCopy.data.unshippedPhones = order.phones;
       for(var i=0; i<order.phones.length; i++) {
-        $scope.data.selection[i] = order.phones[i].id;
+        thisCopy.data.selection[i] = order.phones[i].id;
       }
 
       // Build a list of which phones went out in each prior delivery.
@@ -51,65 +42,69 @@ function ShipOrderCtrl($scope, $location, $route, $routeParams, DataService, $ti
 
           // filter out phones that have already shipped - don't send this
           // info to the view
-          var foundIdx = $scope.data.selection.indexOf(phoneIds[k])
+          var foundIdx = thisCopy.data.selection.indexOf(phoneIds[k])
           if (foundIdx > -1) {
-            $scope.data.selection.splice(foundIdx, 1);
-            $scope.data.unshippedPhones.splice(foundIdx, 1);
+            thisCopy.data.selection.splice(foundIdx, 1);
+            thisCopy.data.unshippedPhones.splice(foundIdx, 1);
           }
         }
-        $scope.data.shipmentPhoneIds[order.shipments[j].id] = '[' + phoneIds.join(',') + ']';
+        thisCopy.data.shipmentPhoneIds[order.shipments[j].id] = '[' + phoneIds.join(',') + ']';
         numPhones += order.shipments[j].qty;
       }
 
       if (numPhones >= order.num_phones) {
-        $scope.data.doneShipping = true;
+        thisCopy.data.doneShipping = true;
       }
 
     });
+    this.data = thisCopy.data;
+    this.order = thisCopy.order;
+
   }
 
-  $scope.initFromData = function() {
+  this.initFromData = function() {
     var orderId = parseInt($routeParams.id, 10);
     if (orderId) {
-      updateOrderData(orderId);
+      this.updateOrderData(orderId);
     }
   };
-  $scope.initFromData();
+  this.initFromData();
 
   // toggle selection for a given phone by name
-  $scope.toggleSelection = function(phoneId) {
-    var idx = $scope.data.selection.indexOf(phoneId);
+  this.toggleSelection = function(phoneId) {
+    var idx = this.data.selection.indexOf(phoneId);
 
     // is currently selected
     if (idx > -1) {
-      $scope.data.selection.splice(idx, 1);
+      this.data.selection.splice(idx, 1);
     }
     // is newly selected
     else {
-      $scope.data.selection.push(phoneId);
+      this.data.selection.push(phoneId);
     }
   };
 
-  $scope.shouldDisableForm = function(formIsValid) {
-    var formData = $scope.form.shipment;
+  this.shouldDisableForm = function(formIsValid) {
+    var formData = this.form.shipment;
     // one of the two must be filled out
     if (!formData.delivery_out_code && !formData.hand_delivered_by) {
       return true;
     }
 
-    if ($scope.data.selection.length <= 0) {
+    if (this.data.selection.length <= 0) {
       return true;
     }
 
     return !formIsValid;
   };
 
-  $scope.ship = function() {
-    $scope.form.shipment['phone_ids'] = $scope.data.selection;
-    $scope.form.shipment['order_id'] = $scope.order.id;
-    $scope.form.shipment['out_on_date'] = new Date().toISOString();
-    DataService.createShipment($scope.form).then(function(new_shipment) {
-      updateOrderData($scope.order.id);
+  this.ship = function() {
+    this.form.shipment['phone_ids'] = this.data.selection;
+    this.form.shipment['order_id'] = this.order.id;
+    this.form.shipment['out_on_date'] = new Date().toISOString();
+    var thisCopy = this;
+    DataService.createShipment(thisCopy.form).then(function(new_shipment) {
+      thisCopy.updateOrderData(thisCopy.order.id);
     });
   };
 

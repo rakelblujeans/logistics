@@ -1,8 +1,10 @@
  'use strict';
 
-function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
+function OrderCtrl($route, $routeParams, DataService, $timeout, CommonCode) {
 
-  ListCtrl.call(this, $scope, DataService);
+  this.sort = CommonCode.sort;
+  this.ascending = CommonCode.ascending;
+  this.changeSorting = CommonCode.changeSorting;
 
   /* Each order is going to have a data block associated with it. Data model will look
    * something like:
@@ -20,10 +22,10 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
    * }}
    * 
    */
-  $scope.data = {};
-  $scope.options = {}; // holds routeParam options
+  this.data = {};
+  this.options = {}; // holds routeParam options
   
-  function getPhoneIds(order) {
+  this.getPhoneIds = function(order) {
     var assignedPhones = [];
     for(var i=0; i<order.phones.length; i++) {
       if (order.phones[i]) {
@@ -34,45 +36,45 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
     return assignedPhones;
   };
 
-  function buildPhoneIdString(order) {
-    return "[" + getPhoneIds(order).join(",") + "]"
+  this.buildPhoneIdString = function(order) {
+    return "[" + this.getPhoneIds(order).join(",") + "]"
   };
 
-  function setPageTitle(options) {
+  this.setPageTitle = function(options) {
     if (options.unverified) {
-      $scope.data.pageTitle = "Pending orders";
+      this.data.pageTitle = "Pending orders";
     } else if (options.unshipped) {
-      $scope.data.pageTitle = "Orders ready for delivery"
+      this.data.pageTitle = "Orders ready for delivery"
     } else {
-      $scope.data.pageTitle = "All Orders";
+      this.data.pageTitle = "All Orders";
     }
   };
 
-  function _dismissModal() {
+  this._dismissModal = function() {
     // modal css clean up (bug in bootstrap related to fade-in)
     $('#myModal').modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
   };
 
-  function _buildOrderHistory(order) {
-    $scope.data.shipmentPhoneIds = {};
+  this._buildOrderHistory = function(order) {
+    this.data.shipmentPhoneIds = {};
     for(var j=0; j<order.shipments.length; j++) {
       var phoneIds = [];
       
       for(var k=0; k<order.shipments[j].phones.length; k++) {
         phoneIds[k] = order.shipments[j].phones[k].id;
       }
-      $scope.data.shipmentPhoneIds[order.shipments[j].id] = '[' + phoneIds.join(',') + ']';
+      this.data.shipmentPhoneIds[order.shipments[j].id] = '[' + phoneIds.join(',') + ']';
     }
   };
 
-  function _getAvailableInventory(order) {
-    var orderData = $scope.data[order.id];
+  this._getAvailableInventory = function(order) {
+    var orderData = this.data[order.id];
     orderData.phoneSlots = order.phones;
 
-    orderData.assignedPhoneIds = buildPhoneIdString(order);
-
+    orderData.assignedPhoneIds = this.buildPhoneIdString(order);
+    var thisCopy = this;
     var promise = DataService.getInventoryAvailability(order.arrival_date, order.departure_date).then(function(data) {
       orderData.availableInventory = data;
       orderData.slotsAvailable = 0;
@@ -82,145 +84,163 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
         }
       }
 
-      $scope.data[order.id] = orderData;
+      thisCopy.data[order.id] = orderData;
     });
+    this.data = thisCopy.data;
+    
 
     return promise;
   };
 
-  function _updateOrder(oldOrder, newOrder) {
-    if ($scope.order) { 
-      $scope.order = newOrder;
+  this._updateOrder = function(oldOrder, newOrder) {
+    if (this.order) { 
+      this.order = newOrder;
     } else {
       oldOrder = newOrder;
-      for(var i=0; i<$scope.orders.length; i++) {
-        if ($scope.orders[i].id === newOrder.id) {
-          $scope.orders[i].phones = newOrder.phones;
+      for(var i=0; i<this.orders.length; i++) {
+        if (this.orders[i].id === newOrder.id) {
+          this.orders[i].phones = newOrder.phones;
         }
       }
     }
   };
 
-  $scope.initFromData = function() {
-    $scope.sort.column = 'arrival_date'
+  this.initFromData = function() {
+    this.sort.column = 'arrival_date'
 
     if ($routeParams.verifiedState) {
-      $scope.options = {
+      this.options = {
         unverified: $routeParams.verifiedState == false,
         unshipped: $routeParams.verifiedState == true };
     }
-    setPageTitle($scope.options);
+    this.setPageTitle(this.options);
     var orderId = $routeParams.id;
 
+    var thisCopy = this;
     if (orderId) { // detail view
       DataService.getOrder(orderId).then(function(order) {
-        $scope.order = order;
-        $scope.order.arrival_date_display = $scope.getFormattedDate($scope.order.arrival_date);
-        $scope.order.departure_date_display = $scope.getFormattedDate($scope.order.departure_date);
-        for (var i=0; i<$scope.order.phones.length; i++) {
-          $scope.order.phones[i].last_imaged_display = $scope.getFormattedDate($scope.order.phones[i].last_imaged)
-        }
-        for (var z=0; z<$scope.order.shipments.length; z++) {
-          $scope.order.shipments[z].out_on_date_display = $scope.getFormattedDate($scope.order.shipments[z].out_on_date);
+        thisCopy.order = order;
+        thisCopy.order.arrival_date_display = CommonCode.getFormattedDate(thisCopy.order.arrival_date);
+        thisCopy.order.departure_date_display = CommonCode.getFormattedDate(thisCopy.order.departure_date);
+        for (var i=0; i<thisCopy.order.phones.length; i++) {
+          thisCopy.order.phones[i].last_imaged_display = CommonCode.getFormattedDate(thisCopy.order.phones[i].last_imaged)
+        } 
+        for (var z=0; z<thisCopy.order.shipments.length; z++) {
+          thisCopy.order.shipments[z].out_on_date_display = CommonCode.getFormattedDate(thisCopy.order.shipments[z].out_on_date);
         }
 
-        $scope.data[order.id] = {};
-        _getAvailableInventory($scope.order);
-        _buildOrderHistory(order);
+        thisCopy.data[order.id] = {};
+        thisCopy._getAvailableInventory(thisCopy.order);
+        thisCopy._buildOrderHistory(order);
       });
+      this.order = thisCopy.order;
+      this.data = thisCopy.data;
+
     } else { // list view
-      DataService.getOrders($scope.options).then(function(data) {
-        $scope.orders = data;
-        for (var i=0; i<$scope.orders.length; i++) {
-          var order = $scope.orders[i];
-          $scope.orders[i].arrival_date_display = $scope.getFormattedDate($scope.orders[i].arrival_date);
-          $scope.orders[i].departure_date_display = $scope.getFormattedDate($scope.orders[i].departure_date);
-          for (var z=0; z<$scope.orders[i].shipments.length; z++) {
-            $scope.orders[i].shipments[z].out_on_date_display = $scope.getFormattedDate($scope.orders[i].shipments[z].out_on_date);
+      DataService.getOrders(this.options).then(function(data) {
+        thisCopy.orders = data;
+        for (var i=0; i<thisCopy.orders.length; i++) {
+          var order = thisCopy.orders[i];
+          thisCopy.orders[i].arrival_date_display = CommonCode.getFormattedDate(thisCopy.orders[i].arrival_date);
+          thisCopy.orders[i].departure_date_display = CommonCode.getFormattedDate(thisCopy.orders[i].departure_date);
+          for (var z=0; z<thisCopy.orders[i].shipments.length; z++) {
+            thisCopy.orders[i].shipments[z].out_on_date_display = CommonCode.getFormattedDate(thisCopy.orders[i].shipments[z].out_on_date);
           }
           var id = order.id;
 
-          $scope.data[id] = {
-            'assignedPhoneIds': buildPhoneIdString(order),
+          thisCopy.data[id] = {
+            'assignedPhoneIds': thisCopy.buildPhoneIdString(order),
             'assignmentOptionsVisible': false
           };
-          $scope.data[order.id].slotsAvailable = order.num_phones - getPhoneIds(order).length;
+          thisCopy.data[order.id].slotsAvailable = order.num_phones - thisCopy.getPhoneIds(order).length;
         }
       });
+      this.orders = thisCopy.orders;
+      this.data = thisCopy.data;
+
     }
   };
-  $scope.initFromData();
+  this.initFromData();
   
-  $scope.showInventoryOptions = function(order) {
-    if ($scope.order) {
-      _getAvailableInventory(order);
+  this.showInventoryOptions = function(order) {
+    if (this.order) {
+      this._getAvailableInventory(order);
     } else {
       // collapse all other rows
-      for(var i=0; i<$scope.orders.length; i++) {
-        $scope.data[order.id].assignmentOptionsVisible = false;  
+      for(var i=0; i<this.orders.length; i++) {
+        this.data[order.id].assignmentOptionsVisible = false;  
       }
       // only expand this order's row
-      $scope.data[order.id].assignmentOptionsVisible = !$scope.data[order.id].assignmentOptionsVisible;
+      this.data[order.id].assignmentOptionsVisible = !this.data[order.id].assignmentOptionsVisible;
       // pull latest inventory data
-      _getAvailableInventory(order);
+      this._getAvailableInventory(order);
     }
   };
 
   // WARNING: be careful to refer to phone by id, not inventory_id field
-  $scope.assignDevice = function(order) {
+  this.assignDevice = function(order) {
+    var thisCopy = this;
     DataService.assignDevice(order.id, order.assignedInventoryItem).then(
       function(updatedOrder) {
         // refresh order with latest confirmed info from the server
-        _updateOrder(order, updatedOrder);
-        $scope.data[order.id].slotsAvailable--;
-        _getAvailableInventory(updatedOrder);
+        thisCopy._updateOrder(order, updatedOrder);
+        thisCopy.data[order.id].slotsAvailable--;
+        thisCopy._getAvailableInventory(updatedOrder);
     });
+    this.data = thisCopy.data;
   };
 
   // WARNING: be careful to refer to phone by id, not inventory_id field
-  $scope.unassignDevice = function(order, phoneId) {
+  this.unassignDevice = function(order, phoneId) {
+    var thisCopy = this;
     DataService.unassignDevice(order.id, phoneId).then(function(updatedOrder) {
       // refresh order with latest confirmed info from the server
-      _updateOrder(order, updatedOrder);
-      $scope.data[order.id].slotsAvailable++;
-      _getAvailableInventory(updatedOrder);
+      thisCopy._updateOrder(order, updatedOrder);
+      thisCopy.data[order.id].slotsAvailable++;
+      thisCopy._getAvailableInventory(updatedOrder);
     });
+    this.data = thisCopy.data;
   };
 
-  $scope.verifyOrder = function(order, isVerified) {
-    _dismissModal();
+  this.verifyOrder = function(order, isVerified) {
+    this._dismissModal();
 
+    var thisCopy = this;
     DataService.markVerified(order.id, isVerified).then(function() {
-      delete $scope.data[order.id];
+      delete thisCopy.data[order.id];
 
-      if ($scope.orders) { // if on list page
-        for(var i=0; i<$scope.orders.length; i++) {
-          if ($scope.orders[i].id === order.id) {
-            $scope.orders.splice(i, 1);
+      if (thisCopy.orders) { // if on list page
+        for(var i=0; i<thisCopy.orders.length; i++) {
+          if (thisCopy.orders[i].id === order.id) {
+            thisCopy.orders.splice(i, 1);
           }
         }
       } else { // if on detail page
-        $scope.order.is_verified = is_verified; //true;
+        thisCopy.order.is_verified = order.is_verified; //true;
       }
     });
+    this.data = thisCopy.data;
+    this.orders = thisCopy.orders;
+    this.order = thisCopy.order;
   }
 
-  $scope.dismiss = function(order) {
-    _dismissModal();
+  this.dismiss = function(order) {
+    this._dismissModal();
     // only need to update the phone list if 
     // we are on the detail page
-    if ($scope.order) {
-      _getAvailableInventory(order);
+    if (this.order) {
+      this._getAvailableInventory(order);
     }
   };
 
-  $scope.togglePhoneActivation = function(item) {
+  this.togglePhoneActivation = function(item) {
+    var thisCopy = this;
     DataService.togglePhoneActivation(item.id).then(function(phone){
-      $scope.initFromData();
+      thisCopy.initFromData();
     });
   };
 
-  $scope.isCancelable = function(order) {
+  this.isCancelable = function(order) {
     if (!order.active)
       return false;
 
@@ -233,7 +253,7 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
       return false;
   };
 
-  $scope.canReactivate = function(order) {
+  this.canReactivate = function(order) {
     if (order.active)
       return false;
 
@@ -246,15 +266,14 @@ function OrderCtrl($scope, $route, $routeParams, DataService, $timeout) {
       return false;
   };
 
-  $scope.toggleOrderCanceled = function(order) {
+  this.toggleOrderCanceled = function(order) {
+    var thisCopy = this;
     DataService.toggleOrderActivation(order.id).then(function() {
-      $scope.initFromData();
+      thisCopy.initFromData();
     }); 
   }
 
 };
-
-OrderCtrl.prototype = Object.create(ListCtrl.prototype);
 
 angular.module('logisticsApp.controllers')
   .controller('OrderCtrl', OrderCtrl);

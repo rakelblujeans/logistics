@@ -1,8 +1,8 @@
 'use strict';
 
-function HomeCtrl($scope, $location, DataService) {
+function HomeCtrl($location, DataService) {
     
-  $scope.data = {
+  this.data = {
   	today: {
 	  	incoming: [],
 	  	outbound: []
@@ -23,7 +23,7 @@ function HomeCtrl($scope, $location, DataService) {
     query: ''
   };
   
-  function ymd(date) {
+  this.ymd = function(date) {
 		// GET YYYY, MM AND DD FROM THE DATE OBJECT
 		var yyyy = date.getFullYear().toString();
 		var mm = (date.getMonth()+1).toString();
@@ -37,95 +37,107 @@ function HomeCtrl($scope, $location, DataService) {
 		return datestring;
   };
 
-  $scope.getWarnings = function() {
-    $scope.data.warnings.overdue = [];
+  this.getWarnings = function() {
+    this.data.warnings.overdue = [];
 
     // overdue incoming orders
+    var thisCopy = this;
     DataService.getOverdueOrders().then(function(orders) {
-      $scope.data.warnings.overdue = orders;
+      thisCopy.data.warnings.overdue = orders;
     });
+    // this.data = thisCopy.data;
 
     // orders overdue on shipping
     DataService.getOverdueShipping().then(function(orders) {
-      $scope.data.warnings.overdue_shipping = orders;
+      thisCopy.data.warnings.overdue_shipping = orders;
     });
+    // this.data = thisCopy.data;
 
     // orders missing phones
     DataService.getOrdersMissingPhones().then(function(orders) {
-      $scope.data.warnings.missing_phones = orders;
+      thisCopy.data.warnings.missing_phones = orders;
     });
+    this.data = thisCopy.data;
   };
 
-	$scope.initFromData = function() {
+	this.initFromData = function() {
 		var today = new Date();
+    var thisCopy = this;
 
-    DataService.getIncomingOrders(ymd(today)).then(function(inboundData) {
-  		$scope.data.today.incoming = inboundData;
+    DataService.getIncomingOrders(this.ymd(today)).then(function(inboundData) {
+  		thisCopy.data.today.incoming = inboundData;
     });
-    DataService.getOutboundOrders(ymd(today)).then(function(outboundData) {
-  		$scope.data.today.outbound = outboundData;
+    //this.data = thisCopy.data;
+
+    DataService.getOutboundOrders(this.ymd(today)).then(function(outboundData) {
+  		thisCopy.data.today.outbound = outboundData;
     });
+    //this.data = thisCopy.data;
 
     var tomorrow = new Date();
 		tomorrow.setDate(tomorrow.getDate() + 1);
-		DataService.getIncomingOrders(ymd(tomorrow)).then(function(inboundData) {
-  		$scope.data.tomorrow.incoming = inboundData;
+		DataService.getIncomingOrders(this.ymd(tomorrow)).then(function(inboundData) {
+  		thisCopy.data.tomorrow.incoming = inboundData;
     });
-    DataService.getOutboundOrders(ymd(tomorrow)).then(function(outboundData) {
-  		$scope.data.tomorrow.outbound = outboundData;
+    //this.data = thisCopy.data;
+
+    DataService.getOutboundOrders(this.ymd(tomorrow)).then(function(outboundData) {
+  		thisCopy.data.tomorrow.outbound = outboundData;
     });
+    this.data = thisCopy.data;
 
-    $scope.getWarnings();
+    this.getWarnings();
   };
-  $scope.initFromData();
+  this.initFromData();
 
-  $scope.doSearch = function() {
-    $location.path('search').search({ 'q': $scope.data.query });;
+  this.doSearch = function() {
+    $location.path('search').search({ 'q': this.data.query });;
   };
 
-  function _processReceivedCallback(returned_phones) {
+  this._processReceivedCallback = function(returned_phones) {
     var returned_ids = [];
     for (var i=0; i<returned_phones.length; i++) {
       returned_ids[i] = returned_phones[i].id;
     }
-    $scope.data.received_inventory = returned_ids;
+    this.data.received_inventory = returned_ids;
     $('#confirmationModal').modal('show');
-    $scope.data.inventory_id2 = '';
+    this.data.inventory_id2 = '';
   }
 
-  $scope.markReceived = function(ids) {
-    $scope.data.received_inventory = [];
+  this.markReceived = function(ids) {
+    this.data.received_inventory = [];
+    var thisCopy = this;
     if (ids) {
       var idArray = ids.split(',');
       DataService.checkInInventory(idArray).then(function(returned_phones) {
-        _processReceivedCallback(returned_phones);
-        $scope.initFromData();
+        thisCopy._processReceivedCallback(returned_phones);
+        thisCopy.initFromData();
       });
     } else {
-      DataService.checkInInventory($scope.data.modal.selection).then(function(returned_phones) {
-        _processReceivedCallback(returned_phones);
-        $scope.initFromData();
+      DataService.checkInInventory(this.data.modal.selection).then(function(returned_phones) {
+        thisCopy._processReceivedCallback(returned_phones);
+        thisCopy.initFromData();
       });  
     }
   };
 
-  $scope.showCheckInModal = function(phones) {
-    $scope.data.modal.phones = phones;
+  this.showCheckInModal = function(phones) {
+    this.data.modal.phones = phones;
     for (var i=0; i<phones.length; i++) {
-      $scope.data.modal.selection.push(phones[i].id);
+      this.data.modal.selection.push(phones[i].id);
     }
   };
 
   // toggle selection for a given phone by name
-  $scope.toggleSelection = function(phoneId) {
-    var idx = $scope.data.modal.selection.indexOf(phoneId);
+  this.toggleSelection = function(phoneId) {
+    var idx = this.data.modal.selection.indexOf(phoneId);
 
     // is currently selected
     if (idx > -1) {
-      $scope.data.modal.selection.splice(idx, 1);
+      this.data.modal.selection.splice(idx, 1);
     } else { 
     // is newly selected
-      $scope.data.modal.selection.push(phoneId);
+      this.data.modal.selection.push(phoneId);
     }
   };
 

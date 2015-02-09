@@ -2,29 +2,29 @@
 
 function TelcoFormCtrl($scope, $route, $routeParams, $location, DataService) {
 
-  $scope.form = { 'telco': {} };
-  $scope.header = 'New Telco';
+  this.form = { 'telco': {} };
+  this.header = 'New Telco';
 
-  $scope.initFromData = function() {
-    $scope.telcoId = parseInt($routeParams.telcoIndex, 10);
-    if ($scope.telcoId) { // if editing
-      DataService.getTelco($scope.telcoId).then(function(telco) {
-        $scope.form = { 'telco': telco };
-        $scope.header = 'Update telco #' + telco.id;
+  this.initFromData = function() {
+    this.telcoId = parseInt($routeParams.telcoIndex, 10);
+    if (this.telcoId) { // if editing
+      DataService.getTelco(this.telcoId).then(function(telco) {
+        this.form = { 'telco': telco };
+        this.header = 'Update telco #' + telco.id;
       });
     }
   };
-  $scope.$on('$viewContentLoaded', $scope.initFromData);
+  this.initFromData;
 
-  $scope.submitEdit = function() {
-    DataService.updateTelco($scope.telcoId, $scope.form.telco).then(function() {
-      $location.path('telcos/' + $scope.telcoId);
+  this.submitEdit = function() {
+    DataService.updateTelco(this.telcoId, this.form.telco).then(function() {
+      $location.path('telcos/' + this.telcoId);
     });
     // TODO: add spinner until confirmed saved
   };
 
-  $scope.submitNew = function() {
-    DataService.createTelco($scope.form.telco).then(function(newData) {
+  this.submitNew = function() {
+    DataService.createTelco(this.form.telco).then(function(newData) {
       // TODO: handle errors
       $location.path('telcos/' + newData.id);
     });

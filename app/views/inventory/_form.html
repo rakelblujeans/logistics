@@ -1,6 +1,6 @@
 <div class="panel panel-warning">
 	<div class="panel-heading">
-		<h3 class="panel-title">{{ header }}</h3>
+		<h3 class="panel-title">{{ Inventory.header }}</h3>
 	</div>
 	<div class="panel-body">
 
@@ -9,7 +9,7 @@
 			<div class="col-xs-6">
 				<input type="text" class="form-control"
 					name="inventory_id" 
-					ng-model="form.item.inventory_id" 
+					ng-model="Inventory.form.item.inventory_id" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 
@@ -26,7 +26,7 @@
 			<div class="col-xs-6">
 				<input type="text" class="form-control"
 					name="MEID" 
-					ng-model="form.item.MEID" 
+					ng-model="Inventory.form.item.MEID" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 
@@ -43,7 +43,7 @@
 			<div class="col-xs-6">
 				<input type="text" class="form-control"
 					name="ICCID"
-					ng-model="form.item.ICCID" 
+					ng-model="Inventory.form.item.ICCID" 
 					ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="30" 
@@ -60,7 +60,7 @@
 			<div class="col-xs-6">
 				<input type="text" class="form-control"
 					name="phone_num"
-					ng-model="form.item.phone_num" 
+					ng-model="Inventory.form.item.phone_num" 
 					ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }"
 					ng-maxlength="20"
 					required />
@@ -76,8 +76,8 @@
 			<div class="col-xs-6">
 				<input type="date" class="form-control"
 					name="last_imaged"
-					max="{{form.maxDate | date:'yyyy-MM-dd'}}" 
-					ng-model="form.item.last_imaged" 
+					max="{{Inventory.form.maxDate | date:'yyyy-MM-dd'}}" 
+					ng-model="Inventory.form.item.last_imaged" 
 					ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }"
 					required />
 				<div class="text-danger" ng-messages="inventoryForm.last_imaged.$error" ng-messages-include="errors.html" 
@@ -91,8 +91,8 @@
 			<div class="col-xs-6">
 				<select class="dropdown form-control"
 						name="provider" 
-						ng-model="form.item.provider.id" 
-						ng-options="provider.id as provider.name for provider in misc.providers"
+						ng-model="Inventory.form.item.provider.id" 
+						ng-options="provider.id as provider.name for provider in Inventory.misc.providers"
 						>
 						<option value="">Select...</option>
 				</select>
@@ -104,7 +104,7 @@
 			<div class="col-xs-6">
 				<textarea type="text" class="form-control"
 					name="notes"
-					ng-model="form.item.notes" 
+					ng-model="Inventory.form.item.notes" 
 					ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }"
 					ng-maxlength="200" 
 				>

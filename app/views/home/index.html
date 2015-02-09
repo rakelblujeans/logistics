@@ -10,16 +10,16 @@
 	<div class="row">
 		<h3>Incoming</h3>
 	</div>
-	<div class="row" ng-repeat="blob in data.today.incoming">
+	<div class="row" ng-repeat="blob in Home.data.today.incoming">
 		Order #{{blob.invoice_id}}: 
 		<a data-toggle="modal" data-target="#myModal"
-			ng-click="showCheckInModal(blob.incoming_phones)">
+			ng-click="Home.showCheckInModal(blob.incoming_phones)">
 		 <span ng-repeat="phone in blob.incoming_phones">{{phone.inventory_id}} </span></a>
 	</div>
 	<div class="row">
 		<h3>Outbound</h3>
 	</div>
-	<div class="row" ng-repeat="blob in data.today.outbound">
+	<div class="row" ng-repeat="blob in Home.data.today.outbound">
 		Order #{{blob.invoice_id}}: 
 		<a href="/#/orders/ship/{{blob.order_id}}">
 		 <span ng-repeat="phone in blob.unshipped_phones">{{phone.inventory_id}} </span></a>
@@ -33,7 +33,7 @@
 	<div class="row">
 		<h3>Incoming</h3>
 	</div>
-	<div class="row" ng-repeat="blob in data.tomorrow.incoming">
+	<div class="row" ng-repeat="blob in Home.data.tomorrow.incoming">
 		Order #{{blob.invoice_id}}: 
 		<a data-toggle="modal" data-target="#myModal"
 			ng-click="showCheckInModal(blob.incoming_phones)">
@@ -42,7 +42,7 @@
 	<div class="row">
 		<h3>Outbound</h3>
 	</div>
-	<div class="row" ng-repeat="blob in data.tomorrow.outbound">
+	<div class="row" ng-repeat="blob in Home.data.tomorrow.outbound">
 		Order #{{blob.invoice_id}}: 
 		<a href="/#/orders/ship/{{blob.order_id}}">
 		 <span ng-repeat="phone in blob.unshipped_phones">{{phone.inventory_id}} </span></a>
@@ -50,23 +50,23 @@
 </div>
 </div>
 
-<div ng-if="data.warnings.overdue.length > 0 || data.warnings.overdue_shipping.length > 0 || data.warnings.missing_phones.length > 0">
+<div ng-if="Home.data.warnings.overdue.length > 0 || Home.data.warnings.overdue_shipping.length > 0 || Home.data.warnings.missing_phones.length > 0">
 
 <div class="row">
 	<h3 class="text-danger">Warnings</h3>
 </div>
 
-<div class="row" ng-repeat="order in data.warnings.overdue">
+<div class="row" ng-repeat="order in Home.data.warnings.overdue">
 	<p>Order <a data-toggle="modal" data-target="#myModal"
 		ng-click="showCheckInModal(order.phones)">
 	 {{order.invoice_id}}</a> is past due.
 </div>
 
-<div class="row" ng-repeat="order in data.warnings.overdue_shipping">
+<div class="row" ng-repeat="order in Home.data.warnings.overdue_shipping">
 	<p>Order <a href="/#/orders/ship/{{order.id}}">#{{order.invoice_id}}</a> should have already shipped.</p>
 </div>
 
-<div class="row" ng-repeat="order in data.warnings.missing_phones">
+<div class="row" ng-repeat="order in Home.data.warnings.missing_phones">
 	<p>Order <a href="/#/orders/{{order.id}}">#{{order.invoice_id}}</a> is missing phones, possibly due to lack of available inventory.</p>
 </div>
 

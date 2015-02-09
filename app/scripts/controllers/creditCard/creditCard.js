@@ -1,9 +1,7 @@
 'use strict';
 
-function CreditCardCtrl($scope, $http, $window, $route, $routeParams, DataService) {
+function CreditCardCtrl($scope, $http, $window, $route, $routeParams, DataService, CommonCode) {
     
-  ListCtrl.call(this, $scope, DataService);
-
   $scope.initFromData = function() {
     $scope.cardId = parseInt($routeParams.cardIndex, 10);
     if ($scope.cardId) { // detail view
@@ -19,8 +17,6 @@ function CreditCardCtrl($scope, $http, $window, $route, $routeParams, DataServic
   };
   $scope.$on('$viewContentLoaded', $scope.initFromData);
 };
-
-CreditCardCtrl.prototype = Object.create(ListCtrl.prototype);
 
 angular.module('logisticsApp.controllers')
 .controller('CreditCardCtrl', CreditCardCtrl);

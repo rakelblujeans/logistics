@@ -1,4 +1,4 @@
-<h3>Ship Order - Invoice #{{order.invoice_id}}</h3>
+<h3>Ship Order - Invoice #{{Order.order.invoice_id}}</h3>
 
 <br />
 
@@ -9,16 +9,16 @@
 	<div class="col-xs-3"><strong>Departure</strong></div>
 </div>
 <div class="row">
-	<div class="col-xs-3">{{order.shipping_name}}</div>
-	<div class="col-xs-3">{{order.full_address}}</div>
-	<div class="col-xs-3">{{order.arrival_date_display}}</div>
-	<div class="col-xs-3">{{order.departure_date_display}}</div>
+	<div class="col-xs-3">{{Order.order.shipping_name}}</div>
+	<div class="col-xs-3">{{Order.order.full_address}}</div>
+	<div class="col-xs-3">{{Order.order.arrival_date_display}}</div>
+	<div class="col-xs-3">{{Order.order.departure_date_display}}</div>
 </div>
 
 <br />
 <br />
 
-<div ng-if="!data.doneShipping" class="panel panel-warning">
+<div ng-if="!Order.data.doneShipping" class="panel panel-warning">
 	<div class="panel-heading">
 		<h3 class="panel-title">Create new delivery</h3>
 	</div>
@@ -30,7 +30,7 @@
 					<input type="text" 
 						class="form-control"
 						name="delivery_out_code"
-						ng-model="form.shipment.delivery_out_code" 
+						ng-model="Order.form.shipment.delivery_out_code" 
 						ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 						ng-minlength="1"
 						ng-maxlength="20" 
@@ -44,7 +44,7 @@
 					<input type="text"
 						class="form-control"
 						name="hand_delivered_by"
-						ng-model="form.shipment.hand_delivered_by"
+						ng-model="Order.form.shipment.hand_delivered_by"
 						ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 						ng-minlength="1"
 						ng-maxlength="20" 
@@ -60,7 +60,7 @@
 					<input type="text" 
 						class="form-control"
 						name="delivery_return_code"
-						ng-model="form.shipment.delivery_return_code" 
+						ng-model="Order.form.shipment.delivery_return_code" 
 						ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 						ng-minlength="1"
 						ng-maxlength="20" 
@@ -79,12 +79,12 @@
 				</div>
 				<div class="col-xs-12">
 					<div class="checkbox">
-				    <label ng-repeat="phone in data.unshippedPhones">
+				    <label ng-repeat="phone in Order.data.unshippedPhones">
 				    	<input type="checkbox"
 				      	name="selectedPhones[]"
 				      	value="{{phone.id}}"
-				      	ng-checked="data.selection.indexOf(phone.id) > -1"
-				      	ng-click="toggleSelection(phone.id)">
+				      	ng-checked="Order.data.selection.indexOf(phone.id) > -1"
+				      	ng-click="Order.toggleSelection(phone.id)">
 				      {{phone.inventory_id}}&nbsp;&nbsp;&nbsp;&nbsp;
 				    </label>
 				  </div>
@@ -95,8 +95,8 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<button type="button" class="btn btn-success" 
-						ng-disabled="shouldDisableForm(shipForm.$valid)" 
-						ng-click="ship()">
+						ng-disabled="Order.shouldDisableForm(shipForm.$valid)" 
+						ng-click="Order.ship()">
 				  	Mark Shipped <span class="glyphicon glyphicon-thumbs-up">
 					</button>
 				</div>
@@ -108,10 +108,10 @@
 <div class="row">
 	<div class="col-xs-12">
 		<h3>Delivery history</h3>	
-			<p class="text-success" ng-if="data.doneShipping">All phones for this order have already shipped</p>
+			<p class="text-success" ng-if="Order.data.doneShipping">All phones for this order have already shipped</p>
 
-			<p ng-repeat="shipment in order.shipments | orderBy:shipment.out_on_date:true">
-				[ {{shipment.out_on_date_display}} ] {{shipment.qty}} phone(s) {{data.shipmentPhoneIds[shipment.id]}} went out via {{shipment.delivery_type.name}}.
+			<p ng-repeat="shipment in Order.order.shipments | orderBy:shipment.out_on_date:true">
+				[ {{shipment.out_on_date_display}} ] {{shipment.qty}} phone(s) {{Order.data.shipmentPhoneIds[shipment.id]}} went out via {{shipment.delivery_type.name}}.
 			</p>
 
 		</div>

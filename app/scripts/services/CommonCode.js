@@ -1,20 +1,18 @@
 'use strict';
-/*
-* Used to define common functionality across list views, 
-* primarily sorting.
-* 
-*/
 
-function ListCtrl($scope) {
-    
-  $scope.sort = {
+angular.module('logisticsApp.services')
+.factory('CommonCode', function () {
+
+	var root = {};
+
+	root.sort = {
     column: 'id',
     descending: false
   };
-  $scope.ascending = true;
+  root.ascending = true;
 
-  $scope.changeSorting = function(column) {
-    var sort = this.sort;
+  root.changeSorting = function(column) {
+    var sort = root.sort;
     if (sort.column === column) {
         sort.descending = !sort.descending;
     } else {
@@ -22,12 +20,12 @@ function ListCtrl($scope) {
         sort.descending = false;
     }
     
-    this.ascending = !sort.descending;
+    root.ascending = !sort.descending;
   };
 
 
   // getFormattedDate("yyyy/mm/dd");
-  $scope.getFormattedDate = function(input){
+  root.getFormattedDate = function(input){
     var pattern=/(.*?)-(.*?)-(.*?)$/;
     var result = input.replace(pattern,function(match,p1,p2,p3){
       var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -36,4 +34,5 @@ function ListCtrl($scope) {
     return result;
   };
 
-}
+  return root;
+});

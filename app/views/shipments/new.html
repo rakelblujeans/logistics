@@ -1,7 +1,7 @@
 <form	name="shipmentForm" novalidate>
 	<div ng-include src="'/views/shipments/_form.html'"></div>
 
-	<button ng-disabled="!shipmentForm.$valid" ng-click="submitNew()">Submit Form</button>
+	<button ng-disabled="!shipmentForm.$valid" ng-click="Shipment.submitNew()">Submit Form</button>
 
 	&nbsp;&nbsp;&nbsp;<a href="#/shipments">Return to list</a>
 

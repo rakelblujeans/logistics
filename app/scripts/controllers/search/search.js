@@ -1,24 +1,29 @@
 'use strict';
 
-function SearchCtrl($scope, $location, $route, $routeParams, DataService) {
+// NOTE: was able to eliminate scope entire, just use this
+
+function SearchCtrl($location, $route, $routeParams, DataService) {
 	
-	$scope.data = {
+	this.data = {
 		query: '',
 		results: []
 	};
 
-	$scope.initFromData = function() {
+	this.initFromData = function() {
 
-		$scope.data.query = $routeParams.q;
-    DataService.searchAll($scope.data.query).then(function(data) {
-  		$scope.data.results = data;
+		this.data.query = $routeParams.q;
+		var myData = this.data;
+    DataService.searchAll(this.data.query).then(function(d) {
+    	console.log(myData);
+  		myData.results = d;
     });
+    this.data = myData;
   };
-  $scope.initFromData();
+  this.initFromData();
 
-  $scope.doSearch = function() {
-  	if ($scope.data.query) {
-	    $location.path('search').search({ 'q': $scope.data.query });
+  this.doSearch = function() {
+  	if (this.data.query) {
+	    $location.path('search').search({ 'q': this.data.query });
 	  }
   };
 };

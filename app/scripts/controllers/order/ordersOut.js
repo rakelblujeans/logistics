@@ -1,9 +1,13 @@
  'use strict';
 
-function OrderOutCtrl($scope, $route, $routeParams, DataService, $timeout) {
+function OrderOutCtrl($route, $routeParams, DataService, $timeout, CommonCode) {
 
-  ListCtrl.call(this, $scope, DataService);
-  $scope.data = {};
+  this.sort = CommonCode.sort;
+  this.ascending = CommonCode.ascending;
+  this.changeSorting = CommonCode.changeSorting;
+  this.getFormattedDate = CommonCode.getFormattedDate;
+
+  this.data = {};
   
   function buildPhoneIdString(order) {
     var assignedPhones = [];
@@ -16,18 +20,18 @@ function OrderOutCtrl($scope, $route, $routeParams, DataService, $timeout) {
     return "[" + assignedPhones.join(",") + "]"
   };
 
-  $scope.initFromData = function() {
-    $scope.sort.column = 'inventory_id'
+  this.initFromData = function() {
+    this.sort.column = 'inventory_id'
 
+    var thisCopy = this;
     DataService.getOrdersOut().then(function(data) {
-      $scope.orders = data;
+      thisCopy.orders = data;
     });
+    this.orders = thisCopy.orders;
   };
-  $scope.initFromData();
+  this.initFromData();
 
 };
-
-OrderOutCtrl.prototype = Object.create(ListCtrl.prototype);
 
 angular.module('logisticsApp.controllers')
   .controller('OrderOutCtrl', OrderOutCtrl);

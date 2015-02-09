@@ -19,7 +19,7 @@
 </tr>
 </thead>
 <tbody>
-<tr ng-repeat="telco in telcos | filter:query | orderBy:sort.column:sort.descending">
+<tr ng-repeat="telco in Telco.telcos | filter:query | orderBy:sort.column:sort.descending">
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ telco.id }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ telco.name }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">

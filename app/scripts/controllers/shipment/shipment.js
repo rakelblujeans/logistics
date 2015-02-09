@@ -1,25 +1,25 @@
 'use strict';
 
-function ShipmentCtrl($scope, $http, $window, $route, $routeParams, DataService) {
+function ShipmentCtrl($http, $window, $route, $routeParams, DataService, CommonCode) {
     
-  ListCtrl.call(this, $scope, DataService);
+  this.sort = CommonCode.sort;
+  this.ascending = CommonCode.ascending;
+  this.changeSorting = CommonCode.changeSorting;
   
-  $scope.initFromData = function() {
-    $scope.shipmentId = parseInt($routeParams.shipmentIndex, 10);
-    if ($scope.shipmentId) { // detail view
-      DataService.getShipment($scope.shipmentId).then(function(shipment) {
-        $scope.shipment = shipment;
+  this.initFromData = function() {
+    this.shipmentId = parseInt($routeParams.shipmentIndex, 10);
+    if (this.shipmentId) { // detail view
+      DataService.getShipment(this.shipmentId).then(function(shipment) {
+        this.shipment = shipment;
       });
     } else { // list view
       DataService.getShipments().then(function(data) {
-        $scope.shipments = data;
+        this.shipments = data;
       });  
     }
    };
-  $scope.$on('$viewContentLoaded', $scope.initFromData);
+  this.initFromData();
 }
-
-ShipmentCtrl.prototype = Object.create(ListCtrl.prototype);
 
 angular.module('logisticsApp.controllers')
 .controller('ShipmentCtrl', ShipmentCtrl);

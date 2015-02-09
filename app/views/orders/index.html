@@ -1,12 +1,12 @@
-<h3>{{data.pageTitle}}</h3>
+<h3>{{Order.data.pageTitle}}</h3>
 <br />
 
-<p ng-if="options.unverified">Please verify the orders below so we can move them into the delivery queue.</p>
+<p ng-if="Order.options.unverified">Please verify the orders below so we can move them into the delivery queue.</p>
 
 <p>Search: <input ng-model="query">&nbsp;&nbsp;&nbsp;
 <a href="/#/orders/new">Add +</a> |
-<a ng-if="options.unverified" href="/#/orders?verifiedState=1">Shippable orders</a>
-<a ng-if="options.unshipped" href="/#/orders?verifiedState=0">Pending orders</a>
+<a ng-if="Order.options.unverified" href="/#/orders?verifiedState=1">Shippable orders</a>
+<a ng-if="Order.options.unshipped" href="/#/orders?verifiedState=0">Pending orders</a>
 </p>
 
 <!-- TODO: add tab for verified orders? -->
@@ -15,60 +15,60 @@
 <thead>
 <tr>
 	<th ng-class="{ascending: sort.column == 'invoice_id' && !sort.descending, 
-								 descending: sort.column == 'invoice_id' && sort.descending}" ng-click="changeSorting('invoice_id')">
+								 descending: sort.column == 'invoice_id' && sort.descending}" ng-click="Order.changeSorting('invoice_id')">
 		Invoice # <span ng-show="sort.column == 'invoice_id'"> {{ sort.descending | sortOrderIcon }}</span>
 	</th>
 	<th ng-class="{ascending: sort.column == 'shipping_name' && !sort.descending, 
-								 descending: sort.column == 'shipping_name' && sort.descending}" ng-click="changeSorting('shipping_name')">
+								 descending: sort.column == 'shipping_name' && sort.descending}" ng-click="Order.changeSorting('shipping_name')">
 		Customer Name <span ng-show="sort.column == 'shipping_name'"> {{ sort.descending | sortOrderIcon }}</span>
 	</th>
 	<th ng-class="{ascending: sort.column == 'full_address' && !sort.descending, 
-								 descending: sort.column == 'full_address' && sort.descending}" ng-click="changeSorting('full_address')">
+								 descending: sort.column == 'full_address' && sort.descending}" ng-click="Order.changeSorting('full_address')">
 		Shipping Address <span ng-show="sort.column == 'full_address'"> {{ sort.descending | sortOrderIcon }}</span>
 	</th>
 	<th ng-class="{ascending: sort.column == 'arrival_date' && !sort.descending, 
-								 descending: sort.column == 'arrival_date' && sort.descending}" ng-click="changeSorting('arrival_date')">
+								 descending: sort.column == 'arrival_date' && sort.descending}" ng-click="Order.changeSorting('arrival_date')">
 		Arrival <span ng-show="sort.column == 'arrival_date'"> {{ sort.descending | sortOrderIcon }}</span>
 	</th>
 	<th ng-class="{ascending: sort.column == 'departure_date' && !sort.descending, 
-								 descending: sort.column == 'departure_date' && sort.descending}" ng-click="changeSorting('departure_date')">
+								 descending: sort.column == 'departure_date' && sort.descending}" ng-click="Order.changeSorting('departure_date')">
 		Departure <span ng-show="sort.column == 'departure_date'"> {{ sort.descending | sortOrderIcon }}</span>
 	</th>
 	<th ng-class="{ascending: sort.column == 'assignedPhones' && !sort.descending, 
-								 descending: sort.column == 'assignedPhones' && sort.descending}" ng-click="changeSorting('assignedPhones')">
+								 descending: sort.column == 'assignedPhones' && sort.descending}" ng-click="Order.changeSorting('assignedPhones')">
 		Assigned Phones <span ng-show="sort.column == 'assignedPhones'"> {{ sort.descending | sortOrderIcon }}</span>
 	</th>
 	<th>Options</th>
 </tr>
 </thead>
 <tbody>
-<tr ng-repeat="order in orders | filter:query | orderBy:sort.column:sort.descending">
+<tr ng-repeat="order in Order.orders | filter:query | orderBy:sort.column:sort.descending">
 	<td ng-class-odd="'odd'" ng-class-even="'even'">
 		<a href="/#/orders/{{ order.id }}">{{ order.invoice_id }}</a></td>
 	<td>{{ order.shipping_name }}</td>
 	<td>{{ order.full_address }}</td>
 	<td>{{ order.arrival_date_display }}</td>
 	<td>{{ order.departure_date_display }}</td>
-	<td>{{ data[order.id].assignedPhoneIds }}</td>
+	<td>{{ Order.data[order.id].assignedPhoneIds }}</td>
 	<td>
 		<!-- Button trigger modal -->
-		<div ng-if="options.unverified">
+		<div ng-if="Order.options.unverified">
 			<button type="button" class="btn btn-xs btn-default" 
 				data-toggle="modal" data-target="#myModal"
-				ng-click="showInventoryOptions(order)">
+				ng-click="Order.showInventoryOptions(order)">
 			  Adjust phones
 			</button>
 			<br />
 			<button type="button" class="btn btn-xs btn-success" 
-				ng-if="data[order.id].slotsAvailable == 0"
-				ng-click="verifyOrder(order, true)">
+				ng-if="Order.data[order.id].slotsAvailable == 0"
+				ng-click="Order.verifyOrder(order, true)">
 			  Mark verified
 			</button>
 		</div>
 
-		<div ng-if="options.unshipped">
+		<div ng-if="Order.options.unshipped">
 			<button type="button" class="btn btn-xs btn-default" 
-				ng-click="verifyOrder(order, false)">
+				ng-click="Order.verifyOrder(order, false)">
 			  Unverify
 			</button>
 			</div>
@@ -76,8 +76,8 @@
 			<br />
 		</div>
 
-		<a ng-if="isCancelable(order)" ng-click="toggleOrderCanceled(order)">Cancel</a>
-		<a ng-if="canReactivate(order)" ng-click="toggleOrderCanceled(order)">Reactivate</a>
+		<a ng-if="Order.isCancelable(order)" ng-click="Order.toggleOrderCanceled(order)">Cancel</a>
+		<a ng-if="Order.canReactivate(order)" ng-click="Order.toggleOrderCanceled(order)">Reactivate</a>
 
 		<div ng-include src="'/views/orders/_modal.html'"></div>
 

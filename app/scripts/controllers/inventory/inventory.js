@@ -1,52 +1,63 @@
 'use strict';
 
-function InventoryCtrl($scope, $http, $window, $route, $routeParams, $location, DataService) {
+function InventoryCtrl($http, $window, $route, $routeParams, $location, DataService, CommonCode) {
 
-  ListCtrl.call(this, $scope, DataService);
+  this.sort = CommonCode.sort;
+  this.ascending = CommonCode.ascending;
+  this.changeSorting = CommonCode.changeSorting;
 
-  $scope.data = {
+  this.data = {
     'current_order': undefined,
     'upcoming_orders': undefined
   };
   
-  $scope.initFromData = function() {
+  this.initFromData = function() {
     // get by inventory_id, not database record id
-    $scope.invId = parseInt($routeParams.invIndex, 10);
-    if ($scope.invId) { // detail view
-      DataService.getItem($scope.invId).then(function(item) {
-        $scope.item = item;
-        $scope.item.last_imaged_display = $scope.getFormattedDate($scope.item.last_imaged);
-        DataService.getCurrentOrder($scope.invId).then(function(current_order) {
-          $scope.data.current_order = current_order;
-          $scope.data.current_order.arrival_date_display = $scope.getFormattedDate($scope.data.current_order.arrival_date);
-          $scope.data.current_order.departure_date_display = $scope.getFormattedDate($scope.data.current_order.departure_date_display);
-        });
-
-        DataService.getUpcomingOrders($scope.invId).then(function(upcoming_orders) {
-          $scope.data.upcoming_orders = upcoming_orders;
-          for (var j=0; j<upcoming_orders.length; j++) {
-            $scope.data.upcoming_orders[j].arrival_date_display = $scope.getFormattedDate($scope.data.upcoming_orders[j].arrival_date);
-            $scope.data.upcoming_orders[j].departure_date_display = $scope.getFormattedDate($scope.data.upcoming_orders[j].departure_date_display);
+    this.invId = parseInt($routeParams.invIndex, 10);
+    if (this.invId) { // detail view
+      var thisCopy = this;
+      DataService.getItem(this.invId).then(function(item) {
+        thisCopy.item = item;
+        thisCopy.item.last_imaged_display = CommonCode.getFormattedDate(thisCopy.item.last_imaged);
+        DataService.getCurrentOrder(thisCopy.invId).then(function(current_order) {
+          if (current_order && current_order.length > 0) {
+            thisCopy.data.current_order = current_order;
+            thisCopy.data.current_order.arrival_date_display = CommonCode.getFormattedDate(thisCopy.data.current_order.arrival_date);
+            thisCopy.data.current_order.departure_date_display = CommonCode.getFormattedDate(thisCopy.data.current_order.departure_date_display);
           }
         });
+
+        DataService.getUpcomingOrders(thisCopy.invId).then(function(upcoming_orders) {
+          thisCopy.data.upcoming_orders = upcoming_orders;
+          for (var j=0; j<upcoming_orders.length; j++) {
+            thisCopy.data.upcoming_orders[j].arrival_date_display = CommonCode.getFormattedDate(thisCopy.data.upcoming_orders[j].arrival_date);
+            thisCopy.data.upcoming_orders[j].departure_date_display = CommonCode.getFormattedDate(thisCopy.data.upcoming_orders[j].departure_date_display);
+          }
+        });
+
       });
+      this.data = thisCopy.data;
+      this.item = thisCopy.item;
+
     } else { // list view
+
+      var thisCopy = this;
       DataService.getInventory().then(function(data) {
         for (var i=0; i<data.length; i++) {
           if (data[i].last_imaged) {
-            data[i].last_imaged_display = $scope.getFormattedDate(data[i].last_imaged);
+            //console.log();
+            data[i].last_imaged_display = CommonCode.getFormattedDate(data[i].last_imaged);
           }
         }
-        $scope.inventory = data;
-      });  
+        thisCopy.inventory = data;
+      });
+      this.inventory = thisCopy.inventory;
     }
+
   };
-  $scope.initFromData();
+  this.initFromData();
   
 };
-
-
-InventoryCtrl.prototype = Object.create(ListCtrl.prototype);
 
 angular.module('logisticsApp.controllers')
 .controller('InventoryCtrl', InventoryCtrl);

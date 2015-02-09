@@ -26,7 +26,7 @@
 </tr>
 </thead>
 <tbody>
-<tr ng-repeat="shipment in shipments | filter:query | orderBy:sort.column:sort.descending">
+<tr ng-repeat="shipment in Shipment.shipments | filter:query | orderBy:sort.column:sort.descending">
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ shipment.id }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">
 		{{ shipment.fedex_out_code }}</td>

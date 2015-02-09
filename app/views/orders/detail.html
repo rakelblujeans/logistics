@@ -2,82 +2,82 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">Order Detail #{{order.id}}</h3>
+    <h3 class="panel-title">Order Detail #{{Order.order.id}}</h3>
     
-    <a href="/#/orders/edit/{{order.id}}">Edit</a> | 
+    <a href="/#/orders/edit/{{Order.order.id}}">Edit</a> | 
     
-    <span ng-if="!order.is_verified">
+    <span ng-if="!Order.order.is_verified">
     <a href="" 
       data-toggle="modal" data-target="#myModal"
-      ng-click="showInventoryOptions(order)">
+      ng-click="Order.showInventoryOptions(Order.order)">
       Adjust phones
     </a>
 
-    <span ng-if="data[order.id].slotsAvailable == 0"> |
+    <span ng-if="Order.data[Order.order.id].slotsAvailable == 0"> |
     <a href="" 
-      ng-click="verifyOrder(order)">Mark Verified</a>
+      ng-click="Order.verifyOrder(Order.order)">Mark Verified</a>
     </span>
     </span>
-    <a ng-if="order.is_verified" 
-      href="/#/orders/ship/{{order.id}}">Ship</a>
+    <a ng-if="Order.order.is_verified" 
+      href="/#/orders/ship/{{Order.order.id}}">Ship</a>
 
   </div>
   <div class="panel-body">
   <div class="row">
       <div class="col-xs-6">Invoice #:</div>
-      <div class="col-xs-6">{{order.invoice_id}}</div>
+      <div class="col-xs-6">{{Order.order.invoice_id}}</div>
     </div>
     <div class="row">
       <div class="col-xs-6">Delivery Type:</div>
-      <div class="col-xs-6">{{order.delivery_type_str}}</div>
+      <div class="col-xs-6">{{Order.order.delivery_type_str}}</div>
     </div>
     <div class="row">
       <div class="col-xs-6">Full Address:</div>
-      <div class="col-xs-6">{{order.full_address}}</div>
+      <div class="col-xs-6">{{Order.order.full_address}}</div>
     </div>
     <div class="row">
       <div class="col-xs-6">Shipping Name:</div>
-      <div class="col-xs-6">{{order.shipping_name}}</div>
+      <div class="col-xs-6">{{Order.order.shipping_name}}</div>
     </div>
     <div class="row">
       <div class="col-xs-6">Shipping City:</div>
-      <div class="col-xs-6">{{order.shipping_city}}</div>
+      <div class="col-xs-6">{{Order.order.shipping_city}}</div>
     </div>
     <div class="row">
       <div class="col-xs-6">Shipping State:</div>
-      <div class="col-xs-6">{{order.shipping_state}}</div>
+      <div class="col-xs-6">{{Order.order.shipping_state}}</div>
     </div>
     <div class="row">
       <div class="col-xs-6">Shipping Zip:</div>
-      <div class="col-xs-6">{{order.shipping_zip}}</div>
+      <div class="col-xs-6">{{Order.order.shipping_zip}}</div>
     </div>
     <div class="row">
       <div class="col-xs-6">Shipping Country:</div>
-      <div class="col-xs-6">{{order.shipping_country}}</div>
+      <div class="col-xs-6">{{Order.order.shipping_country}}</div>
     </div>
     <div class="row">
       <div class="col-xs-6">Shipping Apt/Suite:</div>
-      <div class="col-xs-6">{{order.shipping_apt_suite}}</div>
+      <div class="col-xs-6">{{Order.order.shipping_apt_suite}}</div>
     </div>
     <div class="row">
       <div class="col-xs-6">Shipping Notes:</div>
-      <div class="col-xs-6">{{order.shipping_notes}}</div>
+      <div class="col-xs-6">{{Order.order.shipping_notes}}</div>
     </div>
     <div class="row">
       <div class="col-xs-6">Arrival Date:</div>
-      <div class="col-xs-6">{{order.arrival_date_display}}</div>
+      <div class="col-xs-6">{{Order.order.arrival_date_display}}</div>
     </div>
     <div class="row">
       <div class="col-xs-6">Departure Date:</div>
-      <div class="col-xs-6">{{order.departure_date_display}}</div>
+      <div class="col-xs-6">{{Order.order.departure_date_display}}</div>
     </div>
     <div class="row">
       <div class="col-xs-6">Language:</div>
-      <div class="col-xs-6">{{order.language}}</div>
+      <div class="col-xs-6">{{Order.order.language}}</div>
     </div>
     <div class="row">
       <div class="col-xs-6">Num Phones:</div>
-      <div class="col-xs-6">{{order.num_phones}}</div>
+      <div class="col-xs-6">{{Order.order.num_phones}}</div>
     </div>
   </div>
 </div>
@@ -86,7 +86,7 @@
 <div class="row">
   <h4 class="col-xs-12">Assigned Phones</h4>
 </div>
-  <table class="table" ng-if="data[order.id].phoneSlots.length > 0">
+  <table class="table" ng-if="Order.data[Order.order.id].phoneSlots.length > 0">
   <thead>
   <tr>
     <th ng-class="{ascending: sort.column == 'id' && !sort.descending, 
@@ -113,7 +113,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr ng-repeat="phone in data[order.id].phoneSlots | orderBy: orderProp | orderBy:sort.column:sort.descending">
+  <tr ng-repeat="phone in Order.data[Order.order.id].phoneSlots | orderBy: orderProp | orderBy:sort.column:sort.descending">
     <td ng-class-odd="'odd'" ng-class-even="'even'">
       <a href="/#/inventory/{{ phone.inventory_id }}">{{ phone.inventory_id }}</a></td>
     <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.phone_num }}</td>
@@ -121,14 +121,14 @@
     <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.MEID }}</td>
     <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.last_imaged_display }}</td>
     <td ng-class-odd="'odd'" ng-class-even="'even'">
-      <a href="" ng-click="togglePhoneActivation(phone)">
+      <a href="" ng-click="Order.togglePhoneActivation(phone)">
         {{ phone.active ? 'Deactivate' : 'Activate' }}
       </a>
     </td>
   </tr>
   </tbody>
   </table>
-<p ng-if="order.phones.length == 0">No phones assigned.</p>
+<p ng-if="Order.order.phones.length == 0">No phones assigned.</p>
 
 <!-- TODO: turn into an include -->
 <div class="row">
@@ -136,10 +136,10 @@
 </div>
 
 <div class="row">
-  <div class="col-md-12" class="text-success" ng-if="data.doneShipping">All phones for this order have already shipped</div>
+  <div class="col-md-12" class="text-success" ng-if="Order.data.doneShipping">All phones for this order have already shipped</div>
 </div>
-<div class="row" ng-repeat="shipment in order.shipments | orderBy:shipment.out_on_date:true">
+<div class="row" ng-repeat="shipment in Order.order.shipments | orderBy:shipment.out_on_date:true">
   <div class="col-md-12">
-    [ {{shipment.out_on_date_display}} ] {{shipment.qty}} phone(s) {{data.shipmentPhoneIds[shipment.id]}} went out via {{shipment.delivery_type.name}}.
+    [ {{shipment.out_on_date_display}} ] {{shipment.qty}} phone(s) {{Order.data.shipmentPhoneIds[shipment.id]}} went out via {{shipment.delivery_type.name}}.
   </div>
 </div>

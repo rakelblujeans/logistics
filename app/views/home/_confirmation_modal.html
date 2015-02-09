@@ -4,16 +4,16 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" 
-		        	data-dismiss="modal" ng-click="dismiss(order)">
+		        	data-dismiss="modal" ng-click="Home.dismiss(order)">
 		        	<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 		        </button>
 		        <h4 class="modal-title" id="myModalLabel">Inventory Received</h4>
 		      </div>
 		      <div class="modal-body">
-			      <div ng-if="data.received_inventory.length > 0">
-			        Inventory #{{data.received_inventory}} is available for reuse. Thanks!
+			      <div ng-if="Home.data.received_inventory.length > 0">
+			        Inventory #{{Home.data.received_inventory}} is available for reuse. Thanks!
 			      </div>
-			      <div ng-if="data.received_inventory.length == 0">
+			      <div ng-if="Home.data.received_inventory.length == 0">
 			      	No valid phones entered. Try again.
 			      </div>
 		      </div><!-- modal-body -->

@@ -1,25 +1,26 @@
 'use strict';
 
-function TelcoCtrl($scope, $http, $window, $route, $routeParams, DataService) {
+function TelcoCtrl($http, $window, $route, $routeParams, DataService, CommonCode) {
     
-  ListCtrl.call(this, $scope, DataService);
+  this.sort = CommonCode.sort;
+  this.ascending = CommonCode.ascending;
+  this.changeSorting = CommonCode.changeSorting;
+  this.getFormattedDate = CommonCode.getFormattedDate;
   
-  $scope.initFromData = function() {
-    $scope.telcoId = parseInt($routeParams.telcoIndex, 10);
-    if ($scope.telcoId) { // detail view
-      DataService.getTelco($scope.telcoId).then(function(telco) {
-        $scope.telco = telco;
+  this.initFromData = function() {
+    this.telcoId = parseInt($routeParams.telcoIndex, 10);
+    if (this.telcoId) { // detail view
+      DataService.getTelco(this.telcoId).then(function(telco) {
+        this.telco = telco;
       });
     } else { // list view
       DataService.getTelcos().then(function(data) {
-        $scope.telcos = data;
+        this.telcos = data;
       });  
     }
    };
-  $scope.$on('$viewContentLoaded', $scope.initFromData);
+  this.initFromData;
 }
-
-TelcoCtrl.prototype = Object.create(ListCtrl.prototype);
 
 angular.module('logisticsApp.controllers')
 .controller('TelcoCtrl', TelcoCtrl);

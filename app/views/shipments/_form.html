@@ -1,6 +1,6 @@
 <div class="panel panel-warning">
 	<div class="panel-heading">
-		<h3 class="panel-title">{{ header }}</h3>
+		<h3 class="panel-title">{{ Shipment.header }}</h3>
 	</div>
 	<div class="panel-body">
 
@@ -9,7 +9,7 @@
 			<div class="col-xs-6">
 				<input type="text" 
 					name="fedex_out_code"
-					ng-model="form.shipment.fedex_out_code" 
+					ng-model="Shipment.form.shipment.fedex_out_code" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 
@@ -25,7 +25,7 @@
 			<div class="col-xs-6">
 				<input type="text" 
 					name="fedex_return_code"
-					ng-model="form.shipment.fedex_return_code" 
+					ng-model="Shipment.form.shipment.fedex_return_code" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 
@@ -41,7 +41,7 @@
 			<div class="col-xs-6">
 				<input type="text" 
 					name="qty"
-					ng-model="form.shipment.qty" 
+					ng-model="Shipment.form.shipment.qty" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 

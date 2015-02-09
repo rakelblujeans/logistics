@@ -1,32 +1,36 @@
 'use strict';
 
-function OrderFormCtrl($scope, $route, $routeParams, $location, DataService) {
+function OrderFormCtrl($route, $routeParams, $location, DataService) {
 
-  $scope.form = { 'order': {} };
-  $scope.header = 'New Order';
+  this.form = { 'order': {} };
+  this.header = 'New Order';
 
-  $scope.initFromData = function() {
-    $scope.orderId = $routeParams.id;
-    if ($scope.orderId) { // if editing
-      DataService.getOrder($scope.orderId).then(function(order) {
+  this.initFromData = function() {
+    this.orderId = $routeParams.id;
+    if (this.orderId) { // if editing
+      var thisCopy = this;
+      DataService.getOrder(this.orderId).then(function(order) {
         order.arrival_date = new Date(order.arrival_date)
         order.departure_date = new Date(order.departure_date)
-        $scope.form = { 'order': order };
-        $scope.header = 'Update order #' + order.id;
+        thisCopy.form = { 'order': order };
+        thisCopy.header = 'Update order #' + order.id;
       });
+      this.form = thisCopy.form;
+      this.header = thisCopy.header;
     }
   };
-  $scope.initFromData();
+  this.initFromData();
 
-  $scope.submitEdit = function() {
-    DataService.updateOrder($scope.orderId, $scope.form.order).then(function() {
-      $location.path('orders/' + $scope.orderId);
+  this.submitEdit = function() {
+    var thisCopy = this;
+    DataService.updateOrder(this.orderId, this.form.order).then(function() {
+      $location.path('orders/' + thisCopy.orderId);
     });
     // TODO: add spinner until confirmed saved
   };
 
-  $scope.submitNew = function() {
-    DataService.createOrder($scope.form.order).then(function(newData) {
+  this.submitNew = function() {
+    DataService.createOrder(this.form.order).then(function(newData) {
       // TODO: handle errors
       $location.path('orders/' + newData.id);
     });

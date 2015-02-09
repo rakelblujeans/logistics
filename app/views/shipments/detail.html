@@ -2,21 +2,21 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">Shipment Detail #{{shipment.id}}</h3>
-    <a href="#/shipments/edit/{{shipment.id}}">Edit</a>
+    <h3 class="panel-title">Shipment Detail #{{Shipment.shipment.id}}</h3>
+    <a href="#/shipments/edit/{{Shipment.shipment.id}}">Edit</a>
   </div>
   <div class="panel-body">
     <div class="row">
       <div class="col-xs-6">Fedex Out Code:</div>
-      <div class="col-xs-6">{{shipment.fedex_out_code}}</div>
+      <div class="col-xs-6">{{Shipment.shipment.fedex_out_code}}</div>
     </div>
     <div class="row">
       <div class="col-xs-6">Fedex Return Code:</div>
-      <div class="col-xs-6">{{shipment.fedex_return_code}}</div>
+      <div class="col-xs-6">{{Shipment.shipment.fedex_return_code}}</div>
     </div>
     <div class="row">
       <div class="col-xs-6">Quantity:</div>
-      <div class="col-xs-6">{{shipment.qty}}</div>
+      <div class="col-xs-6">{{Shipment.shipment.qty}}</div>
     </div>
   </div>
 </div>

@@ -1,8 +1,6 @@
 'use strict';
 
-function ReceiptCtrl($scope, $http, $window, $route, $routeParams, DataService) {
-  
-  ListCtrl.call(this, $scope, DataService);
+function ReceiptCtrl($scope, $http, $window, $route, $routeParams, DataService, CommonCode) {
   
   $scope.initFromData = function() {
     $scope.receiptId = parseInt($routeParams.receiptIndex, 10);
@@ -18,8 +16,6 @@ function ReceiptCtrl($scope, $http, $window, $route, $routeParams, DataService) 
    };
   $scope.$on('$viewContentLoaded', $scope.initFromData);
 }
-
-ReceiptCtrl.prototype = Object.create(ListCtrl.prototype);
 
 angular.module('logisticsApp.controllers')
 .controller('ReceiptCtrl', ReceiptCtrl);

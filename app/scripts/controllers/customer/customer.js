@@ -1,9 +1,7 @@
 'use strict';
 
-function CustomerCtrl($scope, $http, $window, $route, $routeParams, DataService) {
+function CustomerCtrl($scope, $http, $window, $route, $routeParams, DataService, CommonCode) {
     
-  ListCtrl.call(this, $scope, DataService);
-
   $scope.data = {
     customer: {},
     customers: {}
@@ -28,7 +26,6 @@ function CustomerCtrl($scope, $http, $window, $route, $routeParams, DataService)
   $scope.initFromData();
 };
 
-CustomerCtrl.prototype = Object.create(ListCtrl.prototype);
 
 angular.module('logisticsApp.controllers')
 .controller('CustomerCtrl', CustomerCtrl);

@@ -1,6 +1,6 @@
 <div class="panel panel-warning">
 	<div class="panel-heading">
-		<h3 class="panel-title">{{ header }}</h3>
+		<h3 class="panel-title">{{ Order.header }}</h3>
 	</div>
 	<div class="panel-body">
 
@@ -9,7 +9,7 @@
 			<div class="col-xs-6">
 				<input type="text" class="form-control" 
 					name="invoice_id"
-					ng-model="form.order.invoice_id" 
+					ng-model="Order.form.order.invoice_id" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 
@@ -25,7 +25,7 @@
 			<div class="col-xs-6">
 				<input type="text" class="form-control" 
 					name="delivery_type_str"
-					ng-model="form.order.delivery_type_str" 
+					ng-model="Order.form.order.delivery_type_str" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 
@@ -41,7 +41,7 @@
 			<div class="col-xs-6">
 				<input type="text" class="form-control"
 					name="full_address"
-					ng-model="form.order.full_address" 
+					ng-model="Order.form.order.full_address" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="50" 
@@ -57,7 +57,7 @@
 			<div class="col-xs-6">
 				<input type="text" class="form-control"
 					name="shipping_name"
-					ng-model="form.order.shipping_name" 
+					ng-model="Order.form.order.shipping_name" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 
@@ -73,7 +73,7 @@
 			<div class="col-xs-6">
 				<input type="text" class="form-control"
 					name="shipping_city"
-					ng-model="form.order.shipping_city" 
+					ng-model="Order.form.order.shipping_city" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 
@@ -89,7 +89,7 @@
 			<div class="col-xs-6">
 				<input type="text" class="form-control"
 					name="shipping_state"
-					ng-model="form.order.shipping_state" 
+					ng-model="Order.form.order.shipping_state" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 
@@ -105,7 +105,7 @@
 			<div class="col-xs-6">
 				<input type="text" class="form-control"
 					name="shipping_zip"
-					ng-model="form.order.shipping_zip" 
+					ng-model="Order.form.order.shipping_zip" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="5" 
@@ -121,7 +121,7 @@
 			<div class="col-xs-6">
 				<input type="text" class="form-control"
 					name="shipping_country"
-					ng-model="form.order.shipping_country" 
+					ng-model="Order.form.order.shipping_country" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 
@@ -137,7 +137,7 @@
 			<div class="col-xs-6">
 				<input type="text" class="form-control"
 					name="shipping_apt_suite"
-					ng-model="form.order.shipping_apt_suite" 
+					ng-model="Order.form.order.shipping_apt_suite" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 
@@ -153,7 +153,7 @@
 			<div class="col-xs-6">
 				<textarea type="text" class="form-control"
 					name="shipping_notes"
-					ng-model="form.order.shipping_notes" 
+					ng-model="Order.form.order.shipping_notes" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-maxlength="100" 
 					/>
@@ -168,7 +168,7 @@
 			<div class="col-xs-6">
 				<input type="date"  class="form-control"
 					name="arrival_date"
-					ng-model="form.order.arrival_date" 
+					ng-model="Order.form.order.arrival_date" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 
@@ -184,7 +184,7 @@
 			<div class="col-xs-6">
 				<input type="date" class="form-control"
 					name="departure_date"
-					ng-model="form.order.departure_date" 
+					ng-model="Order.form.order.departure_date" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 
@@ -200,7 +200,7 @@
 			<div class="col-xs-6">
 				<input type="text" class="form-control" 
 					name="language"
-					ng-model="form.order.language" 
+					ng-model="Order.form.order.language" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 
@@ -216,7 +216,7 @@
 			<div class="col-xs-6">
 				<input type="text" class="form-control"
 					name="num_phones"
-					ng-model="form.order.num_phones" 
+					ng-model="Order.form.order.num_phones" 
 					ng-model-options="{ updateOn: 'default blur', debounce : { 'default' : 500, blur : 0 } }"
 					ng-minlength="1"
 					ng-maxlength="20" 
