@@ -87,19 +87,19 @@
 		<thead>
 		<tr>
 			<th ng-class="{ascending: sort.column == 'shipping_name' && !sort.descending, 
-										 descending: sort.column == 'shipping_name' && sort.descending}" ng-click="changeSorting('shipping_name')">
+										 descending: sort.column == 'shipping_name' && sort.descending}" ng-click="Inventory.changeSorting('shipping_name')">
 				Customer Name <span ng-show="sort.column == 'shipping_name'"> {{ sort.descending | sortOrderIcon }}</span>
 			</th>
 			<th ng-class="{ascending: sort.column == 'full_address' && !sort.descending, 
-										 descending: sort.column == 'full_address' && sort.descending}" ng-click="changeSorting('full_address')">
+										 descending: sort.column == 'full_address' && sort.descending}" ng-click="Inventory.changeSorting('full_address')">
 				Shipping Address <span ng-show="sort.column == 'full_address'"> {{ sort.descending | sortOrderIcon }}</span>
 			</th>
 			<th ng-class="{ascending: sort.column == 'arrival_date' && !sort.descending, 
-										 descending: sort.column == 'arrival_date' && sort.descending}" ng-click="changeSorting('arrival_date')">
+										 descending: sort.column == 'arrival_date' && sort.descending}" ng-click="Inventory.changeSorting('arrival_date')">
 				Arrival <span ng-show="sort.column == 'arrival_date'"> {{ sort.descending | sortOrderIcon }}</span>
 			</th>
 			<th ng-class="{ascending: sort.column == 'departure_date' && !sort.descending, 
-										 descending: sort.column == 'departure_date' && sort.descending}" ng-click="changeSorting('departure_date')">
+										 descending: sort.column == 'departure_date' && sort.descending}" ng-click="cInventory.hangeSorting('departure_date')">
 				Departure <span ng-show="sort.column == 'departure_date'"> {{ sort.descending | sortOrderIcon }}</span>
 			</th>
 		</tr>

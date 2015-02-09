@@ -23,7 +23,7 @@ function InventoryCtrl($http, $window, $route, $routeParams, $location, DataServ
           if (current_order && current_order.length > 0) {
             thisCopy.data.current_order = current_order;
             thisCopy.data.current_order.arrival_date_display = CommonCode.getFormattedDate(thisCopy.data.current_order.arrival_date);
-            thisCopy.data.current_order.departure_date_display = CommonCode.getFormattedDate(thisCopy.data.current_order.departure_date_display);
+            thisCopy.data.current_order.departure_date_display = CommonCode.getFormattedDate(thisCopy.data.current_order.departure_date);
           }
         });
 
@@ -31,7 +31,7 @@ function InventoryCtrl($http, $window, $route, $routeParams, $location, DataServ
           thisCopy.data.upcoming_orders = upcoming_orders;
           for (var j=0; j<upcoming_orders.length; j++) {
             thisCopy.data.upcoming_orders[j].arrival_date_display = CommonCode.getFormattedDate(thisCopy.data.upcoming_orders[j].arrival_date);
-            thisCopy.data.upcoming_orders[j].departure_date_display = CommonCode.getFormattedDate(thisCopy.data.upcoming_orders[j].departure_date_display);
+            thisCopy.data.upcoming_orders[j].departure_date_display = CommonCode.getFormattedDate(thisCopy.data.upcoming_orders[j].departure_date);
           }
         });
 
@@ -56,6 +56,13 @@ function InventoryCtrl($http, $window, $route, $routeParams, $location, DataServ
 
   };
   this.initFromData();
+
+  this.togglePhoneActivation = function(item) {
+    var thisCopy = this;
+    DataService.togglePhoneActivation(item.id).then(function(phone){
+      thisCopy.initFromData();
+    });
+  };
   
 };
 

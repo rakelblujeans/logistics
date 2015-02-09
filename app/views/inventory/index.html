@@ -7,23 +7,23 @@
 <thead>
 <tr>
 	<th ng-class="{ascending: sort.column == 'id' && !sort.descending, 
-								 descending: sort.column == 'id' && sort.descending}" ng-click="Inventory.changeSorting('id')">
+								 descending: sort.column == 'id' && sort.descending}" ng-click="changeSorting('id')">
 		# <span ng-show="sort.column == 'id'"> {{ sort.descending | sortOrderIcon }}</span>
 	</th>
 	<th ng-class="{ascending: sort.column == 'phone_num' && !sort.descending, 
-								 descending: sort.column == 'phone_num' && sort.descending}" ng-click="Inventory.changeSorting('phone_num')">
+								 descending: sort.column == 'phone_num' && sort.descending}" ng-click="changeSorting('phone_num')">
 		Number <span ng-show="sort.column == 'phone_num'"> {{ sort.descending | sortOrderIcon }}</span>
 	</th>
 	<th ng-class="{ascending: sort.column == 'provider_id' && !sort.descending, 
-								 descending: sort.column == 'provider_id' && sort.descending}" ng-click="Inventory.changeSorting('provider_id')">
+								 descending: sort.column == 'provider_id' && sort.descending}" ng-click="changeSorting('provider_id')">
 		Telco <span ng-show="sort.column == 'provider_id'"> {{ sort.descending | sortOrderIcon }}</span>
 	</th>
 	<th ng-class="{ascending: sort.column == 'MEID' && !sort.descending, 
-								 descending: sort.column == 'MEID' && sort.descending}" ng-click="Inventory.changeSorting('MEID')">
+								 descending: sort.column == 'MEID' && sort.descending}" ng-click="changeSorting('MEID')">
 		MEID <span ng-show="sort.column == 'MEID'"> {{ sort.descending | sortOrderIcon }}</span>
 	</th>
 	<th ng-class="{ascending: sort.column == 'last_imaged' && !sort.descending, 
-								 descending: sort.column == 'last_imaged' && sort.descending}" ng-click="Inventory.changeSorting('last_imaged')">
+								 descending: sort.column == 'last_imaged' && sort.descending}" ng-click="changeSorting('last_imaged')">
 		Last Imaged On <span ng-show="sort.column == 'last_imaged'"> {{ sort.descending | sortOrderIcon }}</span>
 	</th>
 	<th></th>
@@ -38,8 +38,7 @@
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.MEID }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ inv.last_imaged_display }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">
-		<!--button type="button" class="btn btn-xs btn-default" ng-click="Inventory.viewDetail($index)">Details</button-->
-		<a href="" ng-click="Inventory.toggleActivation(inv, 'phones')">
+		<a href="" ng-click="Inventory.togglePhoneActivation(inv)">
 			{{ inv.active ? 'Deactivate' : 'Activate' }}
 		</a>
 	</td>
