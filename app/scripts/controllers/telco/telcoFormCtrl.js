@@ -1,6 +1,6 @@
 'use strict';
 
-function TelcoFormCtrl($scope, $route, $routeParams, $location, DataService) {
+function TelcoFormCtrl($route, $routeParams, $location, TelcoService) {
 
   this.form = { 'telco': {} };
   this.header = 'New Telco';
@@ -8,7 +8,7 @@ function TelcoFormCtrl($scope, $route, $routeParams, $location, DataService) {
   this.initFromData = function() {
     this.telcoId = parseInt($routeParams.telcoIndex, 10);
     if (this.telcoId) { // if editing
-      DataService.getTelco(this.telcoId).then(function(telco) {
+      TelcoService.get(this.telcoId).then(function(telco) {
         this.form = { 'telco': telco };
         this.header = 'Update telco #' + telco.id;
       });
@@ -17,19 +17,21 @@ function TelcoFormCtrl($scope, $route, $routeParams, $location, DataService) {
   this.initFromData;
 
   this.submitEdit = function() {
-    DataService.updateTelco(this.telcoId, this.form.telco).then(function() {
+    TelcoService.update(this.telcoId, this.form.telco).then(function() {
       $location.path('telcos/' + this.telcoId);
     });
     // TODO: add spinner until confirmed saved
   };
 
   this.submitNew = function() {
-    DataService.createTelco(this.form.telco).then(function(newData) {
+    TelcoService.create(this.form.telco).then(function(newData) {
       // TODO: handle errors
       $location.path('telcos/' + newData.id);
     });
   };
 }
+
+TelcoFormCtrl.$inject = ['$route', '$routeParams', '$location', 'TelcoService'];
 
 angular.module('logisticsApp.controllers')
 .controller('TelcoFormCtrl', TelcoFormCtrl);

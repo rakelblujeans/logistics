@@ -1,0 +1,8 @@
+<div ng-include src="'/scripts/directives/received_overdue_phones/_modal.html'"></div>
+<div ng-include src="'/scripts/directives/received_overdue_phones/_confirmation_modal.html'"></div>
+
+<div class="row" ng-repeat="order in ctrl.orders">
+	<p>Order <a data-toggle="modal" data-target="#myModal"
+		ng-click="ctrl.modalObj.showCheckInModal(order.phones)">
+	 #{{order.invoice_id}}</a> is past due.
+</div>

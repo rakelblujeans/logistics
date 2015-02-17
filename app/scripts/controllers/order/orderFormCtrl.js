@@ -1,6 +1,6 @@
 'use strict';
 
-function OrderFormCtrl($route, $routeParams, $location, DataService) {
+function OrderFormCtrl($route, $routeParams, $location, OrderService) {
 
   this.form = { 'order': {} };
   this.header = 'New Order';
@@ -8,35 +8,33 @@ function OrderFormCtrl($route, $routeParams, $location, DataService) {
   this.initFromData = function() {
     this.orderId = $routeParams.id;
     if (this.orderId) { // if editing
-      var thisCopy = this;
-      DataService.getOrder(this.orderId).then(function(order) {
+      OrderService.get(this.orderId).then(function(order) {
         order.arrival_date = new Date(order.arrival_date)
         order.departure_date = new Date(order.departure_date)
-        thisCopy.form = { 'order': order };
-        thisCopy.header = 'Update order #' + order.id;
-      });
-      this.form = thisCopy.form;
-      this.header = thisCopy.header;
+        this.form = { 'order': order };
+        this.header = 'Update order #' + order.id;
+      }.bind(this));
     }
   };
   this.initFromData();
 
   this.submitEdit = function() {
-    var thisCopy = this;
-    DataService.updateOrder(this.orderId, this.form.order).then(function() {
-      $location.path('orders/' + thisCopy.orderId);
-    });
+    OrderService.update(this.orderId, this.form.order).then(function() {
+      $location.path('orders/' + this.orderId);
+    }.bind(this));
     // TODO: add spinner until confirmed saved
   };
 
   this.submitNew = function() {
-    DataService.createOrder(this.form.order).then(function(newData) {
+    OrderService.create(this.form.order).then(function(newData) {
       // TODO: handle errors
       $location.path('orders/' + newData.id);
     });
   };
 
 };
+
+OrderFormCtrl.$inject = ['$route', '$routeParams', '$location', 'OrderService'];
 
 angular.module('logisticsApp.controllers')
 .controller('OrderFormCtrl', OrderFormCtrl);

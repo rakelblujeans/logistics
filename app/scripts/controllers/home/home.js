@@ -1,6 +1,6 @@
 'use strict';
 
-function HomeCtrl($location, DataService) {
+function HomeCtrl($location, CommonCode, ModalLogic, InventoryService, OrderService) {
     
   this.data = {
   	today: {
@@ -14,14 +14,9 @@ function HomeCtrl($location, DataService) {
     warnings: {
       overdue: [],
     },
-    modal: {
-      phones: [],
-      selection: []
-    },
-    received_inventory: [],
-    inventory_id2: '',
-    query: ''
   };
+
+  this.modalObj = ModalLogic;
   
   this.ymd = function(date) {
 		// GET YYYY, MM AND DD FROM THE DATE OBJECT
@@ -41,107 +36,49 @@ function HomeCtrl($location, DataService) {
     this.data.warnings.overdue = [];
 
     // overdue incoming orders
-    var thisCopy = this;
-    DataService.getOverdueOrders().then(function(orders) {
-      thisCopy.data.warnings.overdue = orders;
-    });
-    // this.data = thisCopy.data;
+    OrderService.getOverdueOrders().then(function(orders) {
+      this.data.warnings.overdue = orders;
+    }.bind(this));
 
     // orders overdue on shipping
-    DataService.getOverdueShipping().then(function(orders) {
-      thisCopy.data.warnings.overdue_shipping = orders;
-    });
-    // this.data = thisCopy.data;
+    OrderService.getOverdueShipping().then(function(orders) {
+      this.data.warnings.overdue_shipping = orders;
+    }.bind(this));
 
     // orders missing phones
-    DataService.getOrdersMissingPhones().then(function(orders) {
-      thisCopy.data.warnings.missing_phones = orders;
-    });
-    this.data = thisCopy.data;
+    OrderService.getOrdersMissingPhones().then(function(orders) {
+      this.data.warnings.missing_phones = orders;
+    }.bind(this));
   };
 
 	this.initFromData = function() {
 		var today = new Date();
-    var thisCopy = this;
 
-    DataService.getIncomingOrders(this.ymd(today)).then(function(inboundData) {
-  		thisCopy.data.today.incoming = inboundData;
-    });
-    //this.data = thisCopy.data;
+    OrderService.getIncoming(this.ymd(today)).then(function(inboundData) {
+  		this.data.today.incoming = inboundData;
+    }.bind(this));
 
-    DataService.getOutboundOrders(this.ymd(today)).then(function(outboundData) {
-  		thisCopy.data.today.outbound = outboundData;
-    });
-    //this.data = thisCopy.data;
+    OrderService.getOutbound(this.ymd(today)).then(function(outboundData) {
+  		this.data.today.outbound = outboundData;
+    }.bind(this));
 
     var tomorrow = new Date();
 		tomorrow.setDate(tomorrow.getDate() + 1);
-		DataService.getIncomingOrders(this.ymd(tomorrow)).then(function(inboundData) {
-  		thisCopy.data.tomorrow.incoming = inboundData;
-    });
-    //this.data = thisCopy.data;
+		OrderService.getIncoming(this.ymd(tomorrow)).then(function(inboundData) {
+  		this.data.tomorrow.incoming = inboundData;
+    }.bind(this));
 
-    DataService.getOutboundOrders(this.ymd(tomorrow)).then(function(outboundData) {
-  		thisCopy.data.tomorrow.outbound = outboundData;
-    });
-    this.data = thisCopy.data;
+    OrderService.getOutbound(this.ymd(tomorrow)).then(function(outboundData) {
+  		this.data.tomorrow.outbound = outboundData;
+    }.bind(this));
 
     this.getWarnings();
   };
   this.initFromData();
 
-  this.doSearch = function() {
-    $location.path('search').search({ 'q': this.data.query });;
-  };
-
-  this._processReceivedCallback = function(returned_phones) {
-    var returned_ids = [];
-    for (var i=0; i<returned_phones.length; i++) {
-      returned_ids[i] = returned_phones[i].id;
-    }
-    this.data.received_inventory = returned_ids;
-    $('#confirmationModal').modal('show');
-    this.data.inventory_id2 = '';
-  }
-
-  this.markReceived = function(ids) {
-    this.data.received_inventory = [];
-    var thisCopy = this;
-    if (ids) {
-      var idArray = ids.split(',');
-      DataService.checkInInventory(idArray).then(function(returned_phones) {
-        thisCopy._processReceivedCallback(returned_phones);
-        thisCopy.initFromData();
-      });
-    } else {
-      DataService.checkInInventory(this.data.modal.selection).then(function(returned_phones) {
-        thisCopy._processReceivedCallback(returned_phones);
-        thisCopy.initFromData();
-      });  
-    }
-  };
-
-  this.showCheckInModal = function(phones) {
-    this.data.modal.phones = phones;
-    for (var i=0; i<phones.length; i++) {
-      this.data.modal.selection.push(phones[i].id);
-    }
-  };
-
-  // toggle selection for a given phone by name
-  this.toggleSelection = function(phoneId) {
-    var idx = this.data.modal.selection.indexOf(phoneId);
-
-    // is currently selected
-    if (idx > -1) {
-      this.data.modal.selection.splice(idx, 1);
-    } else { 
-    // is newly selected
-      this.data.modal.selection.push(phoneId);
-    }
-  };
-
 };
+
+HomeCtrl.$inject = ['$location', 'CommonCode', 'ModalLogic', 'InventoryService', 'OrderService'];
 
 angular.module('logisticsApp.controllers')
 .controller('HomeCtrl', HomeCtrl);

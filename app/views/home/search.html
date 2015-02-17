@@ -1,13 +1,13 @@
-<div class="row">
-	<h4>Search: <input type="text" placeholder="invoice #, name, address, ..."
-		ng-model="Search.data.query" size="30"
-		ng-keyup="$event.keyCode == 13 && Search.doSearch()" />
-	</h4>
-</div>
+<ex-search></ex-search>
 
 <div class="row">
 	<h4>Phones Matched</h4>
 </div>
+
+<!--ex-phone-search-results phones="Search.data.results.phones"></ex-phone-search-
+results>
+<ex-order-search-results orders="Search.data.results.orders"></ex-order-search-results-->
+
 <div class="row" ng-repeat="phone in Search.data.results.phones">
 	<a href="/#/inventory/{{phone.inventory_id}}">#{{phone.inventory_id}}:</a> {{phone.MEID}} {{phone.ICCID}} {{phone.phone_num}} {{phone.notes}} {{phone.last_imaged}} ...
 </div>

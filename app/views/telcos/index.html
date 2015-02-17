@@ -7,19 +7,19 @@
 <table class="table">
 <thead>
 <tr>
-	<th ng-class="{ascending: sort.column == 'id' && !sort.descending, 
-								 descending: sort.column == 'id' && sort.descending}" ng-click="changeSorting('id')">
-		# <span ng-show="sort.column == 'id'"> {{ sort.descending | sortOrderIcon }}</span>
+	<th ex-column-header column-name="id"
+		display-text="#" order-by="Telco.orderBy">
 	</th>
-	<th ng-class="{ascending: sort.column == 'name' && !sort.descending, 
-								 descending: sort.column == 'name' && sort.descending}" ng-click="changeSorting('name')">
-		Name <span ng-show="sort.column == 'name'"> {{ sort.descending | sortOrderIcon }}</span>
+
+		<th ex-column-header column-name="name"
+		display-text="Name" order-by="Telco.orderBy">
 	</th>
+
 	<th></th>
 </tr>
 </thead>
 <tbody>
-<tr ng-repeat="telco in Telco.telcos | filter:query | orderBy:sort.column:sort.descending">
+<tr ng-repeat="telco in Telco.telcos | filter:query | orderBy:Telco.orderBy.columnName:Telco.orderBy.descending">
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ telco.id }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ telco.name }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">

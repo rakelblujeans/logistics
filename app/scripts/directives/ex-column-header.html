@@ -1,0 +1,5 @@
+<th ng-class="{ascending: ctrl.orderBy.columnName == ctrl.columnName && !ctrl.orderBy.descending, descending: ctrl.orderBy.columnName == ctrl.columnName && ctrl.orderBy.descending}" ng-click="ctrl.changeSorting(ctrl.columnName)">
+
+	{{ctrl.displayText}} <span ng-show="ctrl.orderBy.columnName == ctrl.columnName"> {{ ctrl.orderBy.descending | sortOrderIcon }}</span>
+
+</th>

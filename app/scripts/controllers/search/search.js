@@ -10,23 +10,16 @@ function SearchCtrl($location, $route, $routeParams, DataService) {
 	};
 
 	this.initFromData = function() {
-
 		this.data.query = $routeParams.q;
-		var myData = this.data;
     DataService.searchAll(this.data.query).then(function(d) {
-    	console.log(myData);
-  		myData.results = d;
-    });
-    this.data = myData;
+    	this.data.results = d;
+    	console.log(this.data);
+    }.bind(this));
   };
   this.initFromData();
-
-  this.doSearch = function() {
-  	if (this.data.query) {
-	    $location.path('search').search({ 'q': this.data.query });
-	  }
-  };
 };
+
+SearchCtrl.$inject = ['$location', '$route', '$routeParams', 'DataService'];
 
 angular.module('logisticsApp.controllers')
 .controller('SearchCtrl', SearchCtrl);

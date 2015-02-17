@@ -1,0 +1,8 @@
+<div class="row">
+	<h3>Outbound</h3>
+</div>
+<div class="row" ng-repeat="blob in ctrl.orders">
+	Order #{{blob.invoice_id}}: 
+	<a href="/#/orders/ship/{{blob.order_id}}">
+	 <span ng-repeat="phone in blob.unshipped_phones">{{phone.inventory_id}} </span></a>
+</div>

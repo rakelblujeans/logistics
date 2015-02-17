@@ -1,0 +1,43 @@
+<table class="table" ng-if="ctrl.phones.length > 0">
+  <thead>
+  <tr>
+    <th ex-column-header column-name="id"
+      display-text="#" order-by="ctrl.orderBy">
+    </th>
+
+    <th ex-column-header column-name="phone_num"
+      display-text="Number" order-by="ctrl.orderBy">
+    </th>
+
+    <th ex-column-header column-name="provider_id"
+      display-text="Telco" order-by="ctrl.orderBy">
+    </th>
+
+    <th ex-column-header column-name="MEID"
+      display-text="MEID" order-by="ctrl.orderBy">
+    </th>
+
+    <th ex-column-header column-name="last_imaged"
+      display-text="Last Imaged On" order-by="ctrl.orderBy">
+    </th>
+
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="phone in ctrl.phones | orderBy: orderProp | orderBy:ctrl.orderBy.columnName:ctrl.orderBy.descending">
+    <td ng-class-odd="'odd'" ng-class-even="'even'">
+      <a href="/#/inventory/{{ phone.inventory_id }}">{{ phone.inventory_id }}</a></td>
+    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.phone_num }}</td>
+    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.provider_id }}</td>
+    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.MEID }}</td>
+    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.last_imaged_display }}</td>
+    <td ng-class-odd="'odd'" ng-class-even="'even'">
+      <a href="" ng-click="ctrl.togglePhoneActivation(phone)">
+        {{ phone.active ? 'Deactivate' : 'Activate' }}
+      </a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+ <p ng-if="ctrl.phones.length == 0">No phones assigned.</p> 

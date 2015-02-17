@@ -1,6 +1,6 @@
-'use strict';
+  'use strict';
 
-function ShipOrderCtrl($location, $route, $routeParams, DataService, $timeout, CommonCode) {
+function ShipOrderCtrl($location, $route, $routeParams, $timeout, ShipmentService, OrderService, CommonCode) {
   
   this.form = { 'shipment': {} };
   this.data = {
@@ -9,27 +9,27 @@ function ShipOrderCtrl($location, $route, $routeParams, DataService, $timeout, C
     shipmentPhoneIds: {},
     doneShipping: false
   };
+  //this.order = undefined;
 
   this.updateOrderData = function(orderId) {
-    var thisCopy = this;
-    DataService.getOrder(orderId).then(function(order) {
-
+    OrderService.get(orderId).then(function(order) {
+      this.order = order;
+      
       if (!order.is_verified) {
         $location.path("/orders").search({ 'verifiedState': '0' });
+        return;
       }
-
+      
       order.arrival_date_display = CommonCode.getFormattedDate(order.arrival_date);
       order.departure_date_display = CommonCode.getFormattedDate(order.departure_date);
       for (var z=0; z<order.shipments.length; z++) {
         order.shipments[z].out_on_date_display = CommonCode.getFormattedDate(order.shipments[z].out_on_date);
       }
-      thisCopy.order = order;
-
 
       // get phones assigned to this order
-      thisCopy.data.unshippedPhones = order.phones;
+      this.data.unshippedPhones = order.phones;
       for(var i=0; i<order.phones.length; i++) {
-        thisCopy.data.selection[i] = order.phones[i].id;
+        this.data.selection[i] = order.phones[i].id;
       }
 
       // Build a list of which phones went out in each prior delivery.
@@ -42,24 +42,20 @@ function ShipOrderCtrl($location, $route, $routeParams, DataService, $timeout, C
 
           // filter out phones that have already shipped - don't send this
           // info to the view
-          var foundIdx = thisCopy.data.selection.indexOf(phoneIds[k])
+          var foundIdx = this.data.selection.indexOf(phoneIds[k])
           if (foundIdx > -1) {
-            thisCopy.data.selection.splice(foundIdx, 1);
-            thisCopy.data.unshippedPhones.splice(foundIdx, 1);
+            this.data.selection.splice(foundIdx, 1);
+            this.data.unshippedPhones.splice(foundIdx, 1);
           }
         }
-        thisCopy.data.shipmentPhoneIds[order.shipments[j].id] = '[' + phoneIds.join(',') + ']';
+        this.data.shipmentPhoneIds[order.shipments[j].id] = '[' + phoneIds.join(',') + ']';
         numPhones += order.shipments[j].qty;
       }
 
       if (numPhones >= order.num_phones) {
-        thisCopy.data.doneShipping = true;
+        this.data.doneShipping = true;
       }
-
-    });
-    this.data = thisCopy.data;
-    this.order = thisCopy.order;
-
+    }.bind(this));
   }
 
   this.initFromData = function() {
@@ -102,13 +98,14 @@ function ShipOrderCtrl($location, $route, $routeParams, DataService, $timeout, C
     this.form.shipment['phone_ids'] = this.data.selection;
     this.form.shipment['order_id'] = this.order.id;
     this.form.shipment['out_on_date'] = new Date().toISOString();
-    var thisCopy = this;
-    DataService.createShipment(thisCopy.form).then(function(new_shipment) {
-      thisCopy.updateOrderData(thisCopy.order.id);
-    });
+    ShipmentService.create(this.form).then(function(new_shipment) {
+      this.updateOrderData(this.order.id);
+    }.bind(this));
   };
 
 };
+
+ShipOrderCtrl.$inject = ['$location', '$route', '$routeParams', '$timeout', 'OrderService', 'ShipmentService', 'CommonCode'];
 
 angular.module('logisticsApp.controllers')
   .controller('ShipOrderCtrl', ShipOrderCtrl);

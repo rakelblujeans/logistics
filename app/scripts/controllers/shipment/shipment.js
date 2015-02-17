@@ -1,25 +1,31 @@
 'use strict';
 
-function ShipmentCtrl($http, $window, $route, $routeParams, DataService, CommonCode) {
+function ShipmentCtrl($http, $window, $route, $routeParams, ShipmentService) {
     
-  this.sort = CommonCode.sort;
-  this.ascending = CommonCode.ascending;
-  this.changeSorting = CommonCode.changeSorting;
+  this.orderBy = { 
+    columnName: 'id',
+    descending: false
+  };
+
+  this.shipment = {};
+  this.shipments = [];
   
   this.initFromData = function() {
     this.shipmentId = parseInt($routeParams.shipmentIndex, 10);
     if (this.shipmentId) { // detail view
-      DataService.getShipment(this.shipmentId).then(function(shipment) {
+      ShipmentService.get(this.shipmentId).then(function(shipment) {
         this.shipment = shipment;
-      });
+      }.bind(this));
     } else { // list view
-      DataService.getShipments().then(function(data) {
+      ShipmentService.getAll().then(function(data) {
         this.shipments = data;
-      });  
+      }.bind(this));
     }
    };
   this.initFromData();
 }
+
+ShipmentCtrl.$inject = ['$http', '$window', '$route', '$routeParams', 'ShipmentService'];
 
 angular.module('logisticsApp.controllers')
 .controller('ShipmentCtrl', ShipmentCtrl);

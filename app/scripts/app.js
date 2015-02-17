@@ -3,6 +3,7 @@
 angular.module('logisticsApp.filters', []);
 angular.module('logisticsApp.services', []);
 angular.module('logisticsApp.controllers', []);
+angular.module('logisticsApp.directives', []);
 
 angular
   .module('logisticsApp', [
@@ -15,10 +16,11 @@ angular
     'ngMessages',
     'logisticsApp.filters',
     'logisticsApp.services',
-    'logisticsApp.controllers'
+    'logisticsApp.controllers',
+    'logisticsApp.directives'
   ])
-  .config(['$routeProvider', 'DataServiceProvider', '$httpProvider', '$compileProvider',
-    function ($routeProvider, DataServiceProvider, $httpProvider, $compileProvider) {
+  .config(['$routeProvider', 'DataServiceProvider', 'OrderServiceProvider', '$httpProvider', '$compileProvider',
+    function ($routeProvider, DataServiceProvider, OrderServiceProvider, $httpProvider, $compileProvider) {
     $routeProvider
       .when('/', { templateUrl: 'views/home/index.html', controller: 'HomeCtrl', controllerAs: 'Home' })
 
@@ -54,11 +56,13 @@ angular
       DataServiceProvider.remoteUrl = 'http://logisticsbackend.herokuapp.com/';
       DataServiceProvider.localUrl = 'http://localhost:3000/';
       DataServiceProvider.useRemote = false;
-      DataServiceProvider.delivery_transit_time_sending = 3;
-      DataServiceProvider.delivery_transit_time_return = 3;
+      OrderServiceProvider.deliveryTransitTimeSending = 3;
+      OrderServiceProvider.deliveryTransitTimeReturn = 3;
 
+      $httpProvider.useApplyAsync(true);
       $httpProvider.defaults.headers.patch = {
         'Content-Type': 'application/json;charset=utf-8'
       };
+      //$httpProvider.interceptors.push('APIInterceptor');
       $httpProvider.defaults.headers.common = { 'Authorization': 'Basic ' + btoa('admin:secret') };
   }]);

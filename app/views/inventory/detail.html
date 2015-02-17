@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+	<div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">Phone Detail</h3>
 		<a href="/#/inventory/edit/{{Inventory.item.inventory_id}}">Edit</a> | 
@@ -40,36 +40,12 @@
 	<h4 class="col-xs-12">Current Order</h4>
 </div>
 	<div ng-if="Inventory.data.current_order.length > 0">
-	<table class="table table-striped table-hover table-responsive">
-		<thead>
-		<tr>
-			<th ng-class="{ascending: sort.column == 'shipping_name' && !sort.descending, 
-										 descending: sort.column == 'shipping_name' && sort.descending}" ng-click="Inventory.changeSorting('shipping_name')">
-				Customer Name <span ng-show="sort.column == 'shipping_name'"> {{ sort.descending | sortOrderIcon }}</span>
-			</th>
-			<th ng-class="{ascending: sort.column == 'full_address' && !sort.descending, 
-										 descending: sort.column == 'full_address' && sort.descending}" ng-click="Inventory.changeSorting('full_address')">
-				Shipping Address <span ng-show="sort.column == 'full_address'"> {{ sort.descending | sortOrderIcon }}</span>
-			</th>
-			<th ng-class="{ascending: sort.column == 'arrival_date' && !sort.descending, 
-										 descending: sort.column == 'arrival_date' && sort.descending}" ng-click="Inventory.changeSorting('arrival_date')">
-				Arrival <span ng-show="sort.column == 'arrival_date'"> {{ sort.descending | sortOrderIcon }}</span>
-			</th>
-			<th ng-class="{ascending: sort.column == 'departure_date' && !sort.descending, 
-										 descending: sort.column == 'departure_date' && sort.descending}" ng-click="Inventory.changeSorting('departure_date')">
-				Departure <span ng-show="sort.column == 'departure_date'"> {{ sort.descending | sortOrderIcon }}</span>
-			</th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr ng-repeat="order in Inventory.data.upcoming_orders | filter:query | orderBy:sort.column:sort.descending">
-			<td><a href="/#/orders/{{order.id}}">{{ current_order.shipping_name }}</a></td>
-			<td>{{ current_order.full_address }}</td>
-			<td>{{ current_order.arrival_date_display }}</td>
-			<td>{{ current_order.departure_date_display }}</td>
-		</tr>
-		</tbody>
-		</table>
+
+	<!-- refresh-data="Order.initFromData" data="Order.data"-->
+	<ex-order-table orders="[ Inventory.data.current_order ]">
+	</ex-order-table>
+
+	</div>
 </div>
 <div ng-if="Inventory.data.current_order.length == 0">
 	<div class="row">
@@ -83,36 +59,11 @@
 	<h4 class="col-xs-12">Upcoming orders</h4>
 </div>
 <div ng-if="Inventory.data.upcoming_orders.length > 0">
-	<table class="table table-striped table-hover table-responsive">
-		<thead>
-		<tr>
-			<th ng-class="{ascending: sort.column == 'shipping_name' && !sort.descending, 
-										 descending: sort.column == 'shipping_name' && sort.descending}" ng-click="Inventory.changeSorting('shipping_name')">
-				Customer Name <span ng-show="sort.column == 'shipping_name'"> {{ sort.descending | sortOrderIcon }}</span>
-			</th>
-			<th ng-class="{ascending: sort.column == 'full_address' && !sort.descending, 
-										 descending: sort.column == 'full_address' && sort.descending}" ng-click="Inventory.changeSorting('full_address')">
-				Shipping Address <span ng-show="sort.column == 'full_address'"> {{ sort.descending | sortOrderIcon }}</span>
-			</th>
-			<th ng-class="{ascending: sort.column == 'arrival_date' && !sort.descending, 
-										 descending: sort.column == 'arrival_date' && sort.descending}" ng-click="Inventory.changeSorting('arrival_date')">
-				Arrival <span ng-show="sort.column == 'arrival_date'"> {{ sort.descending | sortOrderIcon }}</span>
-			</th>
-			<th ng-class="{ascending: sort.column == 'departure_date' && !sort.descending, 
-										 descending: sort.column == 'departure_date' && sort.descending}" ng-click="cInventory.hangeSorting('departure_date')">
-				Departure <span ng-show="sort.column == 'departure_date'"> {{ sort.descending | sortOrderIcon }}</span>
-			</th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr ng-repeat="order in Inventory.data.upcoming_orders | filter:query | orderBy:sort.column:sort.descending">
-			<td><a href="/#/orders/{{order.id}}">{{ order.shipping_name }}</a></td>
-			<td>{{ order.full_address }}</td>
-			<td>{{ order.arrival_date_display }}</td>
-			<td>{{ order.departure_date_display }}</td>
-		</tr>
-		</tbody>
-		</table>
+
+	<!-- refresh-data="Order.initFromData" data="Order.data"-->
+	<ex-order-table orders="Inventory.data.upcoming_orders">
+	</ex-order-table>
+
 </div>
 <div ng-if="Inventory.data.upcoming_orders.length == 0">
 	<div class="row">

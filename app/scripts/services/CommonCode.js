@@ -1,28 +1,9 @@
 'use strict';
 
 angular.module('logisticsApp.services')
-.factory('CommonCode', function () {
+.factory('CommonCode', ['InventoryService', function (InventoryService) {
 
 	var root = {};
-
-	root.sort = {
-    column: 'id',
-    descending: false
-  };
-  root.ascending = true;
-
-  root.changeSorting = function(column) {
-    var sort = root.sort;
-    if (sort.column === column) {
-        sort.descending = !sort.descending;
-    } else {
-        sort.column = column;
-        sort.descending = false;
-    }
-    
-    root.ascending = !sort.descending;
-  };
-
 
   // getFormattedDate("yyyy/mm/dd");
   root.getFormattedDate = function(input){
@@ -34,5 +15,39 @@ angular.module('logisticsApp.services')
     return result;
   };
 
+  // Inventory ////////////////////////////
+
+  root.getPhoneIds = function(order) {
+    var assignedPhones = [];
+    for(var i=0; i<order.phones.length; i++) {
+      if (order.phones[i]) {
+        // always display by human-readable "inventory_id", not database id
+        assignedPhones[assignedPhones.length] = order.phones[i].inventory_id;
+      }
+    }
+    return assignedPhones;
+  };
+
+  root.buildPhoneIdString = function(order) {
+    return '[' + root.getPhoneIds(order).join(',') + ']';
+  };
+
+  root.getAvailableInventory = function(order, orderData) {
+    orderData.phoneSlots = order.phones;
+
+    orderData.assignedPhoneIds = root.buildPhoneIdString(order);
+    var promise = InventoryService.getAvailability(order.arrival_date, order.departure_date).then(function(data) {
+      orderData.availableInventory = data;
+      orderData.slotsAvailable = 0;
+      for (var i=0; i<order.num_phones; i++) {
+        if (order.phones[i] === undefined) {
+          orderData.slotsAvailable++;
+        }
+      }
+    }.bind(this));
+
+    return promise;
+  };
+
   return root;
-});
+}]);

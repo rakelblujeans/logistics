@@ -6,49 +6,5 @@
 </p>
 
 <!-- TODO: add tab for verified orders? -->
-
-<table class="table table-striped table-hover table-responsive">
-<thead>
-<tr>
-	<th ng-class="{ascending: sort.column == 'invoice_id' && !sort.descending, 
-								 descending: sort.column == 'invoice_id' && sort.descending}" ng-click="Order.changeSorting('invoice_id')">
-		Invoice # <span ng-show="sort.column == 'invoice_id'"> {{ sort.descending | sortOrderIcon }}</span>
-	</th>
-	<th ng-class="{ascending: sort.column == 'shipping_name' && !sort.descending, 
-								 descending: sort.column == 'shipping_name' && sort.descending}" ng-click="Order.changeSorting('shipping_name')">
-		Customer Name <span ng-show="sort.column == 'shipping_name'"> {{ sort.descending | sortOrderIcon }}</span>
-	</th>
-	<th ng-class="{ascending: sort.column == 'full_address' && !sort.descending, 
-								 descending: sort.column == 'full_address' && sort.descending}" ng-click="Order.changeSorting('full_address')">
-		Shipping Address <span ng-show="sort.column == 'full_address'"> {{ sort.descending | sortOrderIcon }}</span>
-	</th>
-	<th ng-class="{ascending: sort.column == 'arrival_date' && !sort.descending, 
-								 descending: sort.column == 'arrival_date' && sort.descending}" ng-click="Order.changeSorting('arrival_date')">
-		Arrival <span ng-show="sort.column == 'arrival_date'"> {{ sort.descending | sortOrderIcon }}</span>
-	</th>
-	<th ng-class="{ascending: sort.column == 'departure_date' && !sort.descending, 
-								 descending: sort.column == 'departure_date' && sort.descending}" ng-click="Order.changeSorting('departure_date')">
-		Departure <span ng-show="sort.column == 'departure_date'"> {{ sort.descending | sortOrderIcon }}</span>
-	</th>
-	<th ng-class="{ascending: sort.column == 'assignedPhones' && !sort.descending, 
-								 descending: sort.column == 'assignedPhones' && sort.descending}" ng-click="Order.changeSorting('assignedPhones')">
-		Assigned Phones <span ng-show="sort.column == 'assignedPhones'"> {{ sort.descending | sortOrderIcon }}</span>
-	</th>
-	<th>Options</th>
-</tr>
-</thead>
-<tbody>
-<tr ng-repeat="order in orders | filter:query | orderBy:sort.column:sort.descending">
-	<td ng-class-odd="'odd'" ng-class-even="'even'">
-		<a href="/#/orders/{{ Order.order.id }}">{{ Order.order.invoice_id }}</a></td>
-	<td>{{ Order.order.shipping_name }}</td>
-	<td>{{ Order.order.full_address }}</td>
-	<td>{{ Order.order.arrival_date }}</td>
-	<td>{{ Order.order.departure_date }}</td>
-	<td>{{ data[Order.order.id].assignedPhoneIds }}</td>
-	<td>
-
-	</td>
-</tr>
-</tbody>
-</table>
+<ex-order-table options="Order.options" pull-data-fn="Order.pullDataFn">
+</ex-order-table>

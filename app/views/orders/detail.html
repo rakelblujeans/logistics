@@ -1,5 +1,3 @@
-<div ng-include src="'/views/orders/_modal.html'"></div>
-
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Order Detail #{{Order.order.id}}</h3>
@@ -82,64 +80,11 @@
   </div>
 </div>
 
-
 <div class="row">
   <h4 class="col-xs-12">Assigned Phones</h4>
 </div>
-  <table class="table" ng-if="Order.data[Order.order.id].phoneSlots.length > 0">
-  <thead>
-  <tr>
-    <th ng-class="{ascending: sort.column == 'id' && !sort.descending, 
-                   descending: sort.column == 'id' && sort.descending}" ng-click="changeSorting('id')">
-      # <span ng-show="sort.column == 'id'"> {{ sort.descending | sortOrderIcon }}</span>
-    </th>
-    <th ng-class="{ascending: sort.column == 'phone_num' && !sort.descending, 
-                   descending: sort.column == 'phone_num' && sort.descending}" ng-click="changeSorting('phone_num')">
-      Number <span ng-show="sort.column == 'phone_num'"> {{ sort.descending | sortOrderIcon }}</span>
-    </th>
-    <th ng-class="{ascending: sort.column == 'provider_id' && !sort.descending, 
-                   descending: sort.column == 'provider_id' && sort.descending}" ng-click="changeSorting('provider_id')">
-      Telco <span ng-show="sort.column == 'provider_id'"> {{ sort.descending | sortOrderIcon }}</span>
-    </th>
-    <th ng-class="{ascending: sort.column == 'MEID' && !sort.descending, 
-                   descending: sort.column == 'MEID' && sort.descending}" ng-click="changeSorting('MEID')">
-      MEID <span ng-show="sort.column == 'MEID'"> {{ sort.descending | sortOrderIcon }}</span>
-    </th>
-    <th ng-class="{ascending: sort.column == 'last_imaged' && !sort.descending, 
-                   descending: sort.column == 'last_imaged' && sort.descending}" ng-click="changeSorting('last_imaged')">
-      Last Imaged On <span ng-show="sort.column == 'last_imaged'"> {{ sort.descending | sortOrderIcon }}</span>
-    </th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr ng-repeat="phone in Order.data[Order.order.id].phoneSlots | orderBy: orderProp | orderBy:sort.column:sort.descending">
-    <td ng-class-odd="'odd'" ng-class-even="'even'">
-      <a href="/#/inventory/{{ phone.inventory_id }}">{{ phone.inventory_id }}</a></td>
-    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.phone_num }}</td>
-    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.provider_id }}</td>
-    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.MEID }}</td>
-    <td ng-class-odd="'odd'" ng-class-even="'even'">{{ phone.last_imaged_display }}</td>
-    <td ng-class-odd="'odd'" ng-class-even="'even'">
-      <a href="" ng-click="Order.togglePhoneActivation(phone)">
-        {{ phone.active ? 'Deactivate' : 'Activate' }}
-      </a>
-    </td>
-  </tr>
-  </tbody>
-  </table>
-<p ng-if="Order.order.phones.length == 0">No phones assigned.</p>
 
-<!-- TODO: turn into an include -->
-<div class="row">
-  <h4 class="col-md-12">Shipping History</h4>
-</div>
+<ex-inventory-table phones="Order.data[Order.order.id].phoneSlots"></ex-inventory-table>
 
-<div class="row">
-  <div class="col-md-12" class="text-success" ng-if="Order.data.doneShipping">All phones for this order have already shipped</div>
-</div>
-<div class="row" ng-repeat="shipment in Order.order.shipments | orderBy:shipment.out_on_date:true">
-  <div class="col-md-12">
-    [ {{shipment.out_on_date_display}} ] {{shipment.qty}} phone(s) {{Order.data.shipmentPhoneIds[shipment.id]}} went out via {{shipment.delivery_type.name}}.
-  </div>
-</div>
+<ex-shipping-summary shipments="Order.order.shipments" 
+  phones-in-order="Order.order.num_phones"></ex-shipping-summary>

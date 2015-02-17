@@ -1,29 +1,28 @@
 'use strict';
 
-function TelcoCtrl($http, $window, $route, $routeParams, DataService, CommonCode) {
+function TelcoCtrl($http, $window, $route, $routeParams, TelcoService) {
     
-  this.sort = CommonCode.sort;
-  this.ascending = CommonCode.ascending;
-  this.changeSorting = CommonCode.changeSorting;
+  this.orderBy = { 
+    columnName: 'id',
+    descending: false
+  };
   
   this.initFromData = function() {
     this.telcoId = parseInt($routeParams.telcoIndex, 10);
-    var thisCopy = this;
     if (this.telcoId) { // detail view
-      DataService.getTelco(this.telcoId).then(function(telco) {
-        thisCopy.telco = telco;
-      });
-      this.telco = thisCopy.telco;
+      TelcoService.get(this.telcoId).then(function(telco) {
+        this.telco = telco;
+      }.bind(this));
     } else { // list view
-      DataService.getTelcos().then(function(data) {
-        thisCopy.telcos = data;
-        console.log(data);
-      });
-      this.telcos = thisCopy.telcos;
+      TelcoService.getAll().then(function(data) {
+        this.telcos = data;
+      }.bind(this));
     }
    };
   this.initFromData();
 }
+
+TelcoCtrl.$inject = ['$http', '$window', '$route', '$routeParams', 'TelcoService'];
 
 angular.module('logisticsApp.controllers')
 .controller('TelcoCtrl', TelcoCtrl);

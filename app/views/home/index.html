@@ -7,47 +7,28 @@
 	<div class="row">
 		<h2>Today</h2>
 	</div>
-	<div class="row">
-		<h3>Incoming</h3>
-	</div>
-	<div class="row" ng-repeat="blob in Home.data.today.incoming">
-		Order #{{blob.invoice_id}}: 
-		<a data-toggle="modal" data-target="#myModal"
-			ng-click="Home.showCheckInModal(blob.incoming_phones)">
-		 <span ng-repeat="phone in blob.incoming_phones">{{phone.inventory_id}} </span></a>
-	</div>
-	<div class="row">
-		<h3>Outbound</h3>
-	</div>
-	<div class="row" ng-repeat="blob in Home.data.today.outbound">
-		Order #{{blob.invoice_id}}: 
-		<a href="/#/orders/ship/{{blob.order_id}}">
-		 <span ng-repeat="phone in blob.unshipped_phones">{{phone.inventory_id}} </span></a>
-	</div>
+
+	<ex-incoming-orders orders="Home.data.today.incoming" 
+		update-data-fn="Home.initFromData">
+	</ex-incoming-orders>
+	
+	<ex-outbound-orders orders="Home.data.today.outbound">
+	</ex-outbound-orders>
+	
 </div>
 
 <div class="column col-md-6"><!-- right half -->
 	<div class="row">
 		<h2>Tomorrow</h2>
 	</div>
-	<div class="row">
-		<h3>Incoming</h3>
-	</div>
-	<div class="row" ng-repeat="blob in Home.data.tomorrow.incoming">
-		Order #{{blob.invoice_id}}: 
-		<a data-toggle="modal" data-target="#myModal"
-			ng-click="showCheckInModal(blob.incoming_phones)">
-		 <span ng-repeat="phone in blob.incoming_phones">{{phone.inventory_id}} </span></a>
-	</div>
-	<div class="row">
-		<h3>Outbound</h3>
-	</div>
-	<div class="row" ng-repeat="blob in Home.data.tomorrow.outbound">
-		Order #{{blob.invoice_id}}: 
-		<a href="/#/orders/ship/{{blob.order_id}}">
-		 <span ng-repeat="phone in blob.unshipped_phones">{{phone.inventory_id}} </span></a>
-	</div>
+	<ex-incoming-orders orders="Home.data.tomorrow.incoming" 
+		update-data-fn="Home.initFromData">
+	</ex-incoming-orders>
+
+	<ex-outbound-orders orders="Home.data.tomorrow.outbound">
+	</ex-outbound-orders>
 </div>
+
 </div>
 
 <div ng-if="Home.data.warnings.overdue.length > 0 || Home.data.warnings.overdue_shipping.length > 0 || Home.data.warnings.missing_phones.length > 0">
@@ -56,11 +37,8 @@
 	<h3 class="text-danger">Warnings</h3>
 </div>
 
-<div class="row" ng-repeat="order in Home.data.warnings.overdue">
-	<p>Order <a data-toggle="modal" data-target="#myModal"
-		ng-click="showCheckInModal(order.phones)">
-	 {{order.invoice_id}}</a> is past due.
-</div>
+<ex-overdue-warnings orders="Home.data.warnings.overdue" update-data-fn="Home.initFromData()">
+</ex-overdue-warnings>
 
 <div class="row" ng-repeat="order in Home.data.warnings.overdue_shipping">
 	<p>Order <a href="/#/orders/ship/{{order.id}}">#{{order.invoice_id}}</a> should have already shipped.</p>
@@ -75,13 +53,8 @@
 </div>
 
 <div class="column col-md-4">
-<div class="row">
-	<h4>Search</h4>
-	<!-- submit search on key up -->
-   <input type="text" placeholder="invoice #, name, address, ..." 
-   	ng-keyup="$event.keyCode == 13 && doSearch()" 
-   	ng-model="data.query" size="30" />
-</div>
+
+<ex-search></ex-search>
 
 <div class="row">
 	<br />
@@ -114,12 +87,12 @@
 
 <div class="row">
 	<form name="receivedForm" class="form-inline" novalidate role="form">
-		<label class="sr-only" for="inventory_id2">Mark inventory received:</label>
-		<input name="inventory_id2" type="text" size="10" placeholder="id1, id2, ..."
-			ng-model="data.inventory_id2"
+		<label class="sr-only" for="inventoryId">Mark inventory received:</label>
+		<input name="inventoryId" type="text" size="10" placeholder="id1, id2, ..."
+			ng-model="Home.data.inventoryId"
 			required />
 		<button class="btn btn-sm btn-default" type="submit"
-			ng-click="markReceived(data.inventory_id2)">
+			ng-click="Home.markReceived(Home.data.inventoryId)">
 			Mark Received
 		</button>
 	</form>
@@ -148,5 +121,3 @@
 </div><!-- row -->
 
 
-<div ng-include src="'/views/home/_modal.html'"></div>
-<div ng-include src="'/views/home/_confirmation_modal.html'"></div>

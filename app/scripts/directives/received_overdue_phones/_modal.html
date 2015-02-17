@@ -4,19 +4,19 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" 
-		        	data-dismiss="modal" ng-click="Home.dismiss(order)">
+		        	data-dismiss="modal" ng-click="ctrl.modalObj.dismiss(order)">
 		        	<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 		        </button>
 		        <h4 class="modal-title" id="myModalLabel">Inventory Received</h4>
 		      </div>
 		      <div class="modal-body">
 		        <div class="checkbox">
-					    <label ng-repeat="phone in Home.data.modal.phones">
+					    <label ng-repeat="phone in ctrl.modalObj.modalData.phones">
 					    	<input type="checkbox"
 					      	name="selectedPhones[]"
 					      	value="{{phone.id}}"
-					      	ng-checked="Home.data.modal.selection.indexOf(phone.id) > -1"
-					      	ng-click="Home.toggleSelection(phone.id)">
+					      	ng-checked="ctrl.modalObj.modalData.selection.indexOf(phone.id) > -1"
+					      	ng-click="ctrl.modalObj.toggleSelection(phone.id)">
 					      {{phone.inventory_id}}&nbsp;&nbsp;&nbsp;&nbsp;
 					    </label>
 					  </div>
@@ -24,11 +24,11 @@
 
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal"
-		        	ng-click="dismiss(order)">Cancel</button>
+		        	ng-click="ctrl.dismiss(order)">Cancel</button>
 		        <button type="button" class="btn btn-success" 
 		        	data-dismiss="modal"
-		        	ng-disabled="Home.data.modal.selection.length == 0"
-							ng-click="Home.markReceived()">
+		        	ng-disabled="ctrl.modalObj.modalData.selection.length == 0"
+							ng-click="ctrl.modalObj.markReceivedThroughModal()">
 							Update &nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>
 						</button>
 						

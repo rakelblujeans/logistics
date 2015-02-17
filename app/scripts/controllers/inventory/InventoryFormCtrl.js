@@ -1,6 +1,6 @@
 'use strict';
 
-function InventoryFormCtrl($route, $routeParams, $location, DataService) {
+function InventoryFormCtrl($route, $routeParams, $location, InventoryService, TelcoService) {
 
   this.form = { 'item': {},
                   'maxDate': new Date() };
@@ -12,40 +12,35 @@ function InventoryFormCtrl($route, $routeParams, $location, DataService) {
     // get by inventory_id, not database record id
     this.invId = parseInt($routeParams.invIndex, 10);
     
-    var myMisc = this.misc;
-    DataService.getTelcos().then(function(providers) {
-      myMisc.misc = { 'providers': providers };
-    });
-    this.misc = myMisc;
+    TelcoService.getAll().then(function(providers) {
+      this.misc = { 'providers': providers };
+    }.bind(this));
 
     if (this.invId) { // if editing
-      var thisCopy = this;
-      this.other = DataService.getItem(this.invId).then(function(item) {
-        thisCopy.form.item = item;
-        thisCopy.header = "Update Phone";
-        var d = Date.parse(thisCopy.form.item.last_imaged);
-        thisCopy.form.item.last_imaged = new Date(d);
+      InventoryService.getItem(this.invId).then(function(item) {
+        this.form.item = item;
+        this.header = "Update Phone";
+        var d = Date.parse(this.form.item.last_imaged);
+        this.form.item.last_imaged = new Date(d);
 
-        console.log(thisCopy.form.item.provider);
-      });
-      this.form = thisCopy.form;
-      this.header = thisCopy.header;
+        //console.log("HELLO", this.form.item.provider);
+      }.bind(this));
     }
   };
   this.initFromData();
 
   this.submitEdit = function(item, event) {
-    DataService.updateInventory(this.invId, this.form.item).then(
+    InventoryService.update(this.invId, this.form.item).then(
       function(output) {
         $location.path('inventory/' + this.invId);
       }, 
       function() {
-        console.log('error updating inventory');
-      });
+        //console.log('error updating inventory');
+      }.bind(this));
   };
 
   this.submitNew = function() {
-    DataService.createInventory(this.form.item).then(function(newObj) {
+    InventoryService.create(this.form.item).then(function(newObj) {
       $location.path('inventory/' + newObj.inventory_id);
     }, 
       function() {
@@ -54,6 +49,8 @@ function InventoryFormCtrl($route, $routeParams, $location, DataService) {
   }
   
 };
+
+InventoryFormCtrl.$inject = ['$route', '$routeParams', '$location', 'InventoryService', 'TelcoService'];
 
 angular.module('logisticsApp.controllers')
 .controller('InventoryFormCtrl', InventoryFormCtrl);

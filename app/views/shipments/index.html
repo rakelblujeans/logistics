@@ -6,32 +6,38 @@
 <table class="table">
 <thead>
 <tr>
-	<th ng-class="{ascending: sort.column == 'id' && !sort.descending, 
-								 descending: sort.column == 'id' && sort.descending}" ng-click="changeSorting('id')">
-		# <span ng-show="sort.column == 'id'"> {{ sort.descending | sortOrderIcon }}</span>
+	<th ex-column-header column-name="id"
+		display-text="#" order-by="Shipment.orderBy">
 	</th>
-	<th ng-class="{ascending: sort.column == 'name' && !sort.descending, 
-								 descending: sort.column == 'name' && sort.descending}" ng-click="changeSorting('fedex_out_code')">
-		Fedex Out Code <span ng-show="sort.column == 'fedex_out_code'"> {{ sort.descending | sortOrderIcon }}</span>
+
+	<th ex-column-header column-name="delivery_out_code"
+		display-text="Delivery Out Code" order-by="Shipment.orderBy">
 	</th>
-	<th ng-class="{ascending: sort.column == 'name' && !sort.descending, 
-								 descending: sort.column == 'name' && sort.descending}" ng-click="changeSorting('fedex_return_code')">
-		Fedex Return Code <span ng-show="sort.column == 'fedex_return_code'"> {{ sort.descending | sortOrderIcon }}</span>
+
+	<th ex-column-header column-name="delivery_return_code"
+		display-text="Delivery Out Code" order-by="Shipment.orderBy">
 	</th>
-	<th ng-class="{ascending: sort.column == 'name' && !sort.descending, 
-								 descending: sort.column == 'name' && sort.descending}" ng-click="changeSorting('qty')">
-		Quantity <span ng-show="sort.column == 'qty'"> {{ sort.descending | sortOrderIcon }}</span>
+
+	<th ex-column-header column-name="hand_delivered_by"
+		display-text="Hand Delivered By" order-by="Shipment.orderBy">
 	</th>
+
+	<th ex-column-header column-name="qty"
+		display-text="Quantity" order-by="Shipment.orderBy">
+	</th>
+
 	<th></th>
 </tr>
 </thead>
 <tbody>
-<tr ng-repeat="shipment in Shipment.shipments | filter:query | orderBy:sort.column:sort.descending">
+<tr ng-repeat="shipment in Shipment.shipments | filter:query | orderBy:Shipment.orderBy.columnName:Shipment.orderBy.descending">
 	<td ng-class-odd="'odd'" ng-class-even="'even'">{{ shipment.id }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">
-		{{ shipment.fedex_out_code }}</td>
+		{{ shipment.delivery_out_code }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">
-		{{ shipment.fedex_return_code }}</td>
+		{{ shipment.delivery_return_code }}</td>
+		<td ng-class-odd="'odd'" ng-class-even="'even'">
+		{{ shipment.hand_delivered_by }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">
 		{{ shipment.qty }}</td>
 	<td ng-class-odd="'odd'" ng-class-even="'even'">
