@@ -1,6 +1,6 @@
 'use strict';
 
-function ExShippingSummary(CommonCode) {
+function ExShippingSummary(CommonCode, $timeout) {
 
 	
 	return {
@@ -16,37 +16,38 @@ function ExShippingSummary(CommonCode) {
 
     },
 		link: function(scope, elem, attr, controller) {
-      /*console.log(controller);
-      //this.buildOrderHistory = function() {
-      scope.doneShipping = false;
-      scope.data = [];
-      var numPhones = 0;
 
-      for(var j=0; j<controller.shipments.length; j++) {
-      /*  console.log(this.shipments[j]);
+      function buildOrderHistory() {
 
-        var phoneIds = [];
-        
-        for(var k=0; k<this.shipments[j].phones.length; k++) {
-          phoneIds[k] = this.shipments[j].phones[k].id;
+        controller.data = [];
+        var numPhones = 0;
+
+        var shipments = controller.shipments;
+        for(var j=0; j<shipments.length; j++) {
+
+          var phoneIds = [];
+          
+          for(var k=0; k<shipments[j].phones.length; k++) {
+            phoneIds[k] = shipments[j].phones[k].id;
+          }
+          controller.data[shipments[j].id] = {
+            shipmentPhoneIds: '[' + phoneIds.join(',') + ']',
+            out_on_date_display: CommonCode.getFormattedDate(shipments[j].out_on_date)
+          };
+          numPhones += shipments[j].qty;
         }
-        this.data[this.shipments[j].id] = {
-          shipmentPhoneIds: '[' + phoneIds.join(',') + ']',
-          out_on_date_display: CommonCode.getFormattedDate(this.shipments[j].out_on_date)
-        };
-        numPhones += this.shipments[j].qty;
-      }
+        
+        controller.doneShipping = (numPhones >= controller.phonesInOrder);
+      };
 
-      //scope.doneShipping = (numPhones >= scope.phonesInOrder);
-      
-      };*/
-      //this.buildOrderHistory();
-    }
+      // make sure DOM has finished loading first
+      $timeout(buildOrderHistory, 15);
+    },
 
 	};
 }
 
-ExShippingSummary.$inject = ['CommonCode'];
+ExShippingSummary.$inject = ['CommonCode', '$timeout'];
 
 angular.module('logisticsApp.directives')
 .directive('exShippingSummary', ExShippingSummary);

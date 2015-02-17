@@ -6,20 +6,8 @@
   <div class="col-md-12" class="text-success" ng-if="ctrl2.doneShipping">All phones for this order have already shipped</div>
 </div>
 
-<!-- TODO: nasty bug. can't figure out whats wrong -->
-BLAH
-
 <div class="row" ng-repeat="s in ctrl2.shipments">
 <div class="col-md-12">
-	[XXX] {{s.qty}} phones(s) YYY went out via {{s.delivery_type.name}}.
+	[{{ctrl2.data[s.id].out_on_date_display}}] {{s.qty}} phones(s) went out via {{s.delivery_type.name}}. Inventory ID(s) were: {{ctrl2.data[s.id].shipmentPhoneIds[s.id]}}
 </div>
 </div>
-
-<br />
-
-<!--div class="row" ng-repeat="shipment in ctrl2.shipments track by $index | orderBy:shipment.out_on_date:true">
-  <div class="col-md-12">
-  
-    [ {{ctrl2.data[shipment.id].out_on_date_display}} ] {{shipment.qty}} phone(s) {{ctrl2.data[shipment.id].shipmentPhoneIds[shipment.id]}} went out via {{shipment.delivery_type.name}}.
-  </div>
-</div-->
